@@ -29,6 +29,8 @@ dependencies:
   get_it: ^7.2.0
   another_flushbar: ^1.12.29
   uuid: ^3.0.7
+  auto_route: ^5.0.4
+  get: ^4.6.5
 
 
 dev_dependencies:
@@ -39,6 +41,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   freezed: ^2.3.2
   injectable_generator: ^2.1.3
+  auto_route_generator: ^5.0.3
+
 
 
 

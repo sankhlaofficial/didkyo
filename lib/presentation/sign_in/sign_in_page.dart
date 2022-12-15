@@ -13,7 +13,7 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) => getIt<SignInFormBloc>(),
-        child: SignInForm(),
+        child: const SignInForm(),
       ),
     );
   }
