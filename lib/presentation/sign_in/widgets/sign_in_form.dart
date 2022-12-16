@@ -1,4 +1,4 @@
-import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:didkyo/application/auth/sign_in_form/sign_in_form_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,22 +13,30 @@ class SignInForm extends StatelessWidget {
         state.authFailureOrSuccessOption.fold(
             () {},
             (either) => either.fold((failure) {
-                  FlushbarHelper.createError(
-                    message: failure.map(
-                        cancelledByUser: (_) => 'Cancelled',
-                        serverError: (_) => 'Server Error',
-                        emailAlreadyInUse: (_) => 'Email Already In Use',
-                        invalidEmailAndPasswordCombination: (_) =>
-                            'Invalid Email and Password Combination'),
-                  );
+                  final snackBar = SnackBar(
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        contentType: ContentType.failure,
+                        title: 'Oh Snap!',
+                        message: failure.map(
+                            cancelledByUser: (_) => 'Cancelled',
+                            serverError: (_) => 'Server Error',
+                            emailAlreadyInUse: (_) => 'Email Already In Use',
+                            invalidEmailAndPasswordCombination: (_) =>
+                                'Invalid Email and Password Combination'),
+                      ));
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(snackBar);
                 }, (_) => {}));
       },
       builder: (context, state) {
         return Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          // autovalidateMode: state.showErrorMessages
-          //     ? AutovalidateMode.always
-          //     : AutovalidateMode.disabled,
+          autovalidateMode: state.showErrorMessages
+              ? AutovalidateMode.onUserInteraction
+              : AutovalidateMode.disabled,
           child: ListView(
             children: [
               Padding(
@@ -165,7 +173,15 @@ class SignInForm extends StatelessWidget {
                       backgroundColor: MaterialStateProperty.all(Colors.red)),
                   child: Text("Sign in with Google"),
                 ),
-              )
+              ),
+              if (state.isSubmitting) ...[
+                const SizedBox(
+                  height: 8,
+                ),
+                const LinearProgressIndicator(
+                  value: null,
+                )
+              ]
             ],
           ),
         );

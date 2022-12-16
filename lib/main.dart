@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'presentation/core/app_widget.dart';
 
 void main() async {
-  init(getIt);
   WidgetsFlutterBinding.ensureInitialized();
-
+  init(getIt);
   await Firebase.initializeApp();
 
   runApp(const AppWidget());

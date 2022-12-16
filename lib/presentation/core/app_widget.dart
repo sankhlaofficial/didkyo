@@ -3,6 +3,7 @@ import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -15,7 +16,7 @@ class AppWidget extends StatelessWidget {
             create: (context) =>
                 getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()))
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         title: 'didKyo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.light().copyWith(

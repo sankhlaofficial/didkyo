@@ -27,10 +27,11 @@ dependencies:
   google_sign_in: ^5.4.2
   injectable: ^2.1.0
   get_it: ^7.2.0
-  another_flushbar: ^1.12.29
+  awesome_snackbar_content: ^0.1.0
   uuid: ^3.0.7
   auto_route: ^5.0.4
   get: ^4.6.5
+  image_picker: ^0.8.6
 
 
 dev_dependencies:

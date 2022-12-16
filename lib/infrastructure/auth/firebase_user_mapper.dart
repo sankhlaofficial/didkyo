@@ -10,4 +10,13 @@ extension FirebaseUserDomainX on User {
         photoUrl: this.photoURL,
         displayName: this.displayName);
   }
+
+  static Map<String, dynamic> userToMap(user.User targetUser) {
+    return {
+      'userID': targetUser.id,
+      'userName': targetUser.displayName,
+      'userEmail': targetUser.emailAddress,
+      'userPicture': targetUser.photoUrl
+    };
+  }
 }
