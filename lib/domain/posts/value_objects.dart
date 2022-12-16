@@ -2,17 +2,16 @@ import 'package:dartz/dartz.dart';
 import 'package:didkyo/domain/core/failures.dart';
 import 'package:didkyo/domain/core/value_objects.dart';
 import 'package:didkyo/domain/core/value_validators.dart';
-import 'package:image_picker/image_picker.dart';
 
-class PostImage extends ValueObject<XFile> {
+class PostImageURL extends ValueObject<String> {
   @override
-  final Either<ValueFailure<XFile>, XFile> value;
+  final Either<ValueFailure<String>, String> value;
 
-  factory PostImage(XFile input) {
-    return PostImage._(validateImageNotEmpty(input));
+  factory PostImageURL(String input) {
+    return PostImageURL._(validateImageNotEmpty(input));
   }
 
-  const PostImage._(this.value);
+  const PostImageURL._(this.value);
 }
 
 class PostCaption extends ValueObject<String> {

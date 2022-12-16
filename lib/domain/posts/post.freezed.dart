@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Post {
   UniqueId get postID => throw _privateConstructorUsedError;
   PostCaption get postCaption => throw _privateConstructorUsedError;
-  PostImage get postImage => throw _privateConstructorUsedError;
+  PostImageURL get postImage => throw _privateConstructorUsedError;
   PostLocation get postLocation => throw _privateConstructorUsedError;
   User get postUser => throw _privateConstructorUsedError;
   DateTime get postDateTime => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $PostCopyWith<$Res> {
   $Res call(
       {UniqueId postID,
       PostCaption postCaption,
-      PostImage postImage,
+      PostImageURL postImage,
       PostLocation postLocation,
       User postUser,
       DateTime postDateTime,
@@ -78,7 +78,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       postImage: null == postImage
           ? _value.postImage
           : postImage // ignore: cast_nullable_to_non_nullable
-              as PostImage,
+              as PostImageURL,
       postLocation: null == postLocation
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
@@ -116,7 +116,7 @@ abstract class _$$_PostCopyWith<$Res> implements $PostCopyWith<$Res> {
   $Res call(
       {UniqueId postID,
       PostCaption postCaption,
-      PostImage postImage,
+      PostImageURL postImage,
       PostLocation postLocation,
       User postUser,
       DateTime postDateTime,
@@ -155,7 +155,7 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
       postImage: null == postImage
           ? _value.postImage
           : postImage // ignore: cast_nullable_to_non_nullable
-              as PostImage,
+              as PostImageURL,
       postLocation: null == postLocation
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
@@ -195,7 +195,7 @@ class _$_Post extends _Post {
   @override
   final PostCaption postCaption;
   @override
-  final PostImage postImage;
+  final PostImageURL postImage;
   @override
   final PostLocation postLocation;
   @override
@@ -257,7 +257,7 @@ abstract class _Post extends Post {
   const factory _Post(
       {required final UniqueId postID,
       required final PostCaption postCaption,
-      required final PostImage postImage,
+      required final PostImageURL postImage,
       required final PostLocation postLocation,
       required final User postUser,
       required final DateTime postDateTime,
@@ -269,7 +269,7 @@ abstract class _Post extends Post {
   @override
   PostCaption get postCaption;
   @override
-  PostImage get postImage;
+  PostImageURL get postImage;
   @override
   PostLocation get postLocation;
   @override

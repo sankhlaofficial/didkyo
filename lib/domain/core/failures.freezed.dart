@@ -21,7 +21,7 @@ mixin _$ValueFailure<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(T failedValue, int maxLengthAllowed)
         exceedingLength,
-    required TResult Function(XFile? failedValue) noImageSelected,
+    required TResult Function(String failedValue) noImageSelected,
     required TResult Function(String failedValue) noStringPresent,
     required TResult Function(T failedValue) invalidEmail,
     required TResult Function(T failedValue) shortPassword,
@@ -30,7 +30,7 @@ mixin _$ValueFailure<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult? Function(XFile? failedValue)? noImageSelected,
+    TResult? Function(String failedValue)? noImageSelected,
     TResult? Function(String failedValue)? noStringPresent,
     TResult? Function(T failedValue)? invalidEmail,
     TResult? Function(T failedValue)? shortPassword,
@@ -39,7 +39,7 @@ mixin _$ValueFailure<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult Function(XFile? failedValue)? noImageSelected,
+    TResult Function(String failedValue)? noImageSelected,
     TResult Function(String failedValue)? noStringPresent,
     TResult Function(T failedValue)? invalidEmail,
     TResult Function(T failedValue)? shortPassword,
@@ -173,7 +173,7 @@ class _$ExceedingLength<T> implements ExceedingLength<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(T failedValue, int maxLengthAllowed)
         exceedingLength,
-    required TResult Function(XFile? failedValue) noImageSelected,
+    required TResult Function(String failedValue) noImageSelected,
     required TResult Function(String failedValue) noStringPresent,
     required TResult Function(T failedValue) invalidEmail,
     required TResult Function(T failedValue) shortPassword,
@@ -185,7 +185,7 @@ class _$ExceedingLength<T> implements ExceedingLength<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult? Function(XFile? failedValue)? noImageSelected,
+    TResult? Function(String failedValue)? noImageSelected,
     TResult? Function(String failedValue)? noStringPresent,
     TResult? Function(T failedValue)? invalidEmail,
     TResult? Function(T failedValue)? shortPassword,
@@ -197,7 +197,7 @@ class _$ExceedingLength<T> implements ExceedingLength<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult Function(XFile? failedValue)? noImageSelected,
+    TResult Function(String failedValue)? noImageSelected,
     TResult Function(String failedValue)? noStringPresent,
     TResult Function(T failedValue)? invalidEmail,
     TResult Function(T failedValue)? shortPassword,
@@ -269,7 +269,7 @@ abstract class _$$NoImageSelectedCopyWith<T, $Res> {
           $Res Function(_$NoImageSelected<T>) then) =
       __$$NoImageSelectedCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({XFile? failedValue});
+  $Res call({String failedValue});
 }
 
 /// @nodoc
@@ -283,13 +283,13 @@ class __$$NoImageSelectedCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? failedValue = freezed,
+    Object? failedValue = null,
   }) {
     return _then(_$NoImageSelected<T>(
-      failedValue: freezed == failedValue
+      failedValue: null == failedValue
           ? _value.failedValue
           : failedValue // ignore: cast_nullable_to_non_nullable
-              as XFile?,
+              as String,
     ));
   }
 }
@@ -300,7 +300,7 @@ class _$NoImageSelected<T> implements NoImageSelected<T> {
   const _$NoImageSelected({required this.failedValue});
 
   @override
-  final XFile? failedValue;
+  final String failedValue;
 
   @override
   String toString() {
@@ -331,7 +331,7 @@ class _$NoImageSelected<T> implements NoImageSelected<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(T failedValue, int maxLengthAllowed)
         exceedingLength,
-    required TResult Function(XFile? failedValue) noImageSelected,
+    required TResult Function(String failedValue) noImageSelected,
     required TResult Function(String failedValue) noStringPresent,
     required TResult Function(T failedValue) invalidEmail,
     required TResult Function(T failedValue) shortPassword,
@@ -343,7 +343,7 @@ class _$NoImageSelected<T> implements NoImageSelected<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult? Function(XFile? failedValue)? noImageSelected,
+    TResult? Function(String failedValue)? noImageSelected,
     TResult? Function(String failedValue)? noStringPresent,
     TResult? Function(T failedValue)? invalidEmail,
     TResult? Function(T failedValue)? shortPassword,
@@ -355,7 +355,7 @@ class _$NoImageSelected<T> implements NoImageSelected<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult Function(XFile? failedValue)? noImageSelected,
+    TResult Function(String failedValue)? noImageSelected,
     TResult Function(String failedValue)? noStringPresent,
     TResult Function(T failedValue)? invalidEmail,
     TResult Function(T failedValue)? shortPassword,
@@ -409,11 +409,11 @@ class _$NoImageSelected<T> implements NoImageSelected<T> {
 }
 
 abstract class NoImageSelected<T> implements ValueFailure<T> {
-  const factory NoImageSelected({required final XFile? failedValue}) =
+  const factory NoImageSelected({required final String failedValue}) =
       _$NoImageSelected<T>;
 
   @override
-  XFile? get failedValue;
+  String get failedValue;
   @JsonKey(ignore: true)
   _$$NoImageSelectedCopyWith<T, _$NoImageSelected<T>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -487,7 +487,7 @@ class _$NoStringPresent<T> implements NoStringPresent<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(T failedValue, int maxLengthAllowed)
         exceedingLength,
-    required TResult Function(XFile? failedValue) noImageSelected,
+    required TResult Function(String failedValue) noImageSelected,
     required TResult Function(String failedValue) noStringPresent,
     required TResult Function(T failedValue) invalidEmail,
     required TResult Function(T failedValue) shortPassword,
@@ -499,7 +499,7 @@ class _$NoStringPresent<T> implements NoStringPresent<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult? Function(XFile? failedValue)? noImageSelected,
+    TResult? Function(String failedValue)? noImageSelected,
     TResult? Function(String failedValue)? noStringPresent,
     TResult? Function(T failedValue)? invalidEmail,
     TResult? Function(T failedValue)? shortPassword,
@@ -511,7 +511,7 @@ class _$NoStringPresent<T> implements NoStringPresent<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult Function(XFile? failedValue)? noImageSelected,
+    TResult Function(String failedValue)? noImageSelected,
     TResult Function(String failedValue)? noStringPresent,
     TResult Function(T failedValue)? invalidEmail,
     TResult Function(T failedValue)? shortPassword,
@@ -643,7 +643,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(T failedValue, int maxLengthAllowed)
         exceedingLength,
-    required TResult Function(XFile? failedValue) noImageSelected,
+    required TResult Function(String failedValue) noImageSelected,
     required TResult Function(String failedValue) noStringPresent,
     required TResult Function(T failedValue) invalidEmail,
     required TResult Function(T failedValue) shortPassword,
@@ -655,7 +655,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult? Function(XFile? failedValue)? noImageSelected,
+    TResult? Function(String failedValue)? noImageSelected,
     TResult? Function(String failedValue)? noStringPresent,
     TResult? Function(T failedValue)? invalidEmail,
     TResult? Function(T failedValue)? shortPassword,
@@ -667,7 +667,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult Function(XFile? failedValue)? noImageSelected,
+    TResult Function(String failedValue)? noImageSelected,
     TResult Function(String failedValue)? noStringPresent,
     TResult Function(T failedValue)? invalidEmail,
     TResult Function(T failedValue)? shortPassword,
@@ -799,7 +799,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(T failedValue, int maxLengthAllowed)
         exceedingLength,
-    required TResult Function(XFile? failedValue) noImageSelected,
+    required TResult Function(String failedValue) noImageSelected,
     required TResult Function(String failedValue) noStringPresent,
     required TResult Function(T failedValue) invalidEmail,
     required TResult Function(T failedValue) shortPassword,
@@ -811,7 +811,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult? Function(XFile? failedValue)? noImageSelected,
+    TResult? Function(String failedValue)? noImageSelected,
     TResult? Function(String failedValue)? noStringPresent,
     TResult? Function(T failedValue)? invalidEmail,
     TResult? Function(T failedValue)? shortPassword,
@@ -823,7 +823,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T failedValue, int maxLengthAllowed)? exceedingLength,
-    TResult Function(XFile? failedValue)? noImageSelected,
+    TResult Function(String failedValue)? noImageSelected,
     TResult Function(String failedValue)? noStringPresent,
     TResult Function(T failedValue)? invalidEmail,
     TResult Function(T failedValue)? shortPassword,

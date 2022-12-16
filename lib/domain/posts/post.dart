@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/domain/core/failures.dart';
@@ -5,7 +6,6 @@ import 'package:didkyo/domain/core/value_objects.dart';
 import 'package:didkyo/domain/posts/comment.dart';
 import 'package:didkyo/domain/posts/value_objects.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:image_picker/image_picker.dart';
 
 part 'post.freezed.dart';
 
@@ -15,7 +15,7 @@ abstract class Post implements _$Post {
   const factory Post({
     required UniqueId postID,
     required PostCaption postCaption,
-    required PostImage postImage,
+    required PostImageURL postImage,
     required PostLocation postLocation,
     required User postUser,
     required DateTime postDateTime,
@@ -26,7 +26,7 @@ abstract class Post implements _$Post {
       postID: UniqueId(),
       postCaption: PostCaption(''),
       postLocation: PostLocation(''),
-      postImage: PostImage(XFile('')),
+      postImage: PostImageURL(''),
       postUser:
           User(id: UniqueId(), displayName: '', photoUrl: '', emailAddress: ''),
       postDateTime: DateTime.now(),

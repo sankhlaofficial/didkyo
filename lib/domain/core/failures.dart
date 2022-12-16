@@ -10,7 +10,7 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
     required int maxLengthAllowed,
   }) = ExceedingLength<T>;
 
-  const factory ValueFailure.noImageSelected({required XFile? failedValue}) =
+  const factory ValueFailure.noImageSelected({required String failedValue}) =
       NoImageSelected<T>;
 
   const factory ValueFailure.noStringPresent({required String failedValue}) =

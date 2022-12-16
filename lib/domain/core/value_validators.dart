@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:didkyo/domain/core/failures.dart';
-import 'package:image_picker/image_picker.dart';
 
 Either<ValueFailure<String>, String> validateStringMaxLength(
     String input, int maxLength) {
@@ -12,8 +11,8 @@ Either<ValueFailure<String>, String> validateStringMaxLength(
   }
 }
 
-Either<ValueFailure<XFile>, XFile> validateImageNotEmpty(XFile image) {
-  if (image.path.isNotEmpty) {
+Either<ValueFailure<String>, String> validateImageNotEmpty(String image) {
+  if (image.isNotEmpty) {
     return right(image);
   } else {
     return left(ValueFailure.noImageSelected(failedValue: image));
