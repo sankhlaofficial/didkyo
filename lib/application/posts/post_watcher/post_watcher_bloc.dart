@@ -34,7 +34,7 @@ class PostWatcherBloc extends Bloc<PostWatcherEvent, PostWatcherState> {
       yield const PostWatcherState.loadInProgress();
       await _postStreamSubscription?.cancel();
       _postStreamSubscription = _iPostRepository
-          .watchUserLocationSpecificPosts()
+          .watchUserLocationSpecificPosts(e.selectedLocation)
           .listen((failureOrPosts) =>
               add(PostWatcherEvent.postsReceived(failureOrPosts)));
     }, postsReceived: (e) async* {

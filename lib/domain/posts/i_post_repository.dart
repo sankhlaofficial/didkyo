@@ -7,7 +7,8 @@ abstract class IPostRepository {
 //watch post for a location
 //crud
   Stream<Either<PostFailure, List<Post>>> watchUserAllPosts();
-  Stream<Either<PostFailure, List<Post>>> watchUserLocationSpecificPosts();
+  Stream<Either<PostFailure, List<Post>>> watchUserLocationSpecificPosts(
+      String selectedLocation);
   Future<Either<PostFailure, Unit>> createPost(Post post);
   Future<Either<PostFailure, Unit>> updatePost(Post post);
   Future<Either<PostFailure, Unit>> deletePost(Post post);

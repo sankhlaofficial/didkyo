@@ -55,9 +55,9 @@ abstract class PostDTO implements _$PostDTO {
             postComments.map((commentDTO) => commentDTO.toDomain()).toList());
   }
 
-  factory PostDTO.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot) {
-    return PostDTO.fromJson(snapshot.data()!).copyWith(postID: snapshot.id);
+  factory PostDTO.fromFirestore(DocumentSnapshot<Object?> snapshot) {
+    return PostDTO.fromJson(snapshot.data() as Map<String, dynamic>)
+        .copyWith(postID: snapshot.id);
   }
 }
 
