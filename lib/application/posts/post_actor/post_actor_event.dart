@@ -1,4 +1,6 @@
 part of 'post_actor_bloc.dart';
 
-@immutable
-abstract class PostActorEvent {}
+@freezed
+abstract class PostActorEvent with _$PostActorEvent {
+  const factory PostActorEvent.deleted(Post post) = _Deleted;
+}
