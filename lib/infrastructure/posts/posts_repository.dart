@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:didkyo/domain/posts/i_post_repository.dart';
@@ -18,12 +20,14 @@ class PostRepository implements IPostRepository {
   Stream<Either<PostFailure, List<Post>>> watchUserAllPosts() async* {
     final userDoc = await _firebaseFirestore.userDocument();
     yield* userDoc.postsCollection
-        .orderBy('postDateTime', descending: true)
+        // .orderBy('postDateTime', descending: true)
         .snapshots()
         .map((snapshot) => right<PostFailure, List<Post>>(snapshot.docs
             .map((doc) => PostDTO.fromFirestore(doc).toDomain())
             .toList()))
         .onErrorReturnWith((error) {
+      log("There is an error 1");
+      log(error.toString());
       if (error is PlatformException &&
           error.message!.contains('PERMISSION_DENIED')) {
         return left(const PostFailure.permissionDenied());

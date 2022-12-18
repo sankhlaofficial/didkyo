@@ -14,26 +14,28 @@ part 'post_dtos.g.dart';
 @freezed
 abstract class PostDTO implements _$PostDTO {
   const PostDTO._();
-  const factory PostDTO(
-      {required String postCaption,
-      required String postID,
-      required String postImageURL,
-      required String postLocation,
-      required DateTime postDateTime,
-      required Map<String, dynamic> postUser,
-      required List<CommentDTO> postComments}) = _PostDTO;
+  const factory PostDTO({
+    required String postCaption,
+    required String postID,
+    required String postImageURL,
+    required String postLocation,
+    // required DateTime postDateTime,
+    // required Map<String, dynamic> postUser,
+    // required List<CommentDTO> postComments}
+  }) = _PostDTO;
 
   factory PostDTO.fromDomain(Post post) {
     return PostDTO(
-        postCaption: post.postCaption.getOrCrash(),
-        postID: post.postID.getOrCrash(),
-        postImageURL: post.postImage.getOrCrash(),
-        postLocation: post.postLocation.getOrCrash(),
-        postDateTime: post.postDateTime,
-        postUser: FirebaseUserDomainX.userToMap(post.postUser),
-        postComments: post.postComments
-            .map((comment) => CommentDTO.fromDomain(comment))
-            .toList());
+      postCaption: post.postCaption.getOrCrash(),
+      postID: post.postID.getOrCrash(),
+      postImageURL: post.postImage.getOrCrash(),
+      postLocation: post.postLocation.getOrCrash(),
+      // postDateTime: post.postDateTime,
+      // postUser: FirebaseUserDomainX.userToMap(post.postUser),
+      // postComments: post.postComments
+      //     .map((comment) => CommentDTO.fromDomain(comment))
+      //     .toList()
+    );
   }
 
   factory PostDTO.fromJson(Map<String, dynamic> postJSON) =>
@@ -41,18 +43,19 @@ abstract class PostDTO implements _$PostDTO {
 
   Post toDomain() {
     return Post(
-        postID: UniqueId.fromUniqueString(postID),
-        postCaption: PostCaption(postCaption),
-        postImage: PostImageURL(postImageURL),
-        postLocation: PostLocation(postLocation),
-        postUser: User(
-            id: UniqueId.fromUniqueString(postUser['userID']),
-            emailAddress: postUser['userEmail'],
-            photoUrl: postUser['userPicture'],
-            displayName: postUser['userName']),
-        postDateTime: postDateTime,
-        postComments:
-            postComments.map((commentDTO) => commentDTO.toDomain()).toList());
+      postID: UniqueId.fromUniqueString(postID),
+      postCaption: PostCaption(postCaption),
+      postImage: PostImageURL(postImageURL),
+      postLocation: PostLocation(postLocation),
+      // postUser: User(
+      //     id: UniqueId.fromUniqueString(postUser['userID']),
+      //     emailAddress: postUser['userEmail'],
+      //     photoUrl: postUser['userPicture'],
+      //     displayName: postUser['userName']),
+      // postDateTime: postDateTime,
+      // postComments:
+      //     postComments.map((commentDTO) => commentDTO.toDomain()).toList()
+    );
   }
 
   factory PostDTO.fromFirestore(DocumentSnapshot<Object?> snapshot) {

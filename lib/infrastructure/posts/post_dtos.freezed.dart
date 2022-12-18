@@ -24,9 +24,6 @@ mixin _$PostDTO {
   String get postID => throw _privateConstructorUsedError;
   String get postImageURL => throw _privateConstructorUsedError;
   String get postLocation => throw _privateConstructorUsedError;
-  DateTime get postDateTime => throw _privateConstructorUsedError;
-  Map<String, dynamic> get postUser => throw _privateConstructorUsedError;
-  List<CommentDTO> get postComments => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,10 +39,7 @@ abstract class $PostDTOCopyWith<$Res> {
       {String postCaption,
       String postID,
       String postImageURL,
-      String postLocation,
-      DateTime postDateTime,
-      Map<String, dynamic> postUser,
-      List<CommentDTO> postComments});
+      String postLocation});
 }
 
 /// @nodoc
@@ -65,9 +59,6 @@ class _$PostDTOCopyWithImpl<$Res, $Val extends PostDTO>
     Object? postID = null,
     Object? postImageURL = null,
     Object? postLocation = null,
-    Object? postDateTime = null,
-    Object? postUser = null,
-    Object? postComments = null,
   }) {
     return _then(_value.copyWith(
       postCaption: null == postCaption
@@ -86,18 +77,6 @@ class _$PostDTOCopyWithImpl<$Res, $Val extends PostDTO>
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
               as String,
-      postDateTime: null == postDateTime
-          ? _value.postDateTime
-          : postDateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      postUser: null == postUser
-          ? _value.postUser
-          : postUser // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-      postComments: null == postComments
-          ? _value.postComments
-          : postComments // ignore: cast_nullable_to_non_nullable
-              as List<CommentDTO>,
     ) as $Val);
   }
 }
@@ -113,10 +92,7 @@ abstract class _$$_PostDTOCopyWith<$Res> implements $PostDTOCopyWith<$Res> {
       {String postCaption,
       String postID,
       String postImageURL,
-      String postLocation,
-      DateTime postDateTime,
-      Map<String, dynamic> postUser,
-      List<CommentDTO> postComments});
+      String postLocation});
 }
 
 /// @nodoc
@@ -133,9 +109,6 @@ class __$$_PostDTOCopyWithImpl<$Res>
     Object? postID = null,
     Object? postImageURL = null,
     Object? postLocation = null,
-    Object? postDateTime = null,
-    Object? postUser = null,
-    Object? postComments = null,
   }) {
     return _then(_$_PostDTO(
       postCaption: null == postCaption
@@ -154,18 +127,6 @@ class __$$_PostDTOCopyWithImpl<$Res>
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
               as String,
-      postDateTime: null == postDateTime
-          ? _value.postDateTime
-          : postDateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      postUser: null == postUser
-          ? _value._postUser
-          : postUser // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-      postComments: null == postComments
-          ? _value._postComments
-          : postComments // ignore: cast_nullable_to_non_nullable
-              as List<CommentDTO>,
     ));
   }
 }
@@ -177,13 +138,8 @@ class _$_PostDTO extends _PostDTO {
       {required this.postCaption,
       required this.postID,
       required this.postImageURL,
-      required this.postLocation,
-      required this.postDateTime,
-      required final Map<String, dynamic> postUser,
-      required final List<CommentDTO> postComments})
-      : _postUser = postUser,
-        _postComments = postComments,
-        super._();
+      required this.postLocation})
+      : super._();
 
   factory _$_PostDTO.fromJson(Map<String, dynamic> json) =>
       _$$_PostDTOFromJson(json);
@@ -196,27 +152,10 @@ class _$_PostDTO extends _PostDTO {
   final String postImageURL;
   @override
   final String postLocation;
-  @override
-  final DateTime postDateTime;
-  final Map<String, dynamic> _postUser;
-  @override
-  Map<String, dynamic> get postUser {
-    if (_postUser is EqualUnmodifiableMapView) return _postUser;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_postUser);
-  }
-
-  final List<CommentDTO> _postComments;
-  @override
-  List<CommentDTO> get postComments {
-    if (_postComments is EqualUnmodifiableListView) return _postComments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_postComments);
-  }
 
   @override
   String toString() {
-    return 'PostDTO(postCaption: $postCaption, postID: $postID, postImageURL: $postImageURL, postLocation: $postLocation, postDateTime: $postDateTime, postUser: $postUser, postComments: $postComments)';
+    return 'PostDTO(postCaption: $postCaption, postID: $postID, postImageURL: $postImageURL, postLocation: $postLocation)';
   }
 
   @override
@@ -230,25 +169,13 @@ class _$_PostDTO extends _PostDTO {
             (identical(other.postImageURL, postImageURL) ||
                 other.postImageURL == postImageURL) &&
             (identical(other.postLocation, postLocation) ||
-                other.postLocation == postLocation) &&
-            (identical(other.postDateTime, postDateTime) ||
-                other.postDateTime == postDateTime) &&
-            const DeepCollectionEquality().equals(other._postUser, _postUser) &&
-            const DeepCollectionEquality()
-                .equals(other._postComments, _postComments));
+                other.postLocation == postLocation));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      postCaption,
-      postID,
-      postImageURL,
-      postLocation,
-      postDateTime,
-      const DeepCollectionEquality().hash(_postUser),
-      const DeepCollectionEquality().hash(_postComments));
+  int get hashCode =>
+      Object.hash(runtimeType, postCaption, postID, postImageURL, postLocation);
 
   @JsonKey(ignore: true)
   @override
@@ -269,10 +196,7 @@ abstract class _PostDTO extends PostDTO {
       {required final String postCaption,
       required final String postID,
       required final String postImageURL,
-      required final String postLocation,
-      required final DateTime postDateTime,
-      required final Map<String, dynamic> postUser,
-      required final List<CommentDTO> postComments}) = _$_PostDTO;
+      required final String postLocation}) = _$_PostDTO;
   const _PostDTO._() : super._();
 
   factory _PostDTO.fromJson(Map<String, dynamic> json) = _$_PostDTO.fromJson;
@@ -285,12 +209,6 @@ abstract class _PostDTO extends PostDTO {
   String get postImageURL;
   @override
   String get postLocation;
-  @override
-  DateTime get postDateTime;
-  @override
-  Map<String, dynamic> get postUser;
-  @override
-  List<CommentDTO> get postComments;
   @override
   @JsonKey(ignore: true)
   _$$_PostDTOCopyWith<_$_PostDTO> get copyWith =>

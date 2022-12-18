@@ -11,16 +11,17 @@ part 'post_actor_state.dart';
 
 @injectable
 class PostActorBloc extends Bloc<PostActorEvent, PostActorState> {
-  final IPostRepository _postRepository;
+  final IPostRepository _ipostRepository;
   @factoryMethod
-  PostActorBloc(this._postRepository);
+  PostActorBloc(this._ipostRepository);
+
   @override
   PostActorState get initialState => const PostActorState.initial();
 
   @override
   Stream<PostActorState> mapEventToState(PostActorEvent event) async* {
     yield const PostActorState.actionInProgress();
-    final possibleFailure = await _postRepository.deletePost(event.post);
+    final possibleFailure = await _ipostRepository.deletePost(event.post);
     yield possibleFailure.fold((f) => PostActorState.deleteFailure(f),
         (_) => const PostActorState.deleteSuccess());
   }

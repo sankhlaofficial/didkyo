@@ -3,6 +3,7 @@ import 'package:didkyo/application/auth/auth/auth_bloc.dart';
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
 import 'package:didkyo/injection.dart';
+import 'package:didkyo/presentation/posts/user_posts/widgets/user_posts_body.dart';
 import 'package:didkyo/presentation/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,9 +73,7 @@ class UserPostsPage extends StatelessWidget {
             onPressed: () {},
             child: const Icon(Icons.add),
           ),
-          body: const Center(
-            child: Text("User personal posts"),
-          ),
+          body: const UserPostsBody(),
         ),
       ),
     );
