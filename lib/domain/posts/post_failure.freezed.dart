@@ -20,18 +20,21 @@ mixin _$PostFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
     required TResult Function() permissionDenied,
+    required TResult Function() unableToUpdate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? unexpected,
     TResult? Function()? permissionDenied,
+    TResult? Function()? unableToUpdate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
     TResult Function()? permissionDenied,
+    TResult Function()? unableToUpdate,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$PostFailure {
   TResult map<TResult extends Object?>({
     required TResult Function(_Unexpected value) unexpected,
     required TResult Function(_PermissionDenied value) permissionDenied,
+    required TResult Function(_UnableToUpdate value) unableToUpdate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Unexpected value)? unexpected,
     TResult? Function(_PermissionDenied value)? permissionDenied,
+    TResult? Function(_UnableToUpdate value)? unableToUpdate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Unexpected value)? unexpected,
     TResult Function(_PermissionDenied value)? permissionDenied,
+    TResult Function(_UnableToUpdate value)? unableToUpdate,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$_Unexpected implements _Unexpected {
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
     required TResult Function() permissionDenied,
+    required TResult Function() unableToUpdate,
   }) {
     return unexpected();
   }
@@ -123,6 +130,7 @@ class _$_Unexpected implements _Unexpected {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? unexpected,
     TResult? Function()? permissionDenied,
+    TResult? Function()? unableToUpdate,
   }) {
     return unexpected?.call();
   }
@@ -132,6 +140,7 @@ class _$_Unexpected implements _Unexpected {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
     TResult Function()? permissionDenied,
+    TResult Function()? unableToUpdate,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -145,6 +154,7 @@ class _$_Unexpected implements _Unexpected {
   TResult map<TResult extends Object?>({
     required TResult Function(_Unexpected value) unexpected,
     required TResult Function(_PermissionDenied value) permissionDenied,
+    required TResult Function(_UnableToUpdate value) unableToUpdate,
   }) {
     return unexpected(this);
   }
@@ -154,6 +164,7 @@ class _$_Unexpected implements _Unexpected {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Unexpected value)? unexpected,
     TResult? Function(_PermissionDenied value)? permissionDenied,
+    TResult? Function(_UnableToUpdate value)? unableToUpdate,
   }) {
     return unexpected?.call(this);
   }
@@ -163,6 +174,7 @@ class _$_Unexpected implements _Unexpected {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Unexpected value)? unexpected,
     TResult Function(_PermissionDenied value)? permissionDenied,
+    TResult Function(_UnableToUpdate value)? unableToUpdate,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -216,6 +228,7 @@ class _$_PermissionDenied implements _PermissionDenied {
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
     required TResult Function() permissionDenied,
+    required TResult Function() unableToUpdate,
   }) {
     return permissionDenied();
   }
@@ -225,6 +238,7 @@ class _$_PermissionDenied implements _PermissionDenied {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? unexpected,
     TResult? Function()? permissionDenied,
+    TResult? Function()? unableToUpdate,
   }) {
     return permissionDenied?.call();
   }
@@ -234,6 +248,7 @@ class _$_PermissionDenied implements _PermissionDenied {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
     TResult Function()? permissionDenied,
+    TResult Function()? unableToUpdate,
     required TResult orElse(),
   }) {
     if (permissionDenied != null) {
@@ -247,6 +262,7 @@ class _$_PermissionDenied implements _PermissionDenied {
   TResult map<TResult extends Object?>({
     required TResult Function(_Unexpected value) unexpected,
     required TResult Function(_PermissionDenied value) permissionDenied,
+    required TResult Function(_UnableToUpdate value) unableToUpdate,
   }) {
     return permissionDenied(this);
   }
@@ -256,6 +272,7 @@ class _$_PermissionDenied implements _PermissionDenied {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Unexpected value)? unexpected,
     TResult? Function(_PermissionDenied value)? permissionDenied,
+    TResult? Function(_UnableToUpdate value)? unableToUpdate,
   }) {
     return permissionDenied?.call(this);
   }
@@ -265,6 +282,7 @@ class _$_PermissionDenied implements _PermissionDenied {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Unexpected value)? unexpected,
     TResult Function(_PermissionDenied value)? permissionDenied,
+    TResult Function(_UnableToUpdate value)? unableToUpdate,
     required TResult orElse(),
   }) {
     if (permissionDenied != null) {
@@ -276,4 +294,112 @@ class _$_PermissionDenied implements _PermissionDenied {
 
 abstract class _PermissionDenied implements PostFailure {
   const factory _PermissionDenied() = _$_PermissionDenied;
+}
+
+/// @nodoc
+abstract class _$$_UnableToUpdateCopyWith<$Res> {
+  factory _$$_UnableToUpdateCopyWith(
+          _$_UnableToUpdate value, $Res Function(_$_UnableToUpdate) then) =
+      __$$_UnableToUpdateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_UnableToUpdateCopyWithImpl<$Res>
+    extends _$PostFailureCopyWithImpl<$Res, _$_UnableToUpdate>
+    implements _$$_UnableToUpdateCopyWith<$Res> {
+  __$$_UnableToUpdateCopyWithImpl(
+      _$_UnableToUpdate _value, $Res Function(_$_UnableToUpdate) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_UnableToUpdate implements _UnableToUpdate {
+  const _$_UnableToUpdate();
+
+  @override
+  String toString() {
+    return 'PostFailure.unableToUpdate()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_UnableToUpdate);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unexpected,
+    required TResult Function() permissionDenied,
+    required TResult Function() unableToUpdate,
+  }) {
+    return unableToUpdate();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? unexpected,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? unableToUpdate,
+  }) {
+    return unableToUpdate?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unexpected,
+    TResult Function()? permissionDenied,
+    TResult Function()? unableToUpdate,
+    required TResult orElse(),
+  }) {
+    if (unableToUpdate != null) {
+      return unableToUpdate();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_PermissionDenied value) permissionDenied,
+    required TResult Function(_UnableToUpdate value) unableToUpdate,
+  }) {
+    return unableToUpdate(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Unexpected value)? unexpected,
+    TResult? Function(_PermissionDenied value)? permissionDenied,
+    TResult? Function(_UnableToUpdate value)? unableToUpdate,
+  }) {
+    return unableToUpdate?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_PermissionDenied value)? permissionDenied,
+    TResult Function(_UnableToUpdate value)? unableToUpdate,
+    required TResult orElse(),
+  }) {
+    if (unableToUpdate != null) {
+      return unableToUpdate(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UnableToUpdate implements PostFailure {
+  const factory _UnableToUpdate() = _$_UnableToUpdate;
 }
