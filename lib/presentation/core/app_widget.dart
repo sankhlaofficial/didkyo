@@ -20,6 +20,10 @@ class AppWidget extends StatelessWidget {
         title: 'didKyo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.light().copyWith(
+          floatingActionButtonTheme: const FloatingActionButtonThemeData()
+              .copyWith(backgroundColor: Colors.indigo),
+          appBarTheme: const AppBarTheme()
+              .copyWith(backgroundColor: const Color(0xff6ECCAF)),
           primaryColor: const Color(0xff6ECCAF),
           inputDecorationTheme: InputDecorationTheme(
             border: OutlineInputBorder(
