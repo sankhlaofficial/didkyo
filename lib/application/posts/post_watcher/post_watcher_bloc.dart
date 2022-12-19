@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -25,11 +26,15 @@ class PostWatcherBloc extends Bloc<PostWatcherEvent, PostWatcherState> {
   @override
   Stream<PostWatcherState> mapEventToState(PostWatcherEvent event) async* {
     yield* event.map(watchAllStarted: (e) async* {
-      yield const PostWatcherState.loadInProgress();
-      await _postStreamSubscription?.cancel();
-      _postStreamSubscription = _iPostRepository.watchUserAllPosts().listen(
-          (failureOrPosts) =>
-              add(PostWatcherEvent.postsReceived(failureOrPosts)));
+      try {
+        yield const PostWatcherState.loadInProgress();
+        await _postStreamSubscription?.cancel();
+        _postStreamSubscription = _iPostRepository.watchUserAllPosts().listen(
+            (failureOrPosts) =>
+                add(PostWatcherEvent.postsReceived(failureOrPosts)));
+      } catch (e) {
+        log(e.toString());
+      }
     }, watchLocationSpecificStarted: (e) async* {
       yield const PostWatcherState.loadInProgress();
       await _postStreamSubscription?.cancel();
@@ -38,8 +43,12 @@ class PostWatcherBloc extends Bloc<PostWatcherEvent, PostWatcherState> {
           .listen((failureOrPosts) =>
               add(PostWatcherEvent.postsReceived(failureOrPosts)));
     }, postsReceived: (e) async* {
-      yield e.failureOrPosts.fold((f) => PostWatcherState.loadFailure(f),
-          (posts) => PostWatcherState.loadSuccess(posts));
+      try {
+        yield e.failureOrPosts.fold((f) => PostWatcherState.loadFailure(f),
+            (posts) => PostWatcherState.loadSuccess(posts));
+      } catch (e) {
+        log(e.toString());
+      }
     });
   }
 

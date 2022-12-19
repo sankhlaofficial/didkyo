@@ -30,6 +30,7 @@ class PostCommentMessage extends ValueObject<String> {
   final Either<ValueFailure<String>, String> value;
 
   factory PostCommentMessage(String input) {
+    // return PostCommentMessage._(validateStringNotEmpty(input));
     return PostCommentMessage._(validateStringNotEmpty(input));
   }
 

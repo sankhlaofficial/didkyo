@@ -7,8 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class SignInForm extends StatelessWidget {
-  const SignInForm({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInFormBloc, SignInFormState>(
@@ -34,7 +32,7 @@ class SignInForm extends StatelessWidget {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(snackBar);
                 }, (_) {
-                  Get.offAll(() => const UserPostsPage());
+                  Get.offAll(() => UserPostsPage());
                   context
                       .bloc<AuthBloc>()
                       .add(const AuthEvent.authCheckRequested());

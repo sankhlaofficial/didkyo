@@ -18,22 +18,26 @@ class PostRepository implements IPostRepository {
   PostRepository(this._firebaseFirestore);
   @override
   Stream<Either<PostFailure, List<Post>>> watchUserAllPosts() async* {
-    final userDoc = await _firebaseFirestore.userDocument();
-    yield* userDoc.postsCollection
-        // .orderBy('postDateTime', descending: true)
-        .snapshots()
-        .map((snapshot) => right<PostFailure, List<Post>>(snapshot.docs
-            .map((doc) => PostDTO.fromFirestore(doc).toDomain())
-            .toList()))
-        .onErrorReturnWith((error) {
-      log("There is an error 1");
+    try {
+      final userDoc = await _firebaseFirestore.userDocument();
+      yield* userDoc.postsCollection
+          // .orderBy('postDateTime', descending: true)
+          .snapshots()
+          .map((snapshot) => right<PostFailure, List<Post>>(snapshot.docs
+              .map((doc) => PostDTO.fromFirestore(doc).toDomain())
+              .toList()))
+          .onErrorReturnWith((error) {
+        log("There is an error 1");
+        log(error.toString());
+        if (error is PlatformException &&
+            error.message!.contains('PERMISSION_DENIED')) {
+          return left(const PostFailure.permissionDenied());
+        }
+        return left(const PostFailure.unexpected());
+      });
+    } catch (error) {
       log(error.toString());
-      if (error is PlatformException &&
-          error.message!.contains('PERMISSION_DENIED')) {
-        return left(const PostFailure.permissionDenied());
-      }
-      return left(const PostFailure.unexpected());
-    });
+    }
   }
 
   @override

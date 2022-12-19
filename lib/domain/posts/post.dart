@@ -14,7 +14,7 @@ abstract class Post implements _$Post {
     required PostCaption postCaption,
     required PostImageURL postImage,
     required PostLocation postLocation,
-    // required User postUser,
+
     // required DateTime postDateTime,
     // required List<PostComment> postComments,
   }) = _Post;

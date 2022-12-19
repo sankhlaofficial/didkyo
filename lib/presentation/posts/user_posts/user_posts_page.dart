@@ -10,8 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class UserPostsPage extends StatelessWidget {
-  const UserPostsPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -29,7 +27,7 @@ class UserPostsPage extends StatelessWidget {
           BlocListener<AuthBloc, AuthState>(listener: (context, state) {
             state.maybeMap(
                 unauthenticated: (_) {
-                  Get.offAll(() => const SignInPage());
+                  Get.offAll(() => SignInPage());
                 },
                 orElse: () {});
           }),
@@ -73,7 +71,7 @@ class UserPostsPage extends StatelessWidget {
             onPressed: () {},
             child: const Icon(Icons.add),
           ),
-          body: const UserPostsBody(),
+          body: UserPostsBody(),
         ),
       ),
     );

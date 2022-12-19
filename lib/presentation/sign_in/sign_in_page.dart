@@ -6,14 +6,12 @@ import '../../injection.dart';
 import 'widgets/sign_in_form.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
         create: (context) => getIt<SignInFormBloc>(),
-        child: const SignInForm(),
+        child: SignInForm(),
       ),
     );
   }
