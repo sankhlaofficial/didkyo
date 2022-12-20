@@ -1,7 +1,9 @@
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
+import 'package:didkyo/presentation/posts/post_form/post_form_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class PostCardWidget extends StatelessWidget {
   final Post cardPost;
@@ -33,12 +35,27 @@ class PostCardWidget extends StatelessWidget {
                 .headline6!
                 .copyWith(color: Colors.blue),
           ),
-          IconButton(
-              onPressed: () {
-                final postActorBloc = context.bloc<PostActorBloc>();
-                _showDeleteDialogBox(context, postActorBloc);
-              },
-              icon: const Icon(Icons.delete))
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    final postActorBloc = context.bloc<PostActorBloc>();
+                    _showDeleteDialogBox(context, postActorBloc);
+                  },
+                  icon: const Icon(Icons.delete)),
+              const SizedBox(
+                width: 15,
+              ),
+              IconButton(
+                  onPressed: () {
+                    Get.to(() => PostFormPage(
+                          editedPost: cardPost,
+                        ));
+                  },
+                  icon: const Icon(Icons.edit)),
+            ],
+          )
         ],
       ),
     );

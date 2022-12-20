@@ -1,7 +1,10 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:dartz/dartz.dart';
 import 'package:didkyo/application/posts/post_form/post_form_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/injection.dart';
+import 'package:didkyo/presentation/posts/post_form/widgets/caption_field_widget.dart';
+import 'package:didkyo/presentation/posts/post_form/widgets/image_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -13,7 +16,8 @@ class PostFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<PostFormBloc>(),
+      create: (context) => getIt<PostFormBloc>()
+        ..add(PostFormEvent.initialized(optionOf(editedPost))),
       child: BlocConsumer<PostFormBloc, PostFormState>(
         listenWhen: (p, c) =>
             p.savePostFailureOrSuccessOption !=
@@ -107,27 +111,43 @@ class PostFormPageScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  context.bloc<PostFormBloc>().add(const PostFormEvent.saved());
-                },
-                icon: const Icon(Icons.check))
-          ],
-          leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              Get.back();
-            },
-          ),
-          title: BlocBuilder<PostFormBloc, PostFormState>(
-            condition: (previousState, currentState) =>
-                previousState.isEditing != currentState.isEditing,
-            builder: (context, state) {
-              return Text(state.isEditing ? 'Edit the post' : 'Create a post');
-            },
-          )),
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.bloc<PostFormBloc>().add(const PostFormEvent.saved());
+              },
+              icon: const Icon(Icons.check))
+        ],
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: BlocBuilder<PostFormBloc, PostFormState>(
+          condition: (previousState, currentState) =>
+              previousState.isEditing != currentState.isEditing,
+          builder: (context, state) {
+            return Text(state.isEditing ? 'Edit the post' : 'Create a post');
+          },
+        ),
+      ),
+      body: BlocBuilder<PostFormBloc, PostFormState>(
+        condition: (p, c) => p.showErrorMessages != c.showErrorMessages,
+        builder: (context, state) {
+          return Form(
+            autovalidateMode: state.showErrorMessages
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [CaptionField(), ImageField()],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
