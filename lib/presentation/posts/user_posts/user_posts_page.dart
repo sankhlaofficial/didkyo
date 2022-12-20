@@ -2,7 +2,6 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:didkyo/application/auth/auth/auth_bloc.dart';
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
-import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/posts/post_form/post_form_page.dart';
 import 'package:didkyo/presentation/posts/user_posts/widgets/user_posts_body.dart';
@@ -71,7 +70,7 @@ class UserPostsPage extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.to(() => PostFormPage(editedPost: Post.empty()));
+              Get.to(() => const PostFormPage());
             },
             child: const Icon(Icons.add),
           ),
