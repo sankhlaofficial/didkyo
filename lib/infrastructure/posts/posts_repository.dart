@@ -77,18 +77,25 @@ class PostRepository implements IPostRepository {
       final user = userOption.getOrElse(() => throw NotAuthenticatedError());
       final userDoc = await _firebaseFirestore.userDocument();
       final postDTO = PostDTO.fromDomain(post);
-      await _firebaseStorage
-          .ref(
-              'users/${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
-          .putFile(File(post.postImage.getOrCrash()))
-          .then((p) async {
-        String downloadURL = await _firebaseStorage
-            .ref('${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
-            .getDownloadURL();
-        await userDoc.postsCollection
-            .doc(postDTO.postID)
-            .set(postDTO.copyWith(postImageURL: downloadURL).toJson());
-      });
+      final fileName = File(post.postImage.getOrCrash());
+      bool doesFileExist = await fileName.exists();
+      doesFileExist
+          ? await _firebaseStorage
+              .ref(
+                  'users/${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
+              .putFile(fileName)
+              .then((p) async {
+              String downloadURL = await _firebaseStorage
+                  .ref(
+                      'users/${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
+                  .getDownloadURL();
+              await userDoc.postsCollection
+                  .doc(postDTO.postID)
+                  .set(postDTO.copyWith(postImageURL: downloadURL).toJson());
+            })
+          : await userDoc.postsCollection
+              .doc(postDTO.postID)
+              .set(postDTO.toJson());
 
       return right(unit);
     } on PlatformException catch (e) {
@@ -126,18 +133,24 @@ class PostRepository implements IPostRepository {
       try {
         final fileName = File(post.postImage.getOrCrash());
         log(fileName.toString());
+        bool doesFileExist = await fileName.exists();
 
-        await _firebaseStorage
-            .ref('${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
-            .putFile(fileName)
-            .then((p) async {
-          String downloadURL = await _firebaseStorage
-              .ref('${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
-              .getDownloadURL();
-          await userDoc.postsCollection
-              .doc(postDTO.postID)
-              .update(postDTO.copyWith(postImageURL: downloadURL).toJson());
-        });
+        doesFileExist
+            ? await _firebaseStorage
+                .ref(
+                    'users/${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
+                .putFile(fileName)
+                .then((p) async {
+                String downloadURL = await _firebaseStorage
+                    .ref(
+                        'users/${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
+                    .getDownloadURL();
+                await userDoc.postsCollection.doc(postDTO.postID).update(
+                    postDTO.copyWith(postImageURL: downloadURL).toJson());
+              })
+            : await userDoc.postsCollection
+                .doc(postDTO.postID)
+                .update(postDTO.toJson());
       } catch (error) {
         log(error.toString());
       }

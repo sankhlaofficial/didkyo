@@ -44,10 +44,9 @@ class ImageField extends StatelessWidget {
                   : Stack(
                       children: [
                         Positioned.fill(
-                          child: Image.network(
-                            postImage,
-                          ),
-                        ),
+                            child: Image.network(
+                          postImage,
+                        )),
                         Align(
                           alignment: Alignment.bottomRight,
                           child: IconButton(
@@ -63,7 +62,7 @@ class ImageField extends StatelessWidget {
                             },
                             icon: const Icon(
                               Icons.add_box_rounded,
-                              color: Colors.white,
+                              color: Colors.red,
                             ),
                           ),
                         )

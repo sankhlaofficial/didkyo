@@ -5,6 +5,7 @@ import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/posts/post_form/widgets/caption_field_widget.dart';
 import 'package:didkyo/presentation/posts/post_form/widgets/image_field_widget.dart';
+import 'package:didkyo/presentation/posts/post_form/widgets/location_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -142,7 +143,7 @@ class PostFormPageScaffold extends StatelessWidget {
                 : AutovalidateMode.disabled,
             child: SingleChildScrollView(
               child: Column(
-                children: [CaptionField(), ImageField()],
+                children: [CaptionField(), ImageField(), LocationField()],
               ),
             ),
           );
