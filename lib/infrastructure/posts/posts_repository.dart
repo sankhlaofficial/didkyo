@@ -27,7 +27,7 @@ class PostRepository implements IPostRepository {
     try {
       final userDoc = await _firebaseFirestore.userDocument();
       yield* userDoc.postsCollection
-          // .orderBy('postDateTime', descending: true)
+          .orderBy('postDateTime', descending: true)
           .snapshots()
           .map((snapshot) => right<PostFailure, List<Post>>(snapshot.docs
               .map((doc) => PostDTO.fromFirestore(doc).toDomain())
@@ -89,17 +89,33 @@ class PostRepository implements IPostRepository {
                   .ref(
                       'users/${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
                   .getDownloadURL();
-              await userDoc.postsCollection.doc(postDTO.postID).set(postDTO
-                  .copyWith(
-                      postImageURL: downloadURL,
-                      postUser: {
-                        'id': user.id!.getOrCrash(),
-                        'emailAddress': user.emailAddress,
-                        'photoUrl': user.photoUrl,
-                        'displayName': user.displayName
-                      },
-                      postDateTime: DateTime.now())
-                  .toJson());
+              await _firebaseFirestore
+                  .collection('globalPosts')
+                  .doc(postDTO.postID)
+                  .set(postDTO
+                      .copyWith(
+                          postImageURL: downloadURL,
+                          postUser: {
+                            'id': user.id!.getOrCrash(),
+                            'emailAddress': user.emailAddress,
+                            'photoUrl': user.photoUrl,
+                            'displayName': user.displayName
+                          },
+                          postDateTime: DateTime.now())
+                      .toJson())
+                  .whenComplete(() async {
+                await userDoc.postsCollection.doc(postDTO.postID).set(postDTO
+                    .copyWith(
+                        postImageURL: downloadURL,
+                        postUser: {
+                          'id': user.id!.getOrCrash(),
+                          'emailAddress': user.emailAddress,
+                          'photoUrl': user.photoUrl,
+                          'displayName': user.displayName
+                        },
+                        postDateTime: DateTime.now())
+                    .toJson());
+              });
             })
           : await userDoc.postsCollection
               .doc(postDTO.postID)
@@ -108,7 +124,18 @@ class PostRepository implements IPostRepository {
                 'emailAddress': user.emailAddress,
                 'photoUrl': user.photoUrl,
                 'displayName': user.displayName
-              }, postDateTime: DateTime.now()).toJson());
+              }, postDateTime: DateTime.now()).toJson())
+              .whenComplete(() async {
+              await _firebaseFirestore
+                  .collection('globalPosts')
+                  .doc(postDTO.postID)
+                  .set(postDTO.copyWith(postUser: {
+                    'id': user.id!.getOrCrash(),
+                    'emailAddress': user.emailAddress,
+                    'photoUrl': user.photoUrl,
+                    'displayName': user.displayName
+                  }, postDateTime: DateTime.now()).toJson());
+            });
 
       return right(unit);
     } on PlatformException catch (e) {
@@ -176,6 +203,31 @@ class PostRepository implements IPostRepository {
         return left(const PostFailure.unableToUpdate());
       }
       return left(const PostFailure.unexpected());
+    }
+  }
+
+  @override
+  Stream<Either<PostFailure, List<Post>>> watchGlobalPosts() async* {
+    try {
+      final userDoc = await _firebaseFirestore.userDocument();
+      yield* _firebaseFirestore
+          .collection('globalPosts')
+          .orderBy('postDateTime', descending: true)
+          .snapshots()
+          .map((snapshot) => right<PostFailure, List<Post>>(snapshot.docs
+              .map((doc) => PostDTO.fromFirestore(doc).toDomain())
+              .toList()))
+          .onErrorReturnWith((error) {
+        log("There is an error 1");
+        log(error.toString());
+        if (error is PlatformException &&
+            error.message!.contains('PERMISSION_DENIED')) {
+          return left(const PostFailure.permissionDenied());
+        }
+        return left(const PostFailure.unexpected());
+      });
+    } catch (error) {
+      log(error.toString());
     }
   }
 }

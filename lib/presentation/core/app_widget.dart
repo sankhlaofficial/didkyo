@@ -1,6 +1,7 @@
 import 'package:didkyo/application/auth/auth/auth_bloc.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/splash/splash_page.dart';
+import 'package:didkyo/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -17,18 +18,7 @@ class AppWidget extends StatelessWidget {
       child: GetMaterialApp(
         title: 'didKyo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.light().copyWith(
-          floatingActionButtonTheme: const FloatingActionButtonThemeData()
-              .copyWith(backgroundColor: Colors.indigo),
-          appBarTheme: const AppBarTheme()
-              .copyWith(backgroundColor: const Color(0xff6ECCAF)),
-          primaryColor: const Color(0xff6ECCAF),
-          inputDecorationTheme: InputDecorationTheme(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ),
+        theme: AppTheme.lightTheme,
         home: SplashPage(),
       ),
     );

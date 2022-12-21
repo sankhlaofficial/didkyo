@@ -1,9 +1,7 @@
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
-import 'package:didkyo/presentation/posts/post_form/post_form_page.dart';
+import 'package:didkyo/presentation/helpers/presentation_helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 class PostCardWidget extends StatelessWidget {
   final Post cardPost;
@@ -13,50 +11,104 @@ class PostCardWidget extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Text(
-            cardPost.postCaption.getOrCrash(),
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          Container(
-            width: 400,
-            height: 200,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(cardPost.postImage.getOrCrash()))),
-          ),
-          Text(
-            cardPost.postLocation.getOrCrash(),
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(color: Colors.blue),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    final postActorBloc = context.bloc<PostActorBloc>();
-                    _showDeleteDialogBox(context, postActorBloc);
-                  },
-                  icon: const Icon(Icons.delete)),
-              const SizedBox(
-                width: 15,
+    Size size = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 28.0, horizontal: 10),
+      child: Container(
+        width: size.width * 0.8,
+        height: size.height * 0.52,
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardTheme.color,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.black,
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(4, 5))
+          ],
+        ),
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 8),
+              width: size.width * 0.9,
+              height: size.height * 0.4,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2),
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(cardPost.postImage.getOrCrash()))),
+            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     IconButton(
+            //         onPressed: () {
+            //           final postActorBloc = context.bloc<PostActorBloc>();
+            //           _showDeleteDialogBox(context, postActorBloc);
+            //         },
+            //         icon: const Icon(Icons.delete)),
+            //     const SizedBox(
+            //       width: 15,
+            //     ),
+            //     IconButton(
+            //         onPressed: () {
+            //           Get.to(() => PostFormPage(
+            //                 editedPost: cardPost,
+            //               ));
+            //         },
+            //         icon: const Icon(Icons.edit)),
+            //   ],
+            // )
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${cardPost.postUser!.displayName} ',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.push_pin_rounded,
+                              color: Colors.red,
+                            ),
+                          ),
+                          Text(
+                            cardPost.postLocation.getOrCrash(),
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        PresentationHelpers.formatDateTime(
+                            cardPost.postDateTime),
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              IconButton(
-                  onPressed: () {
-                    Get.to(() => PostFormPage(
-                          editedPost: cardPost,
-                        ));
-                  },
-                  icon: const Icon(Icons.edit)),
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -25,7 +25,17 @@ class PostWatcherBloc extends Bloc<PostWatcherEvent, PostWatcherState> {
 
   @override
   Stream<PostWatcherState> mapEventToState(PostWatcherEvent event) async* {
-    yield* event.map(watchAllStarted: (e) async* {
+    yield* event.map(watchGlobalStarted: (e) async* {
+      try {
+        yield const PostWatcherState.loadInProgress();
+        await _postStreamSubscription?.cancel();
+        _postStreamSubscription = _iPostRepository.watchGlobalPosts().listen(
+            (failureOrPosts) =>
+                add(PostWatcherEvent.postsReceived(failureOrPosts)));
+      } catch (e) {
+        log(e.toString());
+      }
+    }, watchAllStarted: (e) async* {
       try {
         yield const PostWatcherState.loadInProgress();
         await _postStreamSubscription?.cancel();

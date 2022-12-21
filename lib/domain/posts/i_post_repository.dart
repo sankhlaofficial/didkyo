@@ -4,6 +4,7 @@ import 'package:didkyo/domain/posts/post_failure.dart';
 
 abstract class IPostRepository {
   Stream<Either<PostFailure, List<Post>>> watchUserAllPosts();
+  Stream<Either<PostFailure, List<Post>>> watchGlobalPosts();
   Stream<Either<PostFailure, List<Post>>> watchUserLocationSpecificPosts(
       String selectedLocation);
   Future<Either<PostFailure, Unit>> createPost(Post post);

@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PostWatcherEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() watchGlobalStarted,
     required TResult Function() watchAllStarted,
     required TResult Function(String selectedLocation)
         watchLocationSpecificStarted,
@@ -27,6 +28,7 @@ mixin _$PostWatcherEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? watchGlobalStarted,
     TResult? Function()? watchAllStarted,
     TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
@@ -35,6 +37,7 @@ mixin _$PostWatcherEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? watchGlobalStarted,
     TResult Function()? watchAllStarted,
     TResult Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
@@ -44,6 +47,7 @@ mixin _$PostWatcherEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_WatchGlobalStarted value) watchGlobalStarted,
     required TResult Function(_WatchAllStarted value) watchAllStarted,
     required TResult Function(_WatchLocationSpecificStarted value)
         watchLocationSpecificStarted,
@@ -52,6 +56,7 @@ mixin _$PostWatcherEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_WatchGlobalStarted value)? watchGlobalStarted,
     TResult? Function(_WatchAllStarted value)? watchAllStarted,
     TResult? Function(_WatchLocationSpecificStarted value)?
         watchLocationSpecificStarted,
@@ -60,6 +65,7 @@ mixin _$PostWatcherEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_WatchGlobalStarted value)? watchGlobalStarted,
     TResult Function(_WatchAllStarted value)? watchAllStarted,
     TResult Function(_WatchLocationSpecificStarted value)?
         watchLocationSpecificStarted,
@@ -85,6 +91,127 @@ class _$PostWatcherEventCopyWithImpl<$Res, $Val extends PostWatcherEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_WatchGlobalStartedCopyWith<$Res> {
+  factory _$$_WatchGlobalStartedCopyWith(_$_WatchGlobalStarted value,
+          $Res Function(_$_WatchGlobalStarted) then) =
+      __$$_WatchGlobalStartedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_WatchGlobalStartedCopyWithImpl<$Res>
+    extends _$PostWatcherEventCopyWithImpl<$Res, _$_WatchGlobalStarted>
+    implements _$$_WatchGlobalStartedCopyWith<$Res> {
+  __$$_WatchGlobalStartedCopyWithImpl(
+      _$_WatchGlobalStarted _value, $Res Function(_$_WatchGlobalStarted) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_WatchGlobalStarted implements _WatchGlobalStarted {
+  const _$_WatchGlobalStarted();
+
+  @override
+  String toString() {
+    return 'PostWatcherEvent.watchGlobalStarted()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_WatchGlobalStarted);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() watchGlobalStarted,
+    required TResult Function() watchAllStarted,
+    required TResult Function(String selectedLocation)
+        watchLocationSpecificStarted,
+    required TResult Function(Either<PostFailure, List<Post>> failureOrPosts)
+        postsReceived,
+  }) {
+    return watchGlobalStarted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? watchGlobalStarted,
+    TResult? Function()? watchAllStarted,
+    TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
+    TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
+        postsReceived,
+  }) {
+    return watchGlobalStarted?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? watchGlobalStarted,
+    TResult Function()? watchAllStarted,
+    TResult Function(String selectedLocation)? watchLocationSpecificStarted,
+    TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
+        postsReceived,
+    required TResult orElse(),
+  }) {
+    if (watchGlobalStarted != null) {
+      return watchGlobalStarted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_WatchGlobalStarted value) watchGlobalStarted,
+    required TResult Function(_WatchAllStarted value) watchAllStarted,
+    required TResult Function(_WatchLocationSpecificStarted value)
+        watchLocationSpecificStarted,
+    required TResult Function(_PostsReceived value) postsReceived,
+  }) {
+    return watchGlobalStarted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_WatchGlobalStarted value)? watchGlobalStarted,
+    TResult? Function(_WatchAllStarted value)? watchAllStarted,
+    TResult? Function(_WatchLocationSpecificStarted value)?
+        watchLocationSpecificStarted,
+    TResult? Function(_PostsReceived value)? postsReceived,
+  }) {
+    return watchGlobalStarted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_WatchGlobalStarted value)? watchGlobalStarted,
+    TResult Function(_WatchAllStarted value)? watchAllStarted,
+    TResult Function(_WatchLocationSpecificStarted value)?
+        watchLocationSpecificStarted,
+    TResult Function(_PostsReceived value)? postsReceived,
+    required TResult orElse(),
+  }) {
+    if (watchGlobalStarted != null) {
+      return watchGlobalStarted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _WatchGlobalStarted implements PostWatcherEvent {
+  const factory _WatchGlobalStarted() = _$_WatchGlobalStarted;
 }
 
 /// @nodoc
@@ -125,6 +252,7 @@ class _$_WatchAllStarted implements _WatchAllStarted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() watchGlobalStarted,
     required TResult Function() watchAllStarted,
     required TResult Function(String selectedLocation)
         watchLocationSpecificStarted,
@@ -137,6 +265,7 @@ class _$_WatchAllStarted implements _WatchAllStarted {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? watchGlobalStarted,
     TResult? Function()? watchAllStarted,
     TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
@@ -148,6 +277,7 @@ class _$_WatchAllStarted implements _WatchAllStarted {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? watchGlobalStarted,
     TResult Function()? watchAllStarted,
     TResult Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
@@ -163,6 +293,7 @@ class _$_WatchAllStarted implements _WatchAllStarted {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_WatchGlobalStarted value) watchGlobalStarted,
     required TResult Function(_WatchAllStarted value) watchAllStarted,
     required TResult Function(_WatchLocationSpecificStarted value)
         watchLocationSpecificStarted,
@@ -174,6 +305,7 @@ class _$_WatchAllStarted implements _WatchAllStarted {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_WatchGlobalStarted value)? watchGlobalStarted,
     TResult? Function(_WatchAllStarted value)? watchAllStarted,
     TResult? Function(_WatchLocationSpecificStarted value)?
         watchLocationSpecificStarted,
@@ -185,6 +317,7 @@ class _$_WatchAllStarted implements _WatchAllStarted {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_WatchGlobalStarted value)? watchGlobalStarted,
     TResult Function(_WatchAllStarted value)? watchAllStarted,
     TResult Function(_WatchLocationSpecificStarted value)?
         watchLocationSpecificStarted,
@@ -271,6 +404,7 @@ class _$_WatchLocationSpecificStarted implements _WatchLocationSpecificStarted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() watchGlobalStarted,
     required TResult Function() watchAllStarted,
     required TResult Function(String selectedLocation)
         watchLocationSpecificStarted,
@@ -283,6 +417,7 @@ class _$_WatchLocationSpecificStarted implements _WatchLocationSpecificStarted {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? watchGlobalStarted,
     TResult? Function()? watchAllStarted,
     TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
@@ -294,6 +429,7 @@ class _$_WatchLocationSpecificStarted implements _WatchLocationSpecificStarted {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? watchGlobalStarted,
     TResult Function()? watchAllStarted,
     TResult Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
@@ -309,6 +445,7 @@ class _$_WatchLocationSpecificStarted implements _WatchLocationSpecificStarted {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_WatchGlobalStarted value) watchGlobalStarted,
     required TResult Function(_WatchAllStarted value) watchAllStarted,
     required TResult Function(_WatchLocationSpecificStarted value)
         watchLocationSpecificStarted,
@@ -320,6 +457,7 @@ class _$_WatchLocationSpecificStarted implements _WatchLocationSpecificStarted {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_WatchGlobalStarted value)? watchGlobalStarted,
     TResult? Function(_WatchAllStarted value)? watchAllStarted,
     TResult? Function(_WatchLocationSpecificStarted value)?
         watchLocationSpecificStarted,
@@ -331,6 +469,7 @@ class _$_WatchLocationSpecificStarted implements _WatchLocationSpecificStarted {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_WatchGlobalStarted value)? watchGlobalStarted,
     TResult Function(_WatchAllStarted value)? watchAllStarted,
     TResult Function(_WatchLocationSpecificStarted value)?
         watchLocationSpecificStarted,
@@ -419,6 +558,7 @@ class _$_PostsReceived implements _PostsReceived {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() watchGlobalStarted,
     required TResult Function() watchAllStarted,
     required TResult Function(String selectedLocation)
         watchLocationSpecificStarted,
@@ -431,6 +571,7 @@ class _$_PostsReceived implements _PostsReceived {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? watchGlobalStarted,
     TResult? Function()? watchAllStarted,
     TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
@@ -442,6 +583,7 @@ class _$_PostsReceived implements _PostsReceived {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? watchGlobalStarted,
     TResult Function()? watchAllStarted,
     TResult Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
@@ -457,6 +599,7 @@ class _$_PostsReceived implements _PostsReceived {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_WatchGlobalStarted value) watchGlobalStarted,
     required TResult Function(_WatchAllStarted value) watchAllStarted,
     required TResult Function(_WatchLocationSpecificStarted value)
         watchLocationSpecificStarted,
@@ -468,6 +611,7 @@ class _$_PostsReceived implements _PostsReceived {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_WatchGlobalStarted value)? watchGlobalStarted,
     TResult? Function(_WatchAllStarted value)? watchAllStarted,
     TResult? Function(_WatchLocationSpecificStarted value)?
         watchLocationSpecificStarted,
@@ -479,6 +623,7 @@ class _$_PostsReceived implements _PostsReceived {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_WatchGlobalStarted value)? watchGlobalStarted,
     TResult Function(_WatchAllStarted value)? watchAllStarted,
     TResult Function(_WatchLocationSpecificStarted value)?
         watchLocationSpecificStarted,
