@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/domain/core/failures.dart';
 import 'package:didkyo/domain/core/value_objects.dart';
 import 'package:didkyo/domain/posts/value_objects.dart';
@@ -14,8 +15,8 @@ abstract class Post implements _$Post {
     required PostCaption postCaption,
     required PostImageURL postImage,
     required PostLocation postLocation,
-
-    // required DateTime postDateTime,
+    User? postUser,
+    required DateTime postDateTime,
     // required List<PostComment> postComments,
   }) = _Post;
 
@@ -24,8 +25,10 @@ abstract class Post implements _$Post {
         postCaption: PostCaption(''),
         postLocation: PostLocation(''),
         postImage: PostImageURL(''),
+        postUser: User(
+            id: UniqueId(), displayName: "", emailAddress: "", photoUrl: ""),
 
-        // postDateTime: DateTime.now(),
+        postDateTime: DateTime.now(),
         // postComments: []
       );
 

@@ -19,7 +19,8 @@ abstract class PostDTO implements _$PostDTO {
     required String postID,
     required String postImageURL,
     required String postLocation,
-    // required DateTime postDateTime,
+    Map? postUser,
+    required DateTime postDateTime,
     // required Map<String, dynamic> postUser,
     // required List<CommentDTO> postComments}
   }) = _PostDTO;
@@ -30,7 +31,8 @@ abstract class PostDTO implements _$PostDTO {
       postID: post.postID.getOrCrash(),
       postImageURL: post.postImage.getOrCrash(),
       postLocation: post.postLocation.getOrCrash(),
-      // postDateTime: post.postDateTime,
+
+      postDateTime: post.postDateTime,
       // postUser: FirebaseUserDomainX.userToMap(post.postUser),
       // postComments: post.postComments
       //     .map((comment) => CommentDTO.fromDomain(comment))
@@ -47,18 +49,14 @@ abstract class PostDTO implements _$PostDTO {
       postCaption: PostCaption(postCaption),
       postImage: PostImageURL(postImageURL),
       postLocation: PostLocation(postLocation),
-      // postUser: User(
-      //     id: UniqueId.fromUniqueString(postUser['userID']),
-      //     emailAddress: postUser['userEmail'],
-      //     photoUrl: postUser['userPicture'],
-      //     displayName: postUser['userName']),
-      // postDateTime: postDateTime,
+      postUser: FirebaseUserDomainX.mapToUser(postUser),
+      postDateTime: postDateTime,
       // postComments:
       //     postComments.map((commentDTO) => commentDTO.toDomain()).toList()
     );
   }
 
-  factory PostDTO.fromFirestore(DocumentSnapshot<Object?> snapshot) {
+  factory PostDTO.fromFirestore(DocumentSnapshot<dynamic> snapshot) {
     return PostDTO.fromJson(snapshot.data() as Map<String, dynamic>)
         .copyWith(postID: snapshot.id);
   }

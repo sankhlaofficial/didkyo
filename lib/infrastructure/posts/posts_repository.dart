@@ -89,16 +89,30 @@ class PostRepository implements IPostRepository {
                   .ref(
                       'users/${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
                   .getDownloadURL();
-              await userDoc.postsCollection
-                  .doc(postDTO.postID)
-                  .set(postDTO.copyWith(postImageURL: downloadURL).toJson());
+              await userDoc.postsCollection.doc(postDTO.postID).set(postDTO
+                  .copyWith(
+                      postImageURL: downloadURL,
+                      postUser: {
+                        'id': user.id!.getOrCrash(),
+                        'emailAddress': user.emailAddress,
+                        'photoUrl': user.photoUrl,
+                        'displayName': user.displayName
+                      },
+                      postDateTime: DateTime.now())
+                  .toJson());
             })
           : await userDoc.postsCollection
               .doc(postDTO.postID)
-              .set(postDTO.toJson());
+              .set(postDTO.copyWith(postUser: {
+                'id': user.id!.getOrCrash(),
+                'emailAddress': user.emailAddress,
+                'photoUrl': user.photoUrl,
+                'displayName': user.displayName
+              }, postDateTime: DateTime.now()).toJson());
 
       return right(unit);
     } on PlatformException catch (e) {
+      log(e.toString());
       if (e.message!.contains('PERMISSION_DENIED')) {
         return left(const PostFailure.permissionDenied());
       }
@@ -132,7 +146,6 @@ class PostRepository implements IPostRepository {
       final user = userOption.getOrElse(() => throw NotAuthenticatedError());
       try {
         final fileName = File(post.postImage.getOrCrash());
-        log(fileName.toString());
         bool doesFileExist = await fileName.exists();
 
         doesFileExist

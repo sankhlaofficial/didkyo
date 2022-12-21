@@ -5,6 +5,7 @@ import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/posts/post_form/post_form_page.dart';
 import 'package:didkyo/presentation/posts/user_posts/widgets/user_posts_body.dart';
+import 'package:didkyo/presentation/profile/profile_overview.dart';
 import 'package:didkyo/presentation/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,8 @@ class UserPostsPage extends StatelessWidget {
               const PostWatcherEvent.watchAllStarted(),
             ),
         ),
-        BlocProvider<PostActorBloc>(create: (context) => getIt<PostActorBloc>())
+        BlocProvider<PostActorBloc>(
+            create: (context) => getIt<PostActorBloc>()),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -67,6 +69,13 @@ class UserPostsPage extends StatelessWidget {
               },
               icon: const Icon(Icons.logout_rounded),
             ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.to(() => ProfileOverview());
+                  },
+                  icon: const Icon(Icons.person))
+            ],
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {

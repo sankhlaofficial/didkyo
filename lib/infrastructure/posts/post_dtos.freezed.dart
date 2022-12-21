@@ -24,6 +24,8 @@ mixin _$PostDTO {
   String get postID => throw _privateConstructorUsedError;
   String get postImageURL => throw _privateConstructorUsedError;
   String get postLocation => throw _privateConstructorUsedError;
+  Map<dynamic, dynamic>? get postUser => throw _privateConstructorUsedError;
+  DateTime get postDateTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,7 +41,9 @@ abstract class $PostDTOCopyWith<$Res> {
       {String postCaption,
       String postID,
       String postImageURL,
-      String postLocation});
+      String postLocation,
+      Map<dynamic, dynamic>? postUser,
+      DateTime postDateTime});
 }
 
 /// @nodoc
@@ -59,6 +63,8 @@ class _$PostDTOCopyWithImpl<$Res, $Val extends PostDTO>
     Object? postID = null,
     Object? postImageURL = null,
     Object? postLocation = null,
+    Object? postUser = freezed,
+    Object? postDateTime = null,
   }) {
     return _then(_value.copyWith(
       postCaption: null == postCaption
@@ -77,6 +83,14 @@ class _$PostDTOCopyWithImpl<$Res, $Val extends PostDTO>
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
               as String,
+      postUser: freezed == postUser
+          ? _value.postUser
+          : postUser // ignore: cast_nullable_to_non_nullable
+              as Map<dynamic, dynamic>?,
+      postDateTime: null == postDateTime
+          ? _value.postDateTime
+          : postDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -92,7 +106,9 @@ abstract class _$$_PostDTOCopyWith<$Res> implements $PostDTOCopyWith<$Res> {
       {String postCaption,
       String postID,
       String postImageURL,
-      String postLocation});
+      String postLocation,
+      Map<dynamic, dynamic>? postUser,
+      DateTime postDateTime});
 }
 
 /// @nodoc
@@ -109,6 +125,8 @@ class __$$_PostDTOCopyWithImpl<$Res>
     Object? postID = null,
     Object? postImageURL = null,
     Object? postLocation = null,
+    Object? postUser = freezed,
+    Object? postDateTime = null,
   }) {
     return _then(_$_PostDTO(
       postCaption: null == postCaption
@@ -127,6 +145,14 @@ class __$$_PostDTOCopyWithImpl<$Res>
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
               as String,
+      postUser: freezed == postUser
+          ? _value._postUser
+          : postUser // ignore: cast_nullable_to_non_nullable
+              as Map<dynamic, dynamic>?,
+      postDateTime: null == postDateTime
+          ? _value.postDateTime
+          : postDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -138,8 +164,11 @@ class _$_PostDTO extends _PostDTO {
       {required this.postCaption,
       required this.postID,
       required this.postImageURL,
-      required this.postLocation})
-      : super._();
+      required this.postLocation,
+      final Map<dynamic, dynamic>? postUser,
+      required this.postDateTime})
+      : _postUser = postUser,
+        super._();
 
   factory _$_PostDTO.fromJson(Map<String, dynamic> json) =>
       _$$_PostDTOFromJson(json);
@@ -152,10 +181,22 @@ class _$_PostDTO extends _PostDTO {
   final String postImageURL;
   @override
   final String postLocation;
+  final Map<dynamic, dynamic>? _postUser;
+  @override
+  Map<dynamic, dynamic>? get postUser {
+    final value = _postUser;
+    if (value == null) return null;
+    if (_postUser is EqualUnmodifiableMapView) return _postUser;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  @override
+  final DateTime postDateTime;
 
   @override
   String toString() {
-    return 'PostDTO(postCaption: $postCaption, postID: $postID, postImageURL: $postImageURL, postLocation: $postLocation)';
+    return 'PostDTO(postCaption: $postCaption, postID: $postID, postImageURL: $postImageURL, postLocation: $postLocation, postUser: $postUser, postDateTime: $postDateTime)';
   }
 
   @override
@@ -169,13 +210,22 @@ class _$_PostDTO extends _PostDTO {
             (identical(other.postImageURL, postImageURL) ||
                 other.postImageURL == postImageURL) &&
             (identical(other.postLocation, postLocation) ||
-                other.postLocation == postLocation));
+                other.postLocation == postLocation) &&
+            const DeepCollectionEquality().equals(other._postUser, _postUser) &&
+            (identical(other.postDateTime, postDateTime) ||
+                other.postDateTime == postDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, postCaption, postID, postImageURL, postLocation);
+  int get hashCode => Object.hash(
+      runtimeType,
+      postCaption,
+      postID,
+      postImageURL,
+      postLocation,
+      const DeepCollectionEquality().hash(_postUser),
+      postDateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -196,7 +246,9 @@ abstract class _PostDTO extends PostDTO {
       {required final String postCaption,
       required final String postID,
       required final String postImageURL,
-      required final String postLocation}) = _$_PostDTO;
+      required final String postLocation,
+      final Map<dynamic, dynamic>? postUser,
+      required final DateTime postDateTime}) = _$_PostDTO;
   const _PostDTO._() : super._();
 
   factory _PostDTO.fromJson(Map<String, dynamic> json) = _$_PostDTO.fromJson;
@@ -209,6 +261,10 @@ abstract class _PostDTO extends PostDTO {
   String get postImageURL;
   @override
   String get postLocation;
+  @override
+  Map<dynamic, dynamic>? get postUser;
+  @override
+  DateTime get postDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_PostDTOCopyWith<_$_PostDTO> get copyWith =>
