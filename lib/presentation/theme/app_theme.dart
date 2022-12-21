@@ -6,7 +6,9 @@ class AppTheme {
 
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    appBarTheme: AppBarTheme(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Color(0xffFF6D28), foregroundColor: Colors.white),
+    appBarTheme: const AppBarTheme(
       centerTitle: true,
       elevation: 0,
       foregroundColor: Colors.black,
@@ -26,7 +28,7 @@ class AppTheme {
       color: Color(0xffE6DDC4),
     ),
     iconTheme: const IconThemeData(
-      color: Colors.white54,
+      color: Colors.red,
     ),
     textTheme: const TextTheme(
         titleMedium: TextStyle(
@@ -63,13 +65,9 @@ class AppTheme {
     ),
     textTheme: const TextTheme(
       titleMedium: TextStyle(
-        color: Colors.white,
-        fontSize: 20.0,
-      ),
+          color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w700),
       titleSmall: TextStyle(
-        color: Colors.white70,
-        fontSize: 18.0,
-      ),
+          color: Colors.white70, fontSize: 18.0, fontWeight: FontWeight.w600),
     ),
   );
 }

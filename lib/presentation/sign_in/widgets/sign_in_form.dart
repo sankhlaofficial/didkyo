@@ -1,7 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:didkyo/application/auth/auth/auth_bloc.dart';
 import 'package:didkyo/application/auth/sign_in_form/sign_in_form_bloc.dart';
-import 'package:didkyo/presentation/posts/global_posts/global_posts_page.dart';
+import 'package:didkyo/presentation/core/app_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -32,7 +32,7 @@ class SignInForm extends StatelessWidget {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(snackBar);
                 }, (_) {
-                  Get.offAll(() => GlobalPostsPage());
+                  Get.offAll(() => AppHome());
                   context
                       .bloc<AuthBloc>()
                       .add(const AuthEvent.authCheckRequested());

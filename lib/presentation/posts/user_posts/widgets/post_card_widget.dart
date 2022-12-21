@@ -35,7 +35,7 @@ class PostCardWidget extends StatelessWidget {
               width: size.width * 0.9,
               height: size.height * 0.4,
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 2),
+                  border: Border.all(color: Colors.black, width: 2.5),
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
                       fit: BoxFit.fill,
@@ -80,12 +80,9 @@ class PostCardWidget extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.push_pin_rounded,
-                              color: Colors.red,
-                            ),
+                          const Icon(
+                            Icons.push_pin_rounded,
+                            color: Colors.red,
                           ),
                           Text(
                             cardPost.postLocation.getOrCrash(),
@@ -94,6 +91,9 @@ class PostCardWidget extends StatelessWidget {
                         ],
                       )
                     ],
+                  ),
+                  const SizedBox(
+                    height: 15,
                   ),
                   Row(
                     children: [
