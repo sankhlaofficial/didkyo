@@ -1,4 +1,5 @@
 import 'package:didkyo/domain/posts/post.dart';
+import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
 import 'package:flutter/material.dart';
 
 class PostFullScreen extends StatelessWidget {
@@ -14,12 +15,24 @@ class PostFullScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Theme.of(context).cardTheme.color,
       appBar: AppBar(
         title: Text(clickedPost.postLocation.getOrCrash()),
         centerTitle: true,
         actions: [
-          IconButton(
-              onPressed: () {}, icon: Icon(Icons.bookmark_border_rounded))
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ShadowContainer(
+              color: Theme.of(context).cardTheme.color!,
+              child: SizedBox(
+                width: 50,
+                height: 30,
+                child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.bookmark_border_rounded)),
+              ),
+            ),
+          )
         ],
       ),
       body: Column(
@@ -47,20 +60,48 @@ class PostFullScreen extends StatelessWidget {
                         NetworkImage(clickedPost.postUser!.photoUrl!),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Text(
-                  clickedPost.postUser!.displayName!,
-                  style: Theme.of(context).textTheme.titleMedium,
+                ShadowContainer(
+                  color: Colors.white,
+                  child: Container(
+                    width: size.width / 2.5,
+                    height: size.height / 13,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.black)),
+                    child: Center(
+                      child: Text(
+                        clickedPost.postUser!.displayName!,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 70),
-            width: size.width,
-            child: Text(clickedPost.postCaption.getOrCrash()),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10),
+            child: ShadowContainer(
+              color: Colors.yellow,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.yellow,
+                    borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.all(20),
+                height: size.height / 4,
+                width: size.width,
+                child: Text(
+                  clickedPost.postCaption.getOrCrash(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontWeight: FontWeight.w400),
+                ),
+              ),
+            ),
           )
         ],
       ),

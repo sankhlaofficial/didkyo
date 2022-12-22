@@ -3,7 +3,6 @@ import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/posts/global_posts/widgets/global_posts_body.dart';
 import 'package:didkyo/presentation/posts/user_posts/widgets/custom_container.dart';
-import 'package:didkyo/presentation/profile/profile_overview.dart';
 import 'package:didkyo/presentation/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,16 +45,6 @@ class GlobalPostsPage extends StatelessWidget {
                 icon: const Icon(Icons.logout_rounded),
               ),
             ),
-            actions: [
-              CustomContainer(
-                containerColor: Colors.yellow,
-                containerChild: IconButton(
-                    onPressed: () {
-                      Get.to(() => ProfileOverview());
-                    },
-                    icon: const Icon(Icons.person)),
-              )
-            ],
           ),
           body: GlobalPostsBody(),
         ),
