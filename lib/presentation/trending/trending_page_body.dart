@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:didkyo/application/analysis/analysis_bloc.dart';
 import 'package:didkyo/presentation/trending/widgets/trending_card_grid.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TrendingPageBody extends StatelessWidget {
   const TrendingPageBody({Key? key}) : super(key: key);
+
+  Map sortData(Map input) {
+    return Map.fromEntries(
+        input.entries.toList()..sort((e2, e1) => e1.value.compareTo(e2.value)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +24,12 @@ class TrendingPageBody extends StatelessWidget {
                 ),
               ),
           loadSuccess: (state) {
+            final data = state.trendingData;
+            final sortedData = sortData(data);
+            log(sortedData.toString());
             return Center(
                 child: TrendingCardsGrid(
-              trendingData: state.trendingData,
+              trendingData: sortedData,
             ));
           },
           loadFailure: (_) => const Center(
