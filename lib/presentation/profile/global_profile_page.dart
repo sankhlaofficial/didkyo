@@ -1,3 +1,4 @@
+import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
 import 'package:didkyo/presentation/posts/user_posts/widgets/custom_container.dart';
 import 'package:flutter/material.dart';
 
@@ -23,36 +24,65 @@ class GlobalProfilePage extends StatelessWidget {
                   IconButton(onPressed: () {}, icon: Icon(Icons.settings)))
         ],
       ),
-      body: Stack(children: [
-        Container(
-          alignment: Alignment.center,
-          width: size.width,
-          height: size.height / 3,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.fill, image: NetworkImage(sampleWallpaper))),
-        ),
-        // Container(
-        //   alignment: Alignment.bottomCenter,
-        //   width: size.width,
-        //   height: 0,
-        //   decoration: BoxDecoration(
-        //       border: Border.all(color: Colors.black, width: 2)),
-        // ),
-        Positioned(
-          bottom: size.height / 2300,
-          left: size.width * 0.3,
-          child: Container(
-            alignment: Alignment.bottomCenter,
-            width: size.width / 3,
-            height: size.height / 7,
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 1.5),
-                image: DecorationImage(
-                    fit: BoxFit.fill, image: NetworkImage(sampleProfileImage))),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: size.width,
+                height: size.height / 2,
+                child: Stack(
+                    alignment: Alignment.topCenter,
+                    fit: StackFit.loose,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        width: size.width,
+                        height: size.height / 3,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(sampleWallpaper))),
+                      ),
+                      Positioned(
+                        bottom: 140,
+                        child: Container(
+                          width: size.width,
+                          height: 0,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black, width: 2)),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 85,
+                        child: ShadowContainer(
+                          child: Container(
+                            width: size.width / 3,
+                            height: size.height / 7,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border:
+                                    Border.all(color: Colors.black, width: 1.5),
+                                image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(sampleProfileImage))),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          width: size.width,
+                          height: size.height / 13,
+                        ),
+                      ),
+                    ]),
+              ),
+            ],
           ),
-        )
-      ]),
+        ],
+      ),
     );
   }
 }
