@@ -45,29 +45,48 @@ class _AppHomeState extends State<AppHome> {
         backgroundColor: const Color(0xff80558C),
         type: BottomNavigationBarType.fixed,
         selectedIconTheme: const IconThemeData(color: Colors.amberAccent),
-        items: const [
+        items: [
           BottomNavigationBarItem(
             label: 'Home',
             icon: CustomBottomNavItem(
-              navIcon: Icons.home,
-              containerColor: Colors.black,
+              navIcon: _selectedIndex == 0 ? Icons.home : Icons.home_outlined,
+              iconColor:
+                  _selectedIndex == 0 ? const Color(0xff80558C) : Colors.black,
+              containerColor:
+                  _selectedIndex == 0 ? Colors.black : Colors.transparent,
             ),
           ),
           BottomNavigationBarItem(
             label: 'Settings',
             icon: CustomBottomNavItem(
-                navIcon: Icons.person_rounded, containerColor: Colors.black),
+              navIcon: _selectedIndex == 1
+                  ? Icons.person_rounded
+                  : Icons.person_outlined,
+              iconColor:
+                  _selectedIndex == 1 ? const Color(0xff80558C) : Colors.black,
+              containerColor:
+                  _selectedIndex == 1 ? Colors.black : Colors.transparent,
+            ),
           ),
           BottomNavigationBarItem(
             label: 'Settings',
             icon: CustomBottomNavItem(
-                navIcon: Icons.settings, containerColor: Colors.black),
+              navIcon: Icons.settings,
+              containerColor:
+                  _selectedIndex == 2 ? Colors.black : Colors.transparent,
+              iconColor:
+                  _selectedIndex == 2 ? const Color(0xff80558C) : Colors.black,
+            ),
           ),
           BottomNavigationBarItem(
             label: 'Profile',
             icon: CustomBottomNavItem(
                 navIcon: Icons.trending_up_rounded,
-                containerColor: Colors.black),
+                iconColor: _selectedIndex == 3
+                    ? const Color(0xff80558C)
+                    : Colors.black,
+                containerColor:
+                    _selectedIndex == 3 ? Colors.black : Colors.transparent),
           ),
         ],
       ),
@@ -83,10 +102,12 @@ class CustomBottomNavItem extends StatelessWidget {
     super.key,
     required this.navIcon,
     required this.containerColor,
+    required this.iconColor,
   });
 
   final IconData navIcon;
   final Color containerColor;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +119,7 @@ class CustomBottomNavItem extends StatelessWidget {
           color: containerColor, borderRadius: BorderRadius.circular(10)),
       child: Icon(
         navIcon,
-        color: const Color(0xff80558C),
+        color: iconColor,
       ),
     );
   }
