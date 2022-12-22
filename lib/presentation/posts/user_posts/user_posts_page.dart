@@ -64,7 +64,7 @@ class UserPostsPage extends StatelessWidget {
           })
         ],
         child: Scaffold(
-          appBar: const CustomAppBar(appBarTitle: 'Your posts '),
+          appBar: CustomAppBar(appBarTitle: 'Your posts '),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               Get.to(() => const PostFormPage());

@@ -1,46 +1,64 @@
+import 'dart:developer';
+
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
+import 'package:didkyo/presentation/posts/location_posts/location_posts_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TrendingCardsGrid extends StatelessWidget {
   const TrendingCardsGrid({Key? key, required this.trendingData})
       : super(key: key);
   final Map trendingData;
+  static const List cardColors = [
+    Color(0xffFFD9C0),
+    Color(0xffF4BFBF),
+    Color(0xffCCF3EE),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        itemCount: trendingData.keys.toList().length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 1),
-        itemBuilder: (context, index) {
-          return InkWell(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
-              child: ShadowContainer(
-                color: Colors.white,
-                child: Container(
-                  width: 80,
-                  height: 150,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.black)),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(trendingData.keys.toList()[index]),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text('${trendingData.values.toList()[index]} posts'),
-                      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: GridView.builder(
+          itemCount: trendingData.keys.toList().length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, childAspectRatio: 0.8),
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                log(trendingData.keys.toList()[index]);
+                Get.to(() => LocationPostsPage(
+                    selectedLocation: trendingData.keys.toList()[index]));
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
+                child: ShadowContainer(
+                  color: cardColors[index],
+                  child: Container(
+                    width: 40,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: cardColors[index],
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.black)),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(trendingData.keys.toList()[index]),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text('${trendingData.values.toList()[index]} posts'),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        });
+            );
+          }),
+    );
   }
 }

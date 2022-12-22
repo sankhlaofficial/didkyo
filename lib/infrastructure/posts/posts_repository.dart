@@ -50,7 +50,9 @@ class PostRepository implements IPostRepository {
   Stream<Either<PostFailure, List<Post>>> watchUserLocationSpecificPosts(
       String selectedLocation) async* {
     final userDoc = await _firebaseFirestore.userDocument();
-    yield* userDoc.postsCollection
+    yield* _firebaseFirestore
+        .collection('globalPosts')
+        .where('postLocation', isEqualTo: selectedLocation)
         .orderBy('postDateTime', descending: true)
         .snapshots()
         .map(

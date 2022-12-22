@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  const CustomAppBar({
+  CustomAppBar({
     Key? key,
+    this.backButtonEnabled = true,
     required this.appBarTitle,
   }) : super(key: key);
 
   final String appBarTitle;
+  bool backButtonEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +19,18 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         appBarTitle,
         style: Theme.of(context).textTheme.headline6,
       ),
-      leading: CustomContainer(
-        containerColor: Colors.transparent,
-        containerChild: IconButton(
-          onPressed: () {
-            Get.back();
-            // context.bloc<AuthBloc>().add(const AuthEvent.signedOut());
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-      ),
+      leading: backButtonEnabled
+          ? CustomContainer(
+              containerColor: Colors.transparent,
+              containerChild: IconButton(
+                onPressed: () {
+                  Get.back();
+                  // context.bloc<AuthBloc>().add(const AuthEvent.signedOut());
+                },
+                icon: const Icon(Icons.arrow_back),
+              ),
+            )
+          : null,
     );
   }
 

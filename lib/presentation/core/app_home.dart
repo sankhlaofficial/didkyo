@@ -23,8 +23,8 @@ class _AppHomeState extends State<AppHome> {
 
   static final List<Widget> _pages = <Widget>[
     GlobalPostsPage(),
+    TrendingPage(),
     ProfileOverview(),
-    TrendingPage()
   ];
 
   @override
@@ -62,8 +62,8 @@ class _AppHomeState extends State<AppHome> {
             label: 'Settings',
             icon: CustomBottomNavItem(
               navIcon: _selectedIndex == 1
-                  ? Icons.person_rounded
-                  : Icons.person_outlined,
+                  ? Icons.trending_up_rounded
+                  : Icons.trending_up_outlined,
               iconColor:
                   _selectedIndex == 1 ? const Color(0xff80558C) : Colors.black,
               containerColor:
@@ -73,7 +73,9 @@ class _AppHomeState extends State<AppHome> {
           BottomNavigationBarItem(
             label: 'Settings',
             icon: CustomBottomNavItem(
-              navIcon: Icons.settings,
+              navIcon: _selectedIndex == 2
+                  ? Icons.person_rounded
+                  : Icons.person_outlined,
               containerColor:
                   _selectedIndex == 2 ? Colors.black : Colors.transparent,
               iconColor:
@@ -83,7 +85,9 @@ class _AppHomeState extends State<AppHome> {
           BottomNavigationBarItem(
             label: 'Profile',
             icon: CustomBottomNavItem(
-                navIcon: Icons.trending_up_rounded,
+                navIcon: _selectedIndex == 3
+                    ? Icons.settings_rounded
+                    : Icons.settings_outlined,
                 iconColor: _selectedIndex == 3
                     ? const Color(0xff80558C)
                     : Colors.black,

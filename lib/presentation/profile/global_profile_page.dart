@@ -1,7 +1,6 @@
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
 import 'package:didkyo/presentation/posts/user_posts/user_posts_page.dart';
-import 'package:didkyo/presentation/posts/user_posts/widgets/custom_container.dart';
 import 'package:didkyo/presentation/profile/widgets/stats_container.dart';
 import 'package:didkyo/presentation/profile/widgets/verfied_check.dart';
 import 'package:didkyo/presentation/profile/widgets/your_posts_bar.dart';
@@ -19,23 +18,18 @@ class GlobalProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Color(0xffF8ECD1),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
-        title: Text("My profile"),
+        title: const Text("My profile"),
         centerTitle: true,
-        actions: [
-          CustomContainer(
-              containerColor: Colors.red,
-              containerChild:
-                  IconButton(onPressed: () {}, icon: Icon(Icons.settings)))
-        ],
       ),
       body: Column(
         children: [
           Stack(
             children: [
-              Container(
+              SizedBox(
                 width: size.width,
                 height: size.height / 2.5,
                 child: Stack(
@@ -46,7 +40,7 @@ class GlobalProfilePage extends StatelessWidget {
                         alignment: Alignment.center,
                         width: size.width,
                         height: size.height / 3,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             image: DecorationImage(
                                 fit: BoxFit.fill,
                                 image: NetworkImage(sampleWallpaper))),
@@ -80,7 +74,7 @@ class GlobalProfilePage extends StatelessWidget {
                       ),
                       Positioned(
                         bottom: 0,
-                        child: Container(
+                        child: SizedBox(
                           width: size.width,
                           height: size.height / 13,
                         ),
@@ -89,7 +83,7 @@ class GlobalProfilePage extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Row(
@@ -102,7 +96,7 @@ class GlobalProfilePage extends StatelessWidget {
                     .titleMedium!
                     .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               const VerfiedCheck()
@@ -139,7 +133,7 @@ class GlobalProfilePage extends StatelessWidget {
             children: [
               YourPostsBar(
                 onTap: () {
-                  Get.to(() => UserPostsPage(
+                  Get.to(() => const UserPostsPage(
                         appBarTitle: "Your posts",
                       ));
                 },
@@ -149,7 +143,7 @@ class GlobalProfilePage extends StatelessWidget {
               ),
               YourPostsBar(
                 onTap: () {},
-                color: Color(0xffB2C8DF),
+                color: const Color(0xffB2C8DF),
                 size: size,
                 title: "Saved Posts",
               ),
