@@ -3,8 +3,8 @@ import 'package:didkyo/application/auth/auth/auth_bloc.dart';
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
 import 'package:didkyo/injection.dart';
+import 'package:didkyo/presentation/global_widgets/custom_app_bar.dart';
 import 'package:didkyo/presentation/posts/post_form/post_form_page.dart';
-import 'package:didkyo/presentation/posts/user_posts/widgets/custom_container.dart';
 import 'package:didkyo/presentation/posts/user_posts/widgets/user_posts_body.dart';
 import 'package:didkyo/presentation/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
@@ -64,22 +64,7 @@ class UserPostsPage extends StatelessWidget {
           })
         ],
         child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              appBarTitle,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            leading: CustomContainer(
-              containerColor: Colors.transparent,
-              containerChild: IconButton(
-                onPressed: () {
-                  Get.back();
-                  // context.bloc<AuthBloc>().add(const AuthEvent.signedOut());
-                },
-                icon: const Icon(Icons.arrow_back),
-              ),
-            ),
-          ),
+          appBar: const CustomAppBar(appBarTitle: 'Your posts '),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               Get.to(() => const PostFormPage());

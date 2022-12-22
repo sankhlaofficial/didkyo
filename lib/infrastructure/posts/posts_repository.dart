@@ -104,17 +104,25 @@ class PostRepository implements IPostRepository {
                           postDateTime: DateTime.now())
                       .toJson())
                   .whenComplete(() async {
-                await userDoc.postsCollection.doc(postDTO.postID).set(postDTO
-                    .copyWith(
-                        postImageURL: downloadURL,
-                        postUser: {
-                          'id': user.id!.getOrCrash(),
-                          'emailAddress': user.emailAddress,
-                          'photoUrl': user.photoUrl,
-                          'displayName': user.displayName
-                        },
-                        postDateTime: DateTime.now())
-                    .toJson());
+                await userDoc.postsCollection
+                    .doc(postDTO.postID)
+                    .set(postDTO
+                        .copyWith(
+                            postImageURL: downloadURL,
+                            postUser: {
+                              'id': user.id!.getOrCrash(),
+                              'emailAddress': user.emailAddress,
+                              'photoUrl': user.photoUrl,
+                              'displayName': user.displayName
+                            },
+                            postDateTime: DateTime.now())
+                        .toJson())
+                    .whenComplete(() async {
+                  await _firebaseFirestore
+                      .collection('analytics')
+                      .doc('places')
+                      .update({postDTO.postLocation: FieldValue.increment(1)});
+                });
               });
             })
           : await userDoc.postsCollection
@@ -134,7 +142,13 @@ class PostRepository implements IPostRepository {
                     'emailAddress': user.emailAddress,
                     'photoUrl': user.photoUrl,
                     'displayName': user.displayName
-                  }, postDateTime: DateTime.now()).toJson());
+                  }, postDateTime: DateTime.now()).toJson())
+                  .whenComplete(() async {
+                await _firebaseFirestore
+                    .collection('analytics')
+                    .doc('places')
+                    .update({postDTO.postLocation: FieldValue.increment(1)});
+              });
             });
 
       return right(unit);

@@ -6,7 +6,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:cloud_firestore/cloud_firestore.dart' as _i4;
-import 'package:didkyo/application/auth/auth/auth_bloc.dart' as _i18;
+import 'package:didkyo/application/analysis/analysis_bloc.dart' as _i21;
+import 'package:didkyo/application/auth/auth/auth_bloc.dart' as _i20;
 import 'package:didkyo/application/auth/sign_in_form/sign_in_form_bloc.dart'
     as _i16;
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart'
@@ -15,12 +16,16 @@ import 'package:didkyo/application/posts/post_form/post_form_bloc.dart' as _i14;
 import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart'
     as _i15;
 import 'package:didkyo/application/user/user_bloc.dart' as _i17;
+import 'package:didkyo/domain/analytics/analytics_repository_facade.dart'
+    as _i18;
 import 'package:didkyo/domain/auth/i_auth_facade.dart' as _i7;
 import 'package:didkyo/domain/posts/i_post_repository.dart' as _i9;
 import 'package:didkyo/domain/userData/i_user_repository.dart' as _i11;
+import 'package:didkyo/infrastructure/analytics/analytics_repository.dart'
+    as _i19;
 import 'package:didkyo/infrastructure/auth/firebase_auth_facade.dart' as _i8;
 import 'package:didkyo/infrastructure/core/firebase_injectable_module.dart'
-    as _i19;
+    as _i22;
 import 'package:didkyo/infrastructure/posts/posts_repository.dart' as _i10;
 import 'package:didkyo/infrastructure/userData/userData_repository.dart'
     as _i12;
@@ -74,13 +79,17 @@ _i1.GetIt init(
   gh.factory<_i16.SignInFormBloc>(
       () => _i16.SignInFormBloc(gh<_i7.IAuthFacade>()));
   gh.factory<_i17.UserBloc>(() => _i17.UserBloc());
-  gh.factory<_i18.AuthBloc>(() => _i18.AuthBloc(gh<_i7.IAuthFacade>()));
+  gh.lazySingleton<_i18.AnalyticsRepositoryFacade>(
+      () => _i19.AnalyticsRepository(gh<_i4.FirebaseFirestore>()));
+  gh.factory<_i20.AuthBloc>(() => _i20.AuthBloc(gh<_i7.IAuthFacade>()));
+  gh.factory<_i21.AnalysisBloc>(
+      () => _i21.AnalysisBloc(gh<_i18.AnalyticsRepositoryFacade>()));
   return getIt;
 }
 
-class _$FirebaseInjectableModule extends _i19.FirebaseInjectableModule {}
+class _$FirebaseInjectableModule extends _i22.FirebaseInjectableModule {}
 
-class _$FireStoreInjectableModule extends _i19.FireStoreInjectableModule {}
+class _$FireStoreInjectableModule extends _i22.FireStoreInjectableModule {}
 
 class _$FirebaseStorageInjectableModule
-    extends _i19.FirebaseStorageInjectableModule {}
+    extends _i22.FirebaseStorageInjectableModule {}
