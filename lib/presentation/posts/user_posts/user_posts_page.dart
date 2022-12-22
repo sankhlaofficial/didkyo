@@ -6,13 +6,15 @@ import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/posts/post_form/post_form_page.dart';
 import 'package:didkyo/presentation/posts/user_posts/widgets/custom_container.dart';
 import 'package:didkyo/presentation/posts/user_posts/widgets/user_posts_body.dart';
-import 'package:didkyo/presentation/profile/profile_overview.dart';
 import 'package:didkyo/presentation/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class UserPostsPage extends StatelessWidget {
+  final String appBarTitle;
+
+  const UserPostsPage({super.key, required this.appBarTitle});
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -64,28 +66,19 @@ class UserPostsPage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'User Created Posts',
+              appBarTitle,
               style: Theme.of(context).textTheme.headline6,
             ),
             leading: CustomContainer(
               containerColor: Colors.transparent,
               containerChild: IconButton(
                 onPressed: () {
-                  context.bloc<AuthBloc>().add(const AuthEvent.signedOut());
+                  Get.back();
+                  // context.bloc<AuthBloc>().add(const AuthEvent.signedOut());
                 },
-                icon: const Icon(Icons.logout_rounded),
+                icon: const Icon(Icons.arrow_back),
               ),
             ),
-            actions: [
-              CustomContainer(
-                containerColor: Colors.yellow,
-                containerChild: IconButton(
-                    onPressed: () {
-                      Get.to(() => ProfileOverview());
-                    },
-                    icon: const Icon(Icons.person)),
-              )
-            ],
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {

@@ -1,9 +1,16 @@
+import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
+import 'package:didkyo/presentation/posts/user_posts/user_posts_page.dart';
 import 'package:didkyo/presentation/posts/user_posts/widgets/custom_container.dart';
+import 'package:didkyo/presentation/profile/widgets/stats_container.dart';
+import 'package:didkyo/presentation/profile/widgets/verfied_check.dart';
+import 'package:didkyo/presentation/profile/widgets/your_posts_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GlobalProfilePage extends StatelessWidget {
-  const GlobalProfilePage({Key? key}) : super(key: key);
+  final User user;
+  const GlobalProfilePage({Key? key, required this.user}) : super(key: key);
   static const String sampleWallpaper =
       'https://img.freepik.com/premium-photo/watercolor-grunge-background-yellow-colors-vintage-poster-banner-scrapbook-page-handmade-aged-paper-texture-retro-style-can-be-used-cards-invitations-web_154156-5525.jpg';
   static const String sampleProfileImage =
@@ -30,7 +37,7 @@ class GlobalProfilePage extends StatelessWidget {
             children: [
               Container(
                 width: size.width,
-                height: size.height / 2,
+                height: size.height / 2.5,
                 child: Stack(
                     alignment: Alignment.topCenter,
                     fit: StackFit.loose,
@@ -45,7 +52,7 @@ class GlobalProfilePage extends StatelessWidget {
                                 image: NetworkImage(sampleWallpaper))),
                       ),
                       Positioned(
-                        bottom: 140,
+                        bottom: 55,
                         child: Container(
                           width: size.width,
                           height: 0,
@@ -55,8 +62,9 @@ class GlobalProfilePage extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        bottom: 85,
+                        bottom: 15,
                         child: ShadowContainer(
+                          color: Colors.transparent,
                           child: Container(
                             width: size.width / 3,
                             height: size.height / 7,
@@ -66,7 +74,7 @@ class GlobalProfilePage extends StatelessWidget {
                                     Border.all(color: Colors.black, width: 1.5),
                                 image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(sampleProfileImage))),
+                                    image: NetworkImage(user.photoUrl!))),
                           ),
                         ),
                       ),
@@ -78,6 +86,72 @@ class GlobalProfilePage extends StatelessWidget {
                         ),
                       ),
                     ]),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                user.displayName!,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              const VerfiedCheck()
+            ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              StatsContainer(
+                size: size,
+                number: "1000",
+                factor: "followers",
+              ),
+              StatsContainer(
+                size: size,
+                number: "50",
+                factor: "posts",
+              ),
+              StatsContainer(
+                size: size,
+                number: "120",
+                factor: "following",
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              YourPostsBar(
+                onTap: () {
+                  Get.to(() => UserPostsPage(
+                        appBarTitle: "Your posts",
+                      ));
+                },
+                color: Colors.yellow,
+                size: size,
+                title: "Your Posts",
+              ),
+              YourPostsBar(
+                onTap: () {},
+                color: Color(0xffB2C8DF),
+                size: size,
+                title: "Saved Posts",
               ),
             ],
           ),

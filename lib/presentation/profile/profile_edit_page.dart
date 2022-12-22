@@ -1,4 +1,5 @@
 import 'package:didkyo/application/user/user_bloc.dart';
+import 'package:didkyo/presentation/profile/global_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,8 +17,8 @@ class ProfileEditPage extends StatelessWidget {
                 ),
               ),
           loadSuccess: (state) {
-            return Center(
-              child: Text(state.user.id!.getOrCrash()),
+            return GlobalProfilePage(
+              user: state.user,
             );
           },
           loadFailure: (_) => const Center(
