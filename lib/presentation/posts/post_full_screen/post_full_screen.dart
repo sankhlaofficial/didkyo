@@ -15,7 +15,6 @@ class PostFullScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Theme.of(context).cardTheme.color,
       appBar: AppBar(
         title: Text(clickedPost.postLocation.getOrCrash()),
         centerTitle: true,

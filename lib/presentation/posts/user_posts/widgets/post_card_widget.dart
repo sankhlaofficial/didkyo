@@ -26,8 +26,7 @@ class PostCardWidget extends StatelessWidget {
           width: size.width * 0.8,
           height: size.height * 0.52,
           decoration: BoxDecoration(
-            color: Theme.of(context).cardTheme.color,
-            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
             boxShadow: const [
               BoxShadow(
                   color: Colors.black,
@@ -44,7 +43,6 @@ class PostCardWidget extends StatelessWidget {
                 height: size.height * 0.4,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black, width: 2.5),
-                    borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: NetworkImage(cardPost.postImage.getOrCrash()))),

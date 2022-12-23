@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   //
   AppTheme._();
 
   static final ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Color(0xffF8EDE3),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Color(0xffFF6D28), foregroundColor: Colors.white),
     appBarTheme: const AppBarTheme(
@@ -30,16 +31,14 @@ class AppTheme {
     iconTheme: const IconThemeData(
       color: Colors.red,
     ),
-    textTheme: const TextTheme(
-        titleMedium: TextStyle(
-          color: Colors.black,
-          fontSize: 17.0,
-        ),
-        titleSmall: TextStyle(
-          color: Colors.black,
-          fontSize: 14.0,
-        ),
-        titleLarge: TextStyle(
+    textTheme: TextTheme(
+        displayMedium:
+            GoogleFonts.aladin(fontSize: 23, fontWeight: FontWeight.w800),
+        titleMedium:
+            GoogleFonts.sacramento(fontSize: 23, fontWeight: FontWeight.w800),
+        titleSmall:
+            GoogleFonts.sacramento(fontSize: 10, fontWeight: FontWeight.w800),
+        titleLarge: const TextStyle(
             color: Colors.black, fontSize: 20, fontWeight: FontWeight.w700)),
   );
 

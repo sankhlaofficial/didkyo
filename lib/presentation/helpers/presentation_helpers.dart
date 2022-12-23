@@ -6,6 +6,6 @@ class PresentationHelpers {
     final String hour = dateTime.hour.toString();
     final String minute = dateTime.minute.toString();
 
-    return date + '/' + month + '/' + year + ' at ' + hour + ':' + minute;
+    return date + '/' + month + '/' + year;
   }
 }

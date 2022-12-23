@@ -18,6 +18,8 @@ class GlobalPostsBody extends StatelessWidget {
               )),
           loadSuccess: (state) {
             return ListView.builder(
+                // shrinkWrap: true,
+                // scrollDirection: Axis.horizontal,
                 itemCount: state.posts.length,
                 itemBuilder: (context, index) {
                   final post = state.posts[index];

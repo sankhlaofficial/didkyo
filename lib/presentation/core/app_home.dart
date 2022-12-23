@@ -1,6 +1,7 @@
 import 'package:didkyo/presentation/posts/global_posts/global_posts_page.dart';
 import 'package:didkyo/presentation/posts/post_form/post_form_page.dart';
 import 'package:didkyo/presentation/profile/profile_overview.dart';
+import 'package:didkyo/presentation/settings/user_provider.dart';
 import 'package:didkyo/presentation/trending/trending_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,7 @@ class _AppHomeState extends State<AppHome> {
     GlobalPostsPage(),
     TrendingPage(),
     ProfileOverview(),
+    UserProvider()
   ];
 
   @override

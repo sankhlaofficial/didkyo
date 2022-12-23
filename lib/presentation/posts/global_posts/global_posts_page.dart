@@ -31,10 +31,12 @@ class GlobalPostsPage extends StatelessWidget {
           }),
         ],
         child: Scaffold(
+          extendBodyBehindAppBar: true,
           appBar: AppBar(
+            elevation: 0,
             title: Text(
               'All Posts',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             leading: CustomContainer(
               containerColor: Colors.transparent,
