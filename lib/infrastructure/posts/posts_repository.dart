@@ -75,8 +75,8 @@ class PostRepository implements IPostRepository {
   @override
   Future<Either<PostFailure, Unit>> createPost(Post post) async {
     try {
-      final userOption = await getIt<IAuthFacade>().getSignedInUser();
-      final user = userOption.getOrElse(() => throw NotAuthenticatedError());
+      final userOption = await getIt<IAuthFacade>().getCurrentUser();
+      final user = userOption;
       final userDoc = await _firebaseFirestore.userDocument();
       final postDTO = PostDTO.fromDomain(post);
       final fileName = File(post.postImage.getOrCrash());

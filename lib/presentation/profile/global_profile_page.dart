@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
 import 'package:didkyo/presentation/posts/user_posts/user_posts_page.dart';
@@ -12,10 +14,10 @@ class GlobalProfilePage extends StatelessWidget {
   const GlobalProfilePage({Key? key, required this.user}) : super(key: key);
   static const String sampleWallpaper =
       'https://img.freepik.com/premium-photo/watercolor-grunge-background-yellow-colors-vintage-poster-banner-scrapbook-page-handmade-aged-paper-texture-retro-style-can-be-used-cards-invitations-web_154156-5525.jpg';
-  static const String sampleProfileImage =
-      'https://img.freepik.com/free-photo/half-profile-image-handsome-young-caucasian-man-with-good-skin-brown-eyes-black-stylish-hair-stubble-posing-isolated-against-blank-wall-looking-front-him-smiling_343059-4560.jpg?w=2000';
+
   @override
   Widget build(BuildContext context) {
+    log(user.photoUrl!);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xffF8ECD1),

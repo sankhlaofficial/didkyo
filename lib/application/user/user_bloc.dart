@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:didkyo/domain/auth/i_auth_facade.dart';
 import 'package:didkyo/domain/auth/user.dart';
-import 'package:didkyo/domain/core/errors.dart';
 import 'package:didkyo/injection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -26,8 +25,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     yield* event.map(
       watchUserStarted: (e) async* {
         yield const UserState.loadInProgress();
-        final userOption = await getIt<IAuthFacade>().getSignedInUser();
-        final user = userOption.getOrElse(() => throw NotAuthenticatedError());
+        final userOption = await getIt<IAuthFacade>().getCurrentUser();
+        final user = userOption;
 
         add(UserEvent.userReceived(user));
       },

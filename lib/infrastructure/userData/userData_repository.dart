@@ -65,4 +65,22 @@ class UserDataRepository implements IUserRepository {
       log(error.toString());
     }
   }
+
+  @override
+  Future<User> fetchUser(String userId) async {
+    final userData = await _firebaseFirestore
+        .collection('users')
+        .doc(userId)
+        .get()
+        .then((DocumentSnapshot doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      return UserDTO.toDomain(data);
+      ;
+    }).catchError((error) {
+      log(error.toString());
+    });
+    log(userData.toString());
+
+    return userData;
+  }
 }

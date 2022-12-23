@@ -1,4 +1,5 @@
 import 'package:didkyo/domain/auth/user.dart';
+import 'package:didkyo/domain/core/value_objects.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_dto.freezed.dart';
@@ -14,6 +15,15 @@ abstract class UserDTO implements _$UserDTO {
     required String photoUrl,
     required String emailAddress,
   }) = _UserDTO;
+
+  static User toDomain(Map<String, dynamic> data) {
+    return User(
+      id: UniqueId.fromUniqueString(data['id']),
+      displayName: data['displayName'],
+      photoUrl: data['photoUrl'],
+      emailAddress: data['emailAddress'],
+    );
+  }
 
   factory UserDTO.fromDomain(User user) {
     return UserDTO(
