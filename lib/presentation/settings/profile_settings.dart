@@ -2,6 +2,7 @@ import 'package:didkyo/application/user_settings/user_settings_bloc.dart';
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/settings/widgets/name_field.dart';
+import 'package:didkyo/presentation/settings/widgets/sign_out_button.dart';
 import 'package:didkyo/presentation/settings/widgets/userImageField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -104,6 +105,7 @@ class UserSettingsPageScaffold extends StatelessWidget {
                 children: [
                   NameField(),
                   UserImageField(),
+                  const SignOutButton()
                 ],
               ),
             ),

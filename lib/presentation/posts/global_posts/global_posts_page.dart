@@ -2,7 +2,6 @@ import 'package:didkyo/application/auth/auth/auth_bloc.dart';
 import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/posts/global_posts/widgets/global_posts_body.dart';
-import 'package:didkyo/presentation/posts/user_posts/widgets/custom_container.dart';
 import 'package:didkyo/presentation/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,15 +36,6 @@ class GlobalPostsPage extends StatelessWidget {
             title: Text(
               'All Posts',
               style: Theme.of(context).textTheme.displayMedium,
-            ),
-            leading: CustomContainer(
-              containerColor: Colors.transparent,
-              containerChild: IconButton(
-                onPressed: () {
-                  context.bloc<AuthBloc>().add(const AuthEvent.signedOut());
-                },
-                icon: const Icon(Icons.logout_rounded),
-              ),
             ),
           ),
           body: GlobalPostsBody(),
