@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
+import 'package:didkyo/presentation/posts/location_posts/location_posts_page.dart';
+import 'package:didkyo/presentation/profile/global_profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PostFullScreen extends StatelessWidget {
   const PostFullScreen({Key? key, required this.clickedPost}) : super(key: key);
@@ -13,6 +18,7 @@ class PostFullScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(clickedPost.postUser.toString());
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -21,14 +27,22 @@ class PostFullScreen extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ShadowContainer(
-              color: Theme.of(context).cardTheme.color!,
-              child: SizedBox(
-                width: 50,
-                height: 30,
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.bookmark_border_rounded)),
+            child: InkWell(
+              onTap: () {
+                Get.to(() => LocationPostsPage(
+                    selectedLocation: clickedPost.postLocation.getOrCrash()));
+              },
+              child: ShadowContainer(
+                color: Theme.of(context).cardTheme.color!,
+                child: SizedBox(
+                    width: 140,
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                          child: Text(
+                              "See all ${clickedPost.postLocation.getOrCrash()} posts")),
+                    )),
               ),
             ),
           )
@@ -50,13 +64,20 @@ class PostFullScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: 25,
-                  backgroundColor: Colors.black,
+                InkWell(
+                  onTap: () {
+                    Get.to(() => GlobalProfilePage(
+                          user: clickedPost.postUser!,
+                        ));
+                  },
                   child: CircleAvatar(
-                    radius: 23,
-                    backgroundImage:
-                        NetworkImage(clickedPost.postUser!.photoUrl!),
+                    radius: 25,
+                    backgroundColor: Colors.black,
+                    child: CircleAvatar(
+                      radius: 23,
+                      backgroundImage:
+                          NetworkImage(clickedPost.postUser!.photoUrl!),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -71,9 +92,16 @@ class PostFullScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: Colors.black)),
                     child: Center(
-                      child: Text(
-                        clickedPost.postUser!.displayName!,
-                        style: Theme.of(context).textTheme.titleMedium,
+                      child: TextButton(
+                        onPressed: () {
+                          Get.to(() => GlobalProfilePage(
+                                user: clickedPost.postUser!,
+                              ));
+                        },
+                        child: Text(
+                          clickedPost.postUser!.displayName!,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                       ),
                     ),
                   ),
