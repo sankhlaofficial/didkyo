@@ -15,14 +15,14 @@ class StatsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       width: size.width / 3.5,
       height: size.height / 11,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black, width: 2),
           borderRadius: BorderRadius.circular(7),
           color: Colors.white,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
                 color: Colors.black,
                 spreadRadius: 0.1,
@@ -35,14 +35,14 @@ class StatsContainer extends StatelessWidget {
             number,
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Text(
             factor,
             style: Theme.of(context)
                 .textTheme
-                .bodySmall!
+                .displayMedium!
                 .copyWith(fontSize: 15, color: Colors.grey),
           )
         ],

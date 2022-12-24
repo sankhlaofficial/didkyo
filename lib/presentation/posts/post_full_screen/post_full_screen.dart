@@ -22,7 +22,10 @@ class PostFullScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(clickedPost.postLocation.getOrCrash()),
+        title: Text(
+          clickedPost.postLocation.getOrCrash(),
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
         centerTitle: true,
         actions: [
           Padding(

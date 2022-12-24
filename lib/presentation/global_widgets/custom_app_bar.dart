@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       title: Text(
         appBarTitle,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.displayMedium,
       ),
       leading: backButtonEnabled
           ? CustomContainer(

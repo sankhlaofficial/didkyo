@@ -24,7 +24,10 @@ class GlobalProfilePage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
-        title: const Text("My profile"),
+        title: Text(
+          "My profile",
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
         centerTitle: true,
       ),
       body: Column(

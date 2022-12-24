@@ -37,7 +37,9 @@ class LocationPostsPage extends StatelessWidget {
           }),
         ],
         child: Scaffold(
-          appBar: CustomAppBar(appBarTitle: selectedLocation),
+          appBar: CustomAppBar(
+            appBarTitle: selectedLocation,
+          ),
           body: UserPostsBody(),
         ),
       ),

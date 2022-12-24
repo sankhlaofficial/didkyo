@@ -130,7 +130,10 @@ class PostFormPageScaffold extends StatelessWidget {
           condition: (previousState, currentState) =>
               previousState.isEditing != currentState.isEditing,
           builder: (context, state) {
-            return Text(state.isEditing ? 'Edit the post' : 'Create a post');
+            return Text(
+              state.isEditing ? 'Edit the post' : 'Create a post',
+              style: Theme.of(context).textTheme.displayMedium,
+            );
           },
         ),
       ),

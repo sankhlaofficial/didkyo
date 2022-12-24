@@ -46,7 +46,10 @@ class TrendingCardsGrid extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(trendingData.keys.toList()[index]),
+                          Text(
+                            trendingData.keys.toList()[index],
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
                           const SizedBox(
                             height: 20,
                           ),
