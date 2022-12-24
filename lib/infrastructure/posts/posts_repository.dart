@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:didkyo/domain/auth/i_auth_facade.dart';
-import 'package:didkyo/domain/core/errors.dart';
 import 'package:didkyo/domain/posts/i_post_repository.dart';
 import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/domain/posts/post_failure.dart';
@@ -185,8 +184,8 @@ class PostRepository implements IPostRepository {
     try {
       final userDoc = await _firebaseFirestore.userDocument();
       final postDTO = PostDTO.fromDomain(post);
-      final userOption = await getIt<IAuthFacade>().getSignedInUser();
-      final user = userOption.getOrElse(() => throw NotAuthenticatedError());
+      final userOption = await getIt<IAuthFacade>().getCurrentUser();
+      final user = userOption;
       try {
         final fileName = File(post.postImage.getOrCrash());
         bool doesFileExist = await fileName.exists();

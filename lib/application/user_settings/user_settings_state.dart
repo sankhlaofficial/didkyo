@@ -5,7 +5,6 @@ abstract class UserSettingsState with _$UserSettingsState {
   const factory UserSettingsState({
     required User user,
     required bool showErrorMessages,
-    required bool isEditing,
     required bool isSaving,
   }) = _UserSettingsState;
 
@@ -16,7 +15,6 @@ abstract class UserSettingsState with _$UserSettingsState {
             photoUrl: '',
             emailAddress: ''),
         showErrorMessages: false,
-        isEditing: false,
         isSaving: false,
       );
 }

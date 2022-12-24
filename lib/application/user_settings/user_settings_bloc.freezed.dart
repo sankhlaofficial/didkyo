@@ -651,7 +651,6 @@ abstract class _PostSaved implements UserSettingsEvent {
 mixin _$UserSettingsState {
   User get user => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
-  bool get isEditing => throw _privateConstructorUsedError;
   bool get isSaving => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -665,7 +664,7 @@ abstract class $UserSettingsStateCopyWith<$Res> {
           UserSettingsState value, $Res Function(UserSettingsState) then) =
       _$UserSettingsStateCopyWithImpl<$Res, UserSettingsState>;
   @useResult
-  $Res call({User user, bool showErrorMessages, bool isEditing, bool isSaving});
+  $Res call({User user, bool showErrorMessages, bool isSaving});
 
   $UserCopyWith<$Res> get user;
 }
@@ -685,7 +684,6 @@ class _$UserSettingsStateCopyWithImpl<$Res, $Val extends UserSettingsState>
   $Res call({
     Object? user = null,
     Object? showErrorMessages = null,
-    Object? isEditing = null,
     Object? isSaving = null,
   }) {
     return _then(_value.copyWith(
@@ -696,10 +694,6 @@ class _$UserSettingsStateCopyWithImpl<$Res, $Val extends UserSettingsState>
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isEditing: null == isEditing
-          ? _value.isEditing
-          : isEditing // ignore: cast_nullable_to_non_nullable
               as bool,
       isSaving: null == isSaving
           ? _value.isSaving
@@ -725,7 +719,7 @@ abstract class _$$_UserSettingsStateCopyWith<$Res>
       __$$_UserSettingsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({User user, bool showErrorMessages, bool isEditing, bool isSaving});
+  $Res call({User user, bool showErrorMessages, bool isSaving});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -744,7 +738,6 @@ class __$$_UserSettingsStateCopyWithImpl<$Res>
   $Res call({
     Object? user = null,
     Object? showErrorMessages = null,
-    Object? isEditing = null,
     Object? isSaving = null,
   }) {
     return _then(_$_UserSettingsState(
@@ -755,10 +748,6 @@ class __$$_UserSettingsStateCopyWithImpl<$Res>
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isEditing: null == isEditing
-          ? _value.isEditing
-          : isEditing // ignore: cast_nullable_to_non_nullable
               as bool,
       isSaving: null == isSaving
           ? _value.isSaving
@@ -774,7 +763,6 @@ class _$_UserSettingsState implements _UserSettingsState {
   const _$_UserSettingsState(
       {required this.user,
       required this.showErrorMessages,
-      required this.isEditing,
       required this.isSaving});
 
   @override
@@ -782,13 +770,11 @@ class _$_UserSettingsState implements _UserSettingsState {
   @override
   final bool showErrorMessages;
   @override
-  final bool isEditing;
-  @override
   final bool isSaving;
 
   @override
   String toString() {
-    return 'UserSettingsState(user: $user, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSaving: $isSaving)';
+    return 'UserSettingsState(user: $user, showErrorMessages: $showErrorMessages, isSaving: $isSaving)';
   }
 
   @override
@@ -799,15 +785,13 @@ class _$_UserSettingsState implements _UserSettingsState {
             (identical(other.user, user) || other.user == user) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
                 other.showErrorMessages == showErrorMessages) &&
-            (identical(other.isEditing, isEditing) ||
-                other.isEditing == isEditing) &&
             (identical(other.isSaving, isSaving) ||
                 other.isSaving == isSaving));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, user, showErrorMessages, isEditing, isSaving);
+      Object.hash(runtimeType, user, showErrorMessages, isSaving);
 
   @JsonKey(ignore: true)
   @override
@@ -821,15 +805,12 @@ abstract class _UserSettingsState implements UserSettingsState {
   const factory _UserSettingsState(
       {required final User user,
       required final bool showErrorMessages,
-      required final bool isEditing,
       required final bool isSaving}) = _$_UserSettingsState;
 
   @override
   User get user;
   @override
   bool get showErrorMessages;
-  @override
-  bool get isEditing;
   @override
   bool get isSaving;
   @override

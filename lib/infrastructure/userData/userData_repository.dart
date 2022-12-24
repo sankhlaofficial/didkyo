@@ -2,12 +2,9 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:didkyo/domain/auth/i_auth_facade.dart';
 import 'package:didkyo/domain/auth/user.dart';
-import 'package:didkyo/domain/core/errors.dart';
 import 'package:didkyo/domain/userData/i_user_repository.dart';
 import 'package:didkyo/infrastructure/userData/user_dto.dart';
-import 'package:didkyo/injection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 
@@ -31,13 +28,10 @@ class UserDataRepository implements IUserRepository {
 
   @override
   Future<void> updateUser(User user) async {
-    final userOption = await getIt<IAuthFacade>().getSignedInUser();
-
-    final user = userOption.getOrElse(() => throw NotAuthenticatedError());
-    final userID = user.id!.getOrCrash();
-
     final userDTO = UserDTO.fromDomain(user);
 
+    final userID = userDTO.id;
+    log(userID);
     try {
       final fileName = File(user.photoUrl!);
       bool doesFileExist = await fileName.exists();

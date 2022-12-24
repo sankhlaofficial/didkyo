@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/domain/core/value_objects.dart';
@@ -21,23 +23,21 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
   @override
   Stream<UserSettingsState> mapEventToState(UserSettingsEvent event) async* {
     yield* event.map(initialized: (e) async* {
-      yield state.copyWith(user: e.initialUserData, isEditing: true);
+      yield state.copyWith(user: e.initialUserData);
     }, nameChanged: (e) async* {
       yield state.copyWith(user: state.user.copyWith(displayName: e.newName));
+      log('FROM HERE' + state.user.toString());
     }, imageChanged: (e) async* {
-      yield state.copyWith(
-          user: state.user.copyWith(displayName: e.newImagePath));
+      yield state.copyWith(user: state.user.copyWith(photoUrl: e.newImagePath));
     }, saved: (e) async* {
       yield state.copyWith(
         isSaving: true,
       );
-      if (state.isEditing) {
-        await _userRepository.updateUser(state.user);
-        yield state.copyWith(
-          isSaving: false,
-          showErrorMessages: true,
-        );
-      }
+
+      await _userRepository.updateUser(state.user);
+      log("SAVED....${state.user}");
+
+      yield state.copyWith(isSaving: false);
     });
   }
 }

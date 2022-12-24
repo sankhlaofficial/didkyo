@@ -11,24 +11,42 @@ class UserImageField extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<UserSettingsBloc, UserSettingsState>(
-        listenWhen: (p, c) => p.isEditing != c.isEditing,
         listener: (context, state) {
-          postImage = state.user.photoUrl!;
-        },
-        buildWhen: (p, c) => p.isEditing != c.isEditing,
-        builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(10),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-              ),
-              width: size.width,
-              height: size.height / 4,
-              child: postImage == ""
-                  ? Center(
+      postImage = state.user.photoUrl!;
+    }, builder: (context, state) {
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+          ),
+          width: size.width,
+          height: size.height / 4,
+          child: postImage == ""
+              ? Center(
+                  child: IconButton(
+                    icon: const Icon(Icons.add_box_rounded),
+                    onPressed: () async {
+                      ImagePicker picker = ImagePicker();
+                      final XFile? image =
+                          await picker.pickImage(source: ImageSource.gallery);
+                      if (image != null) {
+                        context
+                            .bloc<UserSettingsBloc>()
+                            .add(UserSettingsEvent.imageChanged(image.path));
+                      }
+                    },
+                  ),
+                )
+              : Stack(
+                  children: [
+                    Positioned.fill(
+                        child: Image.network(
+                      postImage,
+                    )),
+                    Align(
+                      alignment: Alignment.bottomRight,
                       child: IconButton(
-                        icon: const Icon(Icons.add_box_rounded),
                         onPressed: () async {
                           ImagePicker picker = ImagePicker();
                           final XFile? image = await picker.pickImage(
@@ -36,39 +54,19 @@ class UserImageField extends StatelessWidget {
                           if (image != null) {
                             context.bloc<UserSettingsBloc>().add(
                                 UserSettingsEvent.imageChanged(image.path));
+                            log(state.user.photoUrl!);
                           }
                         },
+                        icon: const Icon(
+                          Icons.add_box_rounded,
+                          color: Colors.red,
+                        ),
                       ),
                     )
-                  : Stack(
-                      children: [
-                        Positioned.fill(
-                            child: Image.network(
-                          postImage,
-                        )),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: IconButton(
-                            onPressed: () async {
-                              ImagePicker picker = ImagePicker();
-                              final XFile? image = await picker.pickImage(
-                                  source: ImageSource.gallery);
-                              if (image != null) {
-                                context.bloc<UserSettingsBloc>().add(
-                                    UserSettingsEvent.imageChanged(image.path));
-                                log(state.user.photoUrl!);
-                              }
-                            },
-                            icon: const Icon(
-                              Icons.add_box_rounded,
-                              color: Colors.red,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-            ),
-          );
-        });
+                  ],
+                ),
+        ),
+      );
+    });
   }
 }

@@ -10,7 +10,6 @@ class NameField extends HookWidget {
     final textEditingController = useTextEditingController();
     Size size = MediaQuery.of(context).size;
     return BlocListener<UserSettingsBloc, UserSettingsState>(
-      condition: (p, c) => p.isEditing != c.isEditing,
       listener: (context, state) {
         textEditingController.text = state.user.displayName!;
       },

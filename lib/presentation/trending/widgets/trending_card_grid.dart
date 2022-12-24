@@ -22,7 +22,7 @@ class TrendingCardsGrid extends StatelessWidget {
       child: GridView.builder(
           itemCount: trendingData.keys.toList().length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: 0.8),
+              crossAxisCount: 2),
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
@@ -34,12 +34,12 @@ class TrendingCardsGrid extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
                 child: ShadowContainer(
-                  color: cardColors[index],
+                  color: cardColors[0],
                   child: Container(
                     width: 40,
                     height: 100,
                     decoration: BoxDecoration(
-                        color: cardColors[index],
+                        color: cardColors[0],
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: Colors.black)),
                     child: Center(

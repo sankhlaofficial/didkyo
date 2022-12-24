@@ -99,18 +99,37 @@ class FirebaseAuthFacade implements IAuthFacade {
   Future<Option<user.User>> getSignedInUser() async {
     if (_firebaseAuth.currentUser?.photoURL != null &&
         _firebaseAuth.currentUser?.displayName != null) {
-      try {
-        await UserDataRepository(_firebaseFirestore, _firebaseStorage)
-            .createNewUser(
-                _firebaseAuth.currentUser?.email,
-                _firebaseAuth.currentUser?.displayName,
-                _firebaseAuth.currentUser?.photoURL,
-                _firebaseAuth.currentUser?.uid);
-      } catch (error) {
-        log(error.toString());
+      final user = await getCurrentUser();
+
+      log('current user' + user.toString());
+
+      if (user == null) {
+        try {
+          log("making user as new");
+
+          await UserDataRepository(_firebaseFirestore, _firebaseStorage)
+              .createNewUser(
+                  _firebaseAuth.currentUser?.email,
+                  _firebaseAuth.currentUser?.displayName,
+                  _firebaseAuth.currentUser?.photoURL,
+                  _firebaseAuth.currentUser?.uid);
+        } catch (error) {
+          log(error.toString());
+        }
+      } else {
+        try {
+          log("making user as new");
+
+          await UserDataRepository(_firebaseFirestore, _firebaseStorage)
+              .createNewUser(_firebaseAuth.currentUser?.email, user.displayName,
+                  user.photoUrl, _firebaseAuth.currentUser?.uid);
+        } catch (error) {
+          log(error.toString());
+        }
       }
     } else {
       try {
+        log("making user as new else");
         await UserDataRepository(_firebaseFirestore, _firebaseStorage)
             .createNewUser(
                 _firebaseAuth.currentUser?.email,
@@ -121,6 +140,7 @@ class FirebaseAuthFacade implements IAuthFacade {
         log(error.toString());
       }
     }
+
     return optionOf(_firebaseAuth.currentUser?.toDomain());
   }
 
@@ -130,30 +150,30 @@ class FirebaseAuthFacade implements IAuthFacade {
 
   @override
   Future<user.User> getCurrentUser() async {
-    if (_firebaseAuth.currentUser?.photoURL != null &&
-        _firebaseAuth.currentUser?.displayName != null) {
-      try {
-        await UserDataRepository(_firebaseFirestore, _firebaseStorage)
-            .createNewUser(
-                _firebaseAuth.currentUser?.email,
-                _firebaseAuth.currentUser?.displayName,
-                _firebaseAuth.currentUser?.photoURL,
-                _firebaseAuth.currentUser?.uid);
-      } catch (error) {
-        log(error.toString());
-      }
-    } else {
-      try {
-        await UserDataRepository(_firebaseFirestore, _firebaseStorage)
-            .createNewUser(
-                _firebaseAuth.currentUser?.email,
-                _firebaseAuth.currentUser?.email,
-                anonymousPicture,
-                _firebaseAuth.currentUser?.uid);
-      } catch (error) {
-        log(error.toString());
-      }
-    }
+    // if (_firebaseAuth.currentUser?.photoURL != null &&
+    //     _firebaseAuth.currentUser?.displayName != null) {
+    //   try {
+    //     await UserDataRepository(_firebaseFirestore, _firebaseStorage)
+    //         .createNewUser(
+    //             _firebaseAuth.currentUser?.email,
+    //             _firebaseAuth.currentUser?.displayName,
+    //             _firebaseAuth.currentUser?.photoURL,
+    //             _firebaseAuth.currentUser?.uid);
+    //   } catch (error) {
+    //     log(error.toString());
+    //   }
+    // } else {
+    //   try {
+    //     await UserDataRepository(_firebaseFirestore, _firebaseStorage)
+    //         .createNewUser(
+    //             _firebaseAuth.currentUser?.email,
+    //             _firebaseAuth.currentUser?.email,
+    //             anonymousPicture,
+    //             _firebaseAuth.currentUser?.uid);
+    //   } catch (error) {
+    //     log(error.toString());
+    //   }
+    // }
     return UserDataRepository(_firebaseFirestore, _firebaseStorage)
         .fetchUser(_firebaseAuth.currentUser!.uid);
   }
