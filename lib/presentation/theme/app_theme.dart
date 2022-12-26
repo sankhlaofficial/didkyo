@@ -45,7 +45,11 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,
     appBarTheme: const AppBarTheme(
-      color: Colors.black,
+      centerTitle: true,
+      elevation: 0,
+      shadowColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
+      color: Colors.transparent,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
@@ -62,11 +66,13 @@ class AppTheme {
     iconTheme: const IconThemeData(
       color: Colors.white54,
     ),
-    textTheme: const TextTheme(
-      titleMedium: TextStyle(
-          color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w700),
-      titleSmall: TextStyle(
-          color: Colors.white70, fontSize: 18.0, fontWeight: FontWeight.w600),
+    textTheme: TextTheme(
+      displayMedium: GoogleFonts.aladin(
+          fontSize: 23, fontWeight: FontWeight.w800, color: Colors.white),
+      titleMedium:
+          GoogleFonts.sacramento(fontSize: 23, fontWeight: FontWeight.w800),
+      titleSmall:
+          GoogleFonts.sacramento(fontSize: 10, fontWeight: FontWeight.w800),
     ),
   );
 }

@@ -30,7 +30,7 @@ _$_CommentDTO _$$_CommentDTOFromJson(Map<String, dynamic> json) =>
       commentID: json['commentID'] as String,
       commentMessage: json['commentMessage'] as String,
       commentDateTime: DateTime.parse(json['commentDateTime'] as String),
-      commentUser: json['commentUser'] as Map<String, dynamic>,
+      commentUserId: json['commentUserId'] as String,
     );
 
 Map<String, dynamic> _$$_CommentDTOToJson(_$_CommentDTO instance) =>
@@ -38,5 +38,5 @@ Map<String, dynamic> _$$_CommentDTOToJson(_$_CommentDTO instance) =>
       'commentID': instance.commentID,
       'commentMessage': instance.commentMessage,
       'commentDateTime': instance.commentDateTime.toIso8601String(),
-      'commentUser': instance.commentUser,
+      'commentUserId': instance.commentUserId,
     };

@@ -10,5 +10,7 @@ abstract class User with _$User {
     required String? displayName,
     required String? emailAddress,
     required String? photoUrl,
+    required List<dynamic>? followers,
+    required List<dynamic>? following,
   }) = _User;
 }

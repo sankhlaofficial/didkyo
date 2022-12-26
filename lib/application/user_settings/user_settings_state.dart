@@ -13,7 +13,9 @@ abstract class UserSettingsState with _$UserSettingsState {
             id: UniqueId.fromUniqueString(''),
             displayName: '',
             photoUrl: '',
-            emailAddress: ''),
+            emailAddress: '',
+            followers: [],
+            following: []),
         showErrorMessages: false,
         isSaving: false,
       );

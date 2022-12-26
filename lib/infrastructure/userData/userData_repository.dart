@@ -16,13 +16,20 @@ class UserDataRepository implements IUserRepository {
   UserDataRepository(this._firebaseFirestore, this._firebaseStorage);
 
   @override
-  Future<void> createNewUser(String? emailAddress, String? displayName,
-      String? photoUrl, String? id) async {
+  Future<void> createNewUser(
+      String? emailAddress,
+      String? displayName,
+      String? photoUrl,
+      String? id,
+      List<dynamic>? followers,
+      List<dynamic>? following) async {
     await _firebaseFirestore.collection('users').doc(id).set({
       'id': id,
       'emailAddress': emailAddress,
       'displayName': displayName,
-      'photoUrl': photoUrl
+      'photoUrl': photoUrl,
+      'followers': followers,
+      'following': following
     });
   }
 
@@ -62,6 +69,7 @@ class UserDataRepository implements IUserRepository {
 
   @override
   Future<User> fetchUser(String userId) async {
+    log("running fetch ser");
     final userData = await _firebaseFirestore
         .collection('users')
         .doc(userId)
@@ -69,9 +77,8 @@ class UserDataRepository implements IUserRepository {
         .then((DocumentSnapshot doc) {
       final data = doc.data() as Map<String, dynamic>;
       return UserDTO.toDomain(data);
-      ;
     }).catchError((error) {
-      log(error.toString());
+      log('fetch error' + error.toString());
     });
     log(userData.toString());
 

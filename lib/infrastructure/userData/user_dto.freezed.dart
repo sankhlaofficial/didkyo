@@ -24,6 +24,8 @@ mixin _$UserDTO {
   String get displayName => throw _privateConstructorUsedError;
   String get photoUrl => throw _privateConstructorUsedError;
   String get emailAddress => throw _privateConstructorUsedError;
+  List<dynamic> get followers => throw _privateConstructorUsedError;
+  List<dynamic> get following => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +38,12 @@ abstract class $UserDTOCopyWith<$Res> {
       _$UserDTOCopyWithImpl<$Res, UserDTO>;
   @useResult
   $Res call(
-      {String id, String displayName, String photoUrl, String emailAddress});
+      {String id,
+      String displayName,
+      String photoUrl,
+      String emailAddress,
+      List<dynamic> followers,
+      List<dynamic> following});
 }
 
 /// @nodoc
@@ -56,6 +63,8 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
     Object? displayName = null,
     Object? photoUrl = null,
     Object? emailAddress = null,
+    Object? followers = null,
+    Object? following = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -74,6 +83,14 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      followers: null == followers
+          ? _value.followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      following: null == following
+          ? _value.following
+          : following // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ) as $Val);
   }
 }
@@ -86,7 +103,12 @@ abstract class _$$_UserDTOCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id, String displayName, String photoUrl, String emailAddress});
+      {String id,
+      String displayName,
+      String photoUrl,
+      String emailAddress,
+      List<dynamic> followers,
+      List<dynamic> following});
 }
 
 /// @nodoc
@@ -103,6 +125,8 @@ class __$$_UserDTOCopyWithImpl<$Res>
     Object? displayName = null,
     Object? photoUrl = null,
     Object? emailAddress = null,
+    Object? followers = null,
+    Object? following = null,
   }) {
     return _then(_$_UserDTO(
       id: null == id
@@ -121,6 +145,14 @@ class __$$_UserDTOCopyWithImpl<$Res>
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      followers: null == followers
+          ? _value._followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      following: null == following
+          ? _value._following
+          : following // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ));
   }
 }
@@ -132,8 +164,12 @@ class _$_UserDTO extends _UserDTO {
       {required this.id,
       required this.displayName,
       required this.photoUrl,
-      required this.emailAddress})
-      : super._();
+      required this.emailAddress,
+      required final List<dynamic> followers,
+      required final List<dynamic> following})
+      : _followers = followers,
+        _following = following,
+        super._();
 
   factory _$_UserDTO.fromJson(Map<String, dynamic> json) =>
       _$$_UserDTOFromJson(json);
@@ -146,10 +182,25 @@ class _$_UserDTO extends _UserDTO {
   final String photoUrl;
   @override
   final String emailAddress;
+  final List<dynamic> _followers;
+  @override
+  List<dynamic> get followers {
+    if (_followers is EqualUnmodifiableListView) return _followers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_followers);
+  }
+
+  final List<dynamic> _following;
+  @override
+  List<dynamic> get following {
+    if (_following is EqualUnmodifiableListView) return _following;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_following);
+  }
 
   @override
   String toString() {
-    return 'UserDTO(id: $id, displayName: $displayName, photoUrl: $photoUrl, emailAddress: $emailAddress)';
+    return 'UserDTO(id: $id, displayName: $displayName, photoUrl: $photoUrl, emailAddress: $emailAddress, followers: $followers, following: $following)';
   }
 
   @override
@@ -163,13 +214,23 @@ class _$_UserDTO extends _UserDTO {
             (identical(other.photoUrl, photoUrl) ||
                 other.photoUrl == photoUrl) &&
             (identical(other.emailAddress, emailAddress) ||
-                other.emailAddress == emailAddress));
+                other.emailAddress == emailAddress) &&
+            const DeepCollectionEquality()
+                .equals(other._followers, _followers) &&
+            const DeepCollectionEquality()
+                .equals(other._following, _following));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, displayName, photoUrl, emailAddress);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      displayName,
+      photoUrl,
+      emailAddress,
+      const DeepCollectionEquality().hash(_followers),
+      const DeepCollectionEquality().hash(_following));
 
   @JsonKey(ignore: true)
   @override
@@ -190,7 +251,9 @@ abstract class _UserDTO extends UserDTO {
       {required final String id,
       required final String displayName,
       required final String photoUrl,
-      required final String emailAddress}) = _$_UserDTO;
+      required final String emailAddress,
+      required final List<dynamic> followers,
+      required final List<dynamic> following}) = _$_UserDTO;
   const _UserDTO._() : super._();
 
   factory _UserDTO.fromJson(Map<String, dynamic> json) = _$_UserDTO.fromJson;
@@ -203,6 +266,10 @@ abstract class _UserDTO extends UserDTO {
   String get photoUrl;
   @override
   String get emailAddress;
+  @override
+  List<dynamic> get followers;
+  @override
+  List<dynamic> get following;
   @override
   @JsonKey(ignore: true)
   _$$_UserDTOCopyWith<_$_UserDTO> get copyWith =>

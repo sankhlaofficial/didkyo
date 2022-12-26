@@ -39,7 +39,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       try {
         await UserDataRepository(_firebaseFirestore, _firebaseStorage)
             .createNewUser(emailAddressString, emailAddressString,
-                anonymousPicture, _firebaseAuth.currentUser?.uid);
+                anonymousPicture, _firebaseAuth.currentUser?.uid, [], []);
       } catch (error) {
         log(error.toString());
       }
@@ -112,17 +112,22 @@ class FirebaseAuthFacade implements IAuthFacade {
                   _firebaseAuth.currentUser?.email,
                   _firebaseAuth.currentUser?.displayName,
                   _firebaseAuth.currentUser?.photoURL,
-                  _firebaseAuth.currentUser?.uid);
+                  _firebaseAuth.currentUser?.uid, [], []);
         } catch (error) {
           log(error.toString());
         }
       } else {
         try {
-          log("making user as new");
+          log("filling old user again");
 
           await UserDataRepository(_firebaseFirestore, _firebaseStorage)
-              .createNewUser(_firebaseAuth.currentUser?.email, user.displayName,
-                  user.photoUrl, _firebaseAuth.currentUser?.uid);
+              .createNewUser(
+                  _firebaseAuth.currentUser?.email,
+                  user.displayName,
+                  user.photoUrl,
+                  _firebaseAuth.currentUser?.uid,
+                  user.followers,
+                  user.following);
         } catch (error) {
           log(error.toString());
         }
@@ -135,7 +140,7 @@ class FirebaseAuthFacade implements IAuthFacade {
                 _firebaseAuth.currentUser?.email,
                 _firebaseAuth.currentUser?.email,
                 anonymousPicture,
-                _firebaseAuth.currentUser?.uid);
+                _firebaseAuth.currentUser?.uid, [], []);
       } catch (error) {
         log(error.toString());
       }

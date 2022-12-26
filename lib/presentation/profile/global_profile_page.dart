@@ -17,7 +17,7 @@ class GlobalProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(user.photoUrl!);
+    log(user.following.toString());
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xffF8ECD1),

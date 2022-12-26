@@ -280,7 +280,7 @@ mixin _$CommentDTO {
   String get commentID => throw _privateConstructorUsedError;
   String get commentMessage => throw _privateConstructorUsedError;
   DateTime get commentDateTime => throw _privateConstructorUsedError;
-  Map<String, dynamic> get commentUser => throw _privateConstructorUsedError;
+  String get commentUserId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -298,7 +298,7 @@ abstract class $CommentDTOCopyWith<$Res> {
       {String commentID,
       String commentMessage,
       DateTime commentDateTime,
-      Map<String, dynamic> commentUser});
+      String commentUserId});
 }
 
 /// @nodoc
@@ -317,7 +317,7 @@ class _$CommentDTOCopyWithImpl<$Res, $Val extends CommentDTO>
     Object? commentID = null,
     Object? commentMessage = null,
     Object? commentDateTime = null,
-    Object? commentUser = null,
+    Object? commentUserId = null,
   }) {
     return _then(_value.copyWith(
       commentID: null == commentID
@@ -332,10 +332,10 @@ class _$CommentDTOCopyWithImpl<$Res, $Val extends CommentDTO>
           ? _value.commentDateTime
           : commentDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      commentUser: null == commentUser
-          ? _value.commentUser
-          : commentUser // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+      commentUserId: null == commentUserId
+          ? _value.commentUserId
+          : commentUserId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -352,7 +352,7 @@ abstract class _$$_CommentDTOCopyWith<$Res>
       {String commentID,
       String commentMessage,
       DateTime commentDateTime,
-      Map<String, dynamic> commentUser});
+      String commentUserId});
 }
 
 /// @nodoc
@@ -369,7 +369,7 @@ class __$$_CommentDTOCopyWithImpl<$Res>
     Object? commentID = null,
     Object? commentMessage = null,
     Object? commentDateTime = null,
-    Object? commentUser = null,
+    Object? commentUserId = null,
   }) {
     return _then(_$_CommentDTO(
       commentID: null == commentID
@@ -384,10 +384,10 @@ class __$$_CommentDTOCopyWithImpl<$Res>
           ? _value.commentDateTime
           : commentDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      commentUser: null == commentUser
-          ? _value._commentUser
-          : commentUser // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+      commentUserId: null == commentUserId
+          ? _value.commentUserId
+          : commentUserId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -399,9 +399,8 @@ class _$_CommentDTO extends _CommentDTO {
       {required this.commentID,
       required this.commentMessage,
       required this.commentDateTime,
-      required final Map<String, dynamic> commentUser})
-      : _commentUser = commentUser,
-        super._();
+      required this.commentUserId})
+      : super._();
 
   factory _$_CommentDTO.fromJson(Map<String, dynamic> json) =>
       _$$_CommentDTOFromJson(json);
@@ -412,17 +411,12 @@ class _$_CommentDTO extends _CommentDTO {
   final String commentMessage;
   @override
   final DateTime commentDateTime;
-  final Map<String, dynamic> _commentUser;
   @override
-  Map<String, dynamic> get commentUser {
-    if (_commentUser is EqualUnmodifiableMapView) return _commentUser;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_commentUser);
-  }
+  final String commentUserId;
 
   @override
   String toString() {
-    return 'CommentDTO(commentID: $commentID, commentMessage: $commentMessage, commentDateTime: $commentDateTime, commentUser: $commentUser)';
+    return 'CommentDTO(commentID: $commentID, commentMessage: $commentMessage, commentDateTime: $commentDateTime, commentUserId: $commentUserId)';
   }
 
   @override
@@ -436,14 +430,14 @@ class _$_CommentDTO extends _CommentDTO {
                 other.commentMessage == commentMessage) &&
             (identical(other.commentDateTime, commentDateTime) ||
                 other.commentDateTime == commentDateTime) &&
-            const DeepCollectionEquality()
-                .equals(other._commentUser, _commentUser));
+            (identical(other.commentUserId, commentUserId) ||
+                other.commentUserId == commentUserId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, commentID, commentMessage,
-      commentDateTime, const DeepCollectionEquality().hash(_commentUser));
+  int get hashCode => Object.hash(
+      runtimeType, commentID, commentMessage, commentDateTime, commentUserId);
 
   @JsonKey(ignore: true)
   @override
@@ -464,7 +458,7 @@ abstract class _CommentDTO extends CommentDTO {
       {required final String commentID,
       required final String commentMessage,
       required final DateTime commentDateTime,
-      required final Map<String, dynamic> commentUser}) = _$_CommentDTO;
+      required final String commentUserId}) = _$_CommentDTO;
   const _CommentDTO._() : super._();
 
   factory _CommentDTO.fromJson(Map<String, dynamic> json) =
@@ -477,7 +471,7 @@ abstract class _CommentDTO extends CommentDTO {
   @override
   DateTime get commentDateTime;
   @override
-  Map<String, dynamic> get commentUser;
+  String get commentUserId;
   @override
   @JsonKey(ignore: true)
   _$$_CommentDTOCopyWith<_$_CommentDTO> get copyWith =>

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/domain/core/failures.dart';
@@ -15,16 +14,14 @@ abstract class PostComment implements _$PostComment {
     required UniqueId commentID,
     required PostCommentMessage commentMessage,
     required DateTime commentDateTime,
-    required User commentUser,
+    required String commentUserId,
   }) = _PostComment;
 
   factory PostComment.empty() => PostComment(
-        commentID: UniqueId(),
-        commentMessage: PostCommentMessage(''),
-        commentDateTime: DateTime.now(),
-        commentUser: User(
-            id: UniqueId(), displayName: '', photoUrl: '', emailAddress: ''),
-      );
+      commentID: UniqueId(),
+      commentMessage: PostCommentMessage(''),
+      commentDateTime: DateTime.now(),
+      commentUserId: "");
 
   Option<ValueFailure<dynamic>> get failureOption {
     return commentMessage.value.fold((f) => some(f), (_) => none());

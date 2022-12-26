@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/domain/core/value_objects.dart';
 import 'package:didkyo/domain/posts/comment.dart';
 import 'package:didkyo/domain/posts/post.dart';
@@ -21,6 +20,7 @@ abstract class PostDTO implements _$PostDTO {
     required String postLocation,
     Map? postUser,
     required DateTime postDateTime,
+
     // required Map<String, dynamic> postUser,
     // required List<CommentDTO> postComments}
   }) = _PostDTO;
@@ -69,14 +69,14 @@ abstract class CommentDTO implements _$CommentDTO {
       {required String commentID,
       required String commentMessage,
       required DateTime commentDateTime,
-      required Map<String, dynamic> commentUser}) = _CommentDTO;
+      required String commentUserId}) = _CommentDTO;
 
   factory CommentDTO.fromDomain(PostComment comment) {
     return CommentDTO(
         commentID: comment.commentID.getOrCrash(),
         commentMessage: comment.commentMessage.getOrCrash(),
         commentDateTime: comment.commentDateTime,
-        commentUser: FirebaseUserDomainX.userToMap(comment.commentUser));
+        commentUserId: comment.commentUserId);
   }
 
   PostComment toDomain() {
@@ -84,11 +84,7 @@ abstract class CommentDTO implements _$CommentDTO {
         commentID: UniqueId.fromUniqueString(commentID),
         commentMessage: PostCommentMessage(commentMessage),
         commentDateTime: commentDateTime,
-        commentUser: User(
-            id: UniqueId.fromUniqueString(commentUser['userID']),
-            emailAddress: commentUser['userEmail'],
-            photoUrl: commentUser['userPicture'],
-            displayName: commentUser['userName']));
+        commentUserId: commentUserId);
   }
 
   factory CommentDTO.fromJson(Map<String, dynamic> commentJSON) =>

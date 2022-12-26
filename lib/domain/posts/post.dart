@@ -26,7 +26,12 @@ abstract class Post implements _$Post {
         postLocation: PostLocation(''),
         postImage: PostImageURL(''),
         postUser: User(
-            id: UniqueId(), displayName: "", emailAddress: "", photoUrl: ""),
+            id: UniqueId(),
+            displayName: "",
+            emailAddress: "",
+            photoUrl: "",
+            following: [],
+            followers: []),
 
         postDateTime: DateTime.now(),
         // postComments: []

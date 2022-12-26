@@ -19,7 +19,7 @@ mixin _$PostComment {
   UniqueId get commentID => throw _privateConstructorUsedError;
   PostCommentMessage get commentMessage => throw _privateConstructorUsedError;
   DateTime get commentDateTime => throw _privateConstructorUsedError;
-  User get commentUser => throw _privateConstructorUsedError;
+  String get commentUserId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostCommentCopyWith<PostComment> get copyWith =>
@@ -36,9 +36,7 @@ abstract class $PostCommentCopyWith<$Res> {
       {UniqueId commentID,
       PostCommentMessage commentMessage,
       DateTime commentDateTime,
-      User commentUser});
-
-  $UserCopyWith<$Res> get commentUser;
+      String commentUserId});
 }
 
 /// @nodoc
@@ -57,7 +55,7 @@ class _$PostCommentCopyWithImpl<$Res, $Val extends PostComment>
     Object? commentID = null,
     Object? commentMessage = null,
     Object? commentDateTime = null,
-    Object? commentUser = null,
+    Object? commentUserId = null,
   }) {
     return _then(_value.copyWith(
       commentID: null == commentID
@@ -72,19 +70,11 @@ class _$PostCommentCopyWithImpl<$Res, $Val extends PostComment>
           ? _value.commentDateTime
           : commentDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      commentUser: null == commentUser
-          ? _value.commentUser
-          : commentUser // ignore: cast_nullable_to_non_nullable
-              as User,
+      commentUserId: null == commentUserId
+          ? _value.commentUserId
+          : commentUserId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get commentUser {
-    return $UserCopyWith<$Res>(_value.commentUser, (value) {
-      return _then(_value.copyWith(commentUser: value) as $Val);
-    });
   }
 }
 
@@ -100,10 +90,7 @@ abstract class _$$_PostCommentCopyWith<$Res>
       {UniqueId commentID,
       PostCommentMessage commentMessage,
       DateTime commentDateTime,
-      User commentUser});
-
-  @override
-  $UserCopyWith<$Res> get commentUser;
+      String commentUserId});
 }
 
 /// @nodoc
@@ -120,7 +107,7 @@ class __$$_PostCommentCopyWithImpl<$Res>
     Object? commentID = null,
     Object? commentMessage = null,
     Object? commentDateTime = null,
-    Object? commentUser = null,
+    Object? commentUserId = null,
   }) {
     return _then(_$_PostComment(
       commentID: null == commentID
@@ -135,10 +122,10 @@ class __$$_PostCommentCopyWithImpl<$Res>
           ? _value.commentDateTime
           : commentDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      commentUser: null == commentUser
-          ? _value.commentUser
-          : commentUser // ignore: cast_nullable_to_non_nullable
-              as User,
+      commentUserId: null == commentUserId
+          ? _value.commentUserId
+          : commentUserId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -150,7 +137,7 @@ class _$_PostComment extends _PostComment {
       {required this.commentID,
       required this.commentMessage,
       required this.commentDateTime,
-      required this.commentUser})
+      required this.commentUserId})
       : super._();
 
   @override
@@ -160,11 +147,11 @@ class _$_PostComment extends _PostComment {
   @override
   final DateTime commentDateTime;
   @override
-  final User commentUser;
+  final String commentUserId;
 
   @override
   String toString() {
-    return 'PostComment(commentID: $commentID, commentMessage: $commentMessage, commentDateTime: $commentDateTime, commentUser: $commentUser)';
+    return 'PostComment(commentID: $commentID, commentMessage: $commentMessage, commentDateTime: $commentDateTime, commentUserId: $commentUserId)';
   }
 
   @override
@@ -178,13 +165,13 @@ class _$_PostComment extends _PostComment {
                 other.commentMessage == commentMessage) &&
             (identical(other.commentDateTime, commentDateTime) ||
                 other.commentDateTime == commentDateTime) &&
-            (identical(other.commentUser, commentUser) ||
-                other.commentUser == commentUser));
+            (identical(other.commentUserId, commentUserId) ||
+                other.commentUserId == commentUserId));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, commentID, commentMessage, commentDateTime, commentUser);
+      runtimeType, commentID, commentMessage, commentDateTime, commentUserId);
 
   @JsonKey(ignore: true)
   @override
@@ -198,7 +185,7 @@ abstract class _PostComment extends PostComment {
       {required final UniqueId commentID,
       required final PostCommentMessage commentMessage,
       required final DateTime commentDateTime,
-      required final User commentUser}) = _$_PostComment;
+      required final String commentUserId}) = _$_PostComment;
   const _PostComment._() : super._();
 
   @override
@@ -208,7 +195,7 @@ abstract class _PostComment extends PostComment {
   @override
   DateTime get commentDateTime;
   @override
-  User get commentUser;
+  String get commentUserId;
   @override
   @JsonKey(ignore: true)
   _$$_PostCommentCopyWith<_$_PostComment> get copyWith =>
