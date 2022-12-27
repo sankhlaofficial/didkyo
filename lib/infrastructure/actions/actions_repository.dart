@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:didkyo/domain/actions/base_actions_repository.dart';
+import 'package:didkyo/domain/auth/user.dart';
 
 class ActionsRepository extends BaseActionsRepository {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -32,5 +35,15 @@ class ActionsRepository extends BaseActionsRepository {
         'following': FieldValue.arrayRemove([toBeUnFollowedUserId])
       });
     });
+  }
+
+  @override
+  Stream<User?> getUser(String userID) {
+    log("Getting user");
+    return _firebaseFirestore
+        .collection("users")
+        .doc(userID)
+        .snapshots()
+        .map((snap) => User.fromSnapshot(snap));
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:didkyo/domain/core/value_objects.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,4 +16,18 @@ abstract class User with _$User {
     required List<dynamic>? followers,
     required List<dynamic>? following,
   }) = _User;
+
+  static User fromSnapshot(DocumentSnapshot snapshot) {
+    log("snapshot is  " + snapshot.id.toString());
+    User user = User(
+      id: UniqueId.fromUniqueString(snapshot.id),
+      emailAddress: snapshot['emailAddress'],
+      photoUrl: snapshot['photoUrl'],
+      displayName: snapshot['displayName'],
+      followers: snapshot['followers'],
+      following: snapshot['following'],
+    );
+
+    return user;
+  }
 }

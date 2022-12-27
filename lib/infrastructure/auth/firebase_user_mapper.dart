@@ -29,8 +29,8 @@ extension FirebaseUserDomainX on User {
 
   static user.User mapToUser(Map<dynamic, dynamic>? mapUser) {
     return user.User(
-        id: UniqueId.fromUniqueString("asa"),
-        emailAddress: mapUser!['emailAddress'],
+        id: UniqueId.fromUniqueString(mapUser!['id']),
+        emailAddress: mapUser['emailAddress'],
         displayName: mapUser['displayName'],
         photoUrl: mapUser['photoUrl'],
         followers: mapUser['followers'],
