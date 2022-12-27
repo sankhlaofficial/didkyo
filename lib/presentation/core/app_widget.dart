@@ -1,5 +1,6 @@
 import 'package:didkyo/application/auth/auth/auth_bloc.dart';
 import 'package:didkyo/application/theme/theme_bloc.dart';
+import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/splash/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -15,25 +16,28 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) =>
-                getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested())),
-        BlocProvider(create: (context) => ThemeBloc()),
-        BlocProvider(
-          create: (context) => getIt<SignInFormBloc>(),
-        )
-      ],
-      child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, ThemeState state) {
-          return GetMaterialApp(
-            title: 'didKyo',
-            debugShowCheckedModeBanner: false,
-            theme: state.themeData,
-            home: SplashPage(),
-          );
-        },
+    return MultiRepositoryProvider(
+      providers: [RepositoryProvider(create: (context) => ActionsRepository())],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+              create: (context) =>
+                  getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested())),
+          BlocProvider(create: (context) => ThemeBloc()),
+          BlocProvider(
+            create: (context) => getIt<SignInFormBloc>(),
+          )
+        ],
+        child: BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, ThemeState state) {
+            return GetMaterialApp(
+              title: 'didKyo',
+              debugShowCheckedModeBanner: false,
+              theme: state.themeData,
+              home: SplashPage(),
+            );
+          },
+        ),
       ),
     );
   }

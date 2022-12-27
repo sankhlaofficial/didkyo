@@ -109,7 +109,10 @@ class GlobalProfilePage extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              const FollowButton()
+              FollowButton(
+                userId: user.id!.getOrCrash(),
+                followers: user.followers!,
+              )
             ],
           ),
           const SizedBox(
