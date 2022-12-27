@@ -3,6 +3,7 @@ import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
 import 'package:didkyo/presentation/posts/user_posts/user_posts_page.dart';
 import 'package:didkyo/presentation/profile/followers_page/followAndFollowing_page.dart';
 import 'package:didkyo/presentation/profile/widgets/follow_button.dart';
+import 'package:didkyo/presentation/profile/widgets/image_full_screen.dart';
 import 'package:didkyo/presentation/profile/widgets/stats_container.dart';
 import 'package:didkyo/presentation/profile/widgets/verfied_check.dart';
 import 'package:flutter/material.dart';
@@ -68,16 +69,24 @@ class ProfileBody extends StatelessWidget {
                         bottom: 15,
                         child: ShadowContainer(
                           color: Colors.transparent,
-                          child: Container(
-                            width: size.width / 3,
-                            height: size.height / 7,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                border:
-                                    Border.all(color: Colors.black, width: 1.5),
-                                image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(user.photoUrl!))),
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(() => ImageFullScreen(
+                                    imageUrl: user.photoUrl!,
+                                    userName: user.displayName!,
+                                  ));
+                            },
+                            child: Container(
+                              width: size.width / 3,
+                              height: size.height / 7,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                      color: Colors.black, width: 1.5),
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(user.photoUrl!))),
+                            ),
                           ),
                         ),
                       ),
