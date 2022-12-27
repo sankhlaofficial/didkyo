@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:didkyo/application/user/user_bloc.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:flutter/material.dart';
@@ -31,26 +29,30 @@ class _FollowButtonState extends State<FollowButton> {
               initial: (_) => Container(),
               loadInProgress: (_) => Container(),
               loadSuccess: (state) {
-                log("final id is " + state.user.id!.getOrCrash());
+                bool isVisible =
+                    widget.userId == state.user.id!.getOrCrash() ? false : true;
 
                 isFollowing =
                     widget.followers.contains(state.user.id!.getOrCrash())
                         ? true
                         : false;
-                return ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            isFollowing ? Colors.green : Colors.blue)),
-                    onPressed: () async {
-                      if (isFollowing) {
-                        context.repository<ActionsRepository>().unFollowUser(
-                            widget.userId, state.user.id!.getOrCrash());
-                      } else {
-                        context.repository<ActionsRepository>().followUser(
-                            widget.userId, state.user.id!.getOrCrash());
-                      }
-                    },
-                    child: Text(isFollowing ? "Following \u2713" : "Follow"));
+                return Visibility(
+                  visible: isVisible,
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              isFollowing ? Colors.green : Colors.blue)),
+                      onPressed: () async {
+                        if (isFollowing) {
+                          context.repository<ActionsRepository>().unFollowUser(
+                              widget.userId, state.user.id!.getOrCrash());
+                        } else {
+                          context.repository<ActionsRepository>().followUser(
+                              widget.userId, state.user.id!.getOrCrash());
+                        }
+                      },
+                      child: Text(isFollowing ? "Following \u2713" : "Follow")),
+                );
               },
               loadFailure: (_) => Container());
         },
