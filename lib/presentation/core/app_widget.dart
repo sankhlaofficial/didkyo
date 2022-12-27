@@ -1,5 +1,6 @@
 import 'package:didkyo/application/auth/auth/auth_bloc.dart';
 import 'package:didkyo/application/theme/theme_bloc.dart';
+import 'package:didkyo/application/user/user_bloc.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/splash/splash_page.dart';
@@ -26,6 +27,10 @@ class AppWidget extends StatelessWidget {
           BlocProvider(create: (context) => ThemeBloc()),
           BlocProvider(
             create: (context) => getIt<SignInFormBloc>(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                getIt<UserBloc>()..add(const UserEvent.watchUserStarted()),
           )
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
