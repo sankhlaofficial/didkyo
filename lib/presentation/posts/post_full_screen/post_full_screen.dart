@@ -70,7 +70,7 @@ class PostFullScreen extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Get.to(() => GlobalProfilePage(
-                          user: clickedPost.postUser!,
+                          userId: clickedPost.postUser!.id!.getOrCrash(),
                         ));
                   },
                   child: CircleAvatar(
@@ -98,7 +98,7 @@ class PostFullScreen extends StatelessWidget {
                       child: TextButton(
                         onPressed: () {
                           Get.to(() => GlobalProfilePage(
-                                user: clickedPost.postUser!,
+                                userId: clickedPost.postUser!.id!.getOrCrash(),
                               ));
                         },
                         child: Text(

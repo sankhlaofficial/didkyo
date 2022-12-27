@@ -18,7 +18,7 @@ class ProfileEditPage extends StatelessWidget {
               ),
           loadSuccess: (state) {
             return GlobalProfilePage(
-              user: state.user,
+              userId: state.user.id!.getOrCrash(),
             );
           },
           loadFailure: (_) => const Center(

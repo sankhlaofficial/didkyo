@@ -1,7 +1,7 @@
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
 import 'package:didkyo/presentation/posts/user_posts/user_posts_page.dart';
-import 'package:didkyo/presentation/profile/followers_page/followers_page.dart';
+import 'package:didkyo/presentation/profile/followers_page/followAndFollowing_page.dart';
 import 'package:didkyo/presentation/profile/widgets/follow_button.dart';
 import 'package:didkyo/presentation/profile/widgets/stats_container.dart';
 import 'package:didkyo/presentation/profile/widgets/verfied_check.dart';
@@ -126,8 +126,9 @@ class ProfileBody extends StatelessWidget {
             children: [
               StatsContainer(
                 onTap: () {
-                  Get.to(() => FollowersPage(
-                        followersList: user.followers!,
+                  Get.to(() => FollowAndFollowingPage(
+                        followList: user.followers!,
+                        pageTitle: "Followers",
                       ));
                 },
                 size: size,
@@ -141,7 +142,12 @@ class ProfileBody extends StatelessWidget {
                 factor: "posts",
               ),
               StatsContainer(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => FollowAndFollowingPage(
+                        followList: user.following!,
+                        pageTitle: "Following",
+                      ));
+                },
                 size: size,
                 number: user.following!.length.toString(),
                 factor: "following",
