@@ -1,6 +1,32 @@
 import 'package:dartz/dartz.dart';
 import 'package:didkyo/domain/core/failures.dart';
 
+Either<ValueFailure<String>, String> validateStringMaxLength(
+    String input, int maxLength) {
+  if (input.length <= maxLength) {
+    return right(input);
+  } else {
+    return left(ValueFailure.exceedingLength(
+        failedValue: input, maxLengthAllowed: maxLength));
+  }
+}
+
+Either<ValueFailure<String>, String> validateImageNotEmpty(String image) {
+  if (image.isNotEmpty) {
+    return right(image);
+  } else {
+    return left(ValueFailure.noImageSelected(failedValue: image));
+  }
+}
+
+Either<ValueFailure<String>, String> validateStringNotEmpty(String input) {
+  if (input.isNotEmpty) {
+    return right(input);
+  } else {
+    return left(ValueFailure.noStringPresent(failedValue: input));
+  }
+}
+
 Either<ValueFailure<String>, String> validateEmailAddress(String input) {
   const emailRegex =
       r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+""";

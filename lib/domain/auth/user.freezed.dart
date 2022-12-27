@@ -20,6 +20,8 @@ mixin _$User {
   String? get displayName => throw _privateConstructorUsedError;
   String? get emailAddress => throw _privateConstructorUsedError;
   String? get photoUrl => throw _privateConstructorUsedError;
+  List<dynamic>? get followers => throw _privateConstructorUsedError;
+  List<dynamic>? get following => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -34,7 +36,9 @@ abstract class $UserCopyWith<$Res> {
       {UniqueId? id,
       String? displayName,
       String? emailAddress,
-      String? photoUrl});
+      String? photoUrl,
+      List<dynamic>? followers,
+      List<dynamic>? following});
 }
 
 /// @nodoc
@@ -54,6 +58,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? displayName = freezed,
     Object? emailAddress = freezed,
     Object? photoUrl = freezed,
+    Object? followers = freezed,
+    Object? following = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -72,6 +78,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      followers: freezed == followers
+          ? _value.followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      following: freezed == following
+          ? _value.following
+          : following // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
     ) as $Val);
   }
 }
@@ -86,7 +100,9 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       {UniqueId? id,
       String? displayName,
       String? emailAddress,
-      String? photoUrl});
+      String? photoUrl,
+      List<dynamic>? followers,
+      List<dynamic>? following});
 }
 
 /// @nodoc
@@ -102,6 +118,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? displayName = freezed,
     Object? emailAddress = freezed,
     Object? photoUrl = freezed,
+    Object? followers = freezed,
+    Object? following = freezed,
   }) {
     return _then(_$_User(
       id: freezed == id
@@ -120,6 +138,14 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      followers: freezed == followers
+          ? _value._followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      following: freezed == following
+          ? _value._following
+          : following // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
     ));
   }
 }
@@ -131,7 +157,11 @@ class _$_User implements _User {
       {required this.id,
       required this.displayName,
       required this.emailAddress,
-      required this.photoUrl});
+      required this.photoUrl,
+      required final List<dynamic>? followers,
+      required final List<dynamic>? following})
+      : _followers = followers,
+        _following = following;
 
   @override
   final UniqueId? id;
@@ -141,10 +171,29 @@ class _$_User implements _User {
   final String? emailAddress;
   @override
   final String? photoUrl;
+  final List<dynamic>? _followers;
+  @override
+  List<dynamic>? get followers {
+    final value = _followers;
+    if (value == null) return null;
+    if (_followers is EqualUnmodifiableListView) return _followers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<dynamic>? _following;
+  @override
+  List<dynamic>? get following {
+    final value = _following;
+    if (value == null) return null;
+    if (_following is EqualUnmodifiableListView) return _following;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'User(id: $id, displayName: $displayName, emailAddress: $emailAddress, photoUrl: $photoUrl)';
+    return 'User(id: $id, displayName: $displayName, emailAddress: $emailAddress, photoUrl: $photoUrl, followers: $followers, following: $following)';
   }
 
   @override
@@ -158,12 +207,22 @@ class _$_User implements _User {
             (identical(other.emailAddress, emailAddress) ||
                 other.emailAddress == emailAddress) &&
             (identical(other.photoUrl, photoUrl) ||
-                other.photoUrl == photoUrl));
+                other.photoUrl == photoUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._followers, _followers) &&
+            const DeepCollectionEquality()
+                .equals(other._following, _following));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, displayName, emailAddress, photoUrl);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      displayName,
+      emailAddress,
+      photoUrl,
+      const DeepCollectionEquality().hash(_followers),
+      const DeepCollectionEquality().hash(_following));
 
   @JsonKey(ignore: true)
   @override
@@ -177,7 +236,9 @@ abstract class _User implements User {
       {required final UniqueId? id,
       required final String? displayName,
       required final String? emailAddress,
-      required final String? photoUrl}) = _$_User;
+      required final String? photoUrl,
+      required final List<dynamic>? followers,
+      required final List<dynamic>? following}) = _$_User;
 
   @override
   UniqueId? get id;
@@ -187,6 +248,10 @@ abstract class _User implements User {
   String? get emailAddress;
   @override
   String? get photoUrl;
+  @override
+  List<dynamic>? get followers;
+  @override
+  List<dynamic>? get following;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

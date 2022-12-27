@@ -5,15 +5,36 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:cloud_firestore/cloud_firestore.dart' as _i4;
+import 'package:didkyo/application/analysis/analysis_bloc.dart' as _i22;
+import 'package:didkyo/application/auth/auth/auth_bloc.dart' as _i21;
 import 'package:didkyo/application/auth/sign_in_form/sign_in_form_bloc.dart'
-    as _i7;
-import 'package:didkyo/domain/auth/i_auth_facade.dart' as _i5;
-import 'package:didkyo/infrastructure/auth/firebase_auth_facade.dart' as _i6;
+    as _i16;
+import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart'
+    as _i13;
+import 'package:didkyo/application/posts/post_form/post_form_bloc.dart' as _i14;
+import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart'
+    as _i15;
+import 'package:didkyo/application/user/user_bloc.dart' as _i17;
+import 'package:didkyo/application/user_settings/user_settings_bloc.dart'
+    as _i18;
+import 'package:didkyo/domain/analytics/analytics_repository_facade.dart'
+    as _i19;
+import 'package:didkyo/domain/auth/i_auth_facade.dart' as _i7;
+import 'package:didkyo/domain/posts/i_post_repository.dart' as _i9;
+import 'package:didkyo/domain/userData/i_user_repository.dart' as _i11;
+import 'package:didkyo/infrastructure/analytics/analytics_repository.dart'
+    as _i20;
+import 'package:didkyo/infrastructure/auth/firebase_auth_facade.dart' as _i8;
 import 'package:didkyo/infrastructure/core/firebase_injectable_module.dart'
-    as _i8;
+    as _i23;
+import 'package:didkyo/infrastructure/posts/posts_repository.dart' as _i10;
+import 'package:didkyo/infrastructure/userData/userData_repository.dart'
+    as _i12;
 import 'package:firebase_auth/firebase_auth.dart' as _i3;
+import 'package:firebase_storage/firebase_storage.dart' as _i5;
 import 'package:get_it/get_it.dart' as _i1;
-import 'package:google_sign_in/google_sign_in.dart' as _i4;
+import 'package:google_sign_in/google_sign_in.dart' as _i6;
 import 'package:injectable/injectable.dart' as _i2;
 
 /// ignore_for_file: unnecessary_lambdas
@@ -30,17 +51,52 @@ _i1.GetIt init(
     environmentFilter,
   );
   final firebaseInjectableModule = _$FirebaseInjectableModule();
+  final fireStoreInjectableModule = _$FireStoreInjectableModule();
+  final firebaseStorageInjectableModule = _$FirebaseStorageInjectableModule();
   gh.lazySingleton<_i3.FirebaseAuth>(
       () => firebaseInjectableModule.firebaseAuth);
-  gh.lazySingleton<_i4.GoogleSignIn>(
+  gh.lazySingleton<_i4.FirebaseFirestore>(
+      () => fireStoreInjectableModule.firebaseFirestore);
+  gh.lazySingleton<_i5.FirebaseStorage>(
+      () => firebaseStorageInjectableModule.firebaseFirestore);
+  gh.lazySingleton<_i6.GoogleSignIn>(
       () => firebaseInjectableModule.googleSignIn);
-  gh.lazySingleton<_i5.IAuthFacade>(() => _i6.FirebaseAuthFacade(
+  gh.lazySingleton<_i7.IAuthFacade>(() => _i8.FirebaseAuthFacade(
         gh<_i3.FirebaseAuth>(),
-        gh<_i4.GoogleSignIn>(),
+        gh<_i6.GoogleSignIn>(),
+        gh<_i4.FirebaseFirestore>(),
+        gh<_i5.FirebaseStorage>(),
       ));
-  gh.factory<_i7.SignInFormBloc>(
-      () => _i7.SignInFormBloc(gh<_i5.IAuthFacade>()));
+  gh.lazySingleton<_i9.IPostRepository>(() => _i10.PostRepository(
+        gh<_i4.FirebaseFirestore>(),
+        gh<_i5.FirebaseStorage>(),
+      ));
+  gh.lazySingleton<_i11.IUserRepository>(() => _i12.UserDataRepository(
+        gh<_i4.FirebaseFirestore>(),
+        gh<_i5.FirebaseStorage>(),
+      ));
+  gh.factory<_i13.PostActorBloc>(
+      () => _i13.PostActorBloc(gh<_i9.IPostRepository>()));
+  gh.factory<_i14.PostFormBloc>(
+      () => _i14.PostFormBloc(gh<_i9.IPostRepository>()));
+  gh.factory<_i15.PostWatcherBloc>(
+      () => _i15.PostWatcherBloc(gh<_i9.IPostRepository>()));
+  gh.factory<_i16.SignInFormBloc>(
+      () => _i16.SignInFormBloc(gh<_i7.IAuthFacade>()));
+  gh.factory<_i17.UserBloc>(() => _i17.UserBloc());
+  gh.factory<_i18.UserSettingsBloc>(
+      () => _i18.UserSettingsBloc(gh<_i11.IUserRepository>()));
+  gh.lazySingleton<_i19.AnalyticsRepositoryFacade>(
+      () => _i20.AnalyticsRepository(gh<_i4.FirebaseFirestore>()));
+  gh.factory<_i21.AuthBloc>(() => _i21.AuthBloc(gh<_i7.IAuthFacade>()));
+  gh.factory<_i22.AnalysisBloc>(
+      () => _i22.AnalysisBloc(gh<_i19.AnalyticsRepositoryFacade>()));
   return getIt;
 }
 
-class _$FirebaseInjectableModule extends _i8.FirebaseInjectableModule {}
+class _$FirebaseInjectableModule extends _i23.FirebaseInjectableModule {}
+
+class _$FireStoreInjectableModule extends _i23.FireStoreInjectableModule {}
+
+class _$FirebaseStorageInjectableModule
+    extends _i23.FirebaseStorageInjectableModule {}
