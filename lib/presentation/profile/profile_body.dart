@@ -1,6 +1,7 @@
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
 import 'package:didkyo/presentation/posts/user_posts/user_posts_page.dart';
+import 'package:didkyo/presentation/profile/followers_page/followers_page.dart';
 import 'package:didkyo/presentation/profile/widgets/follow_button.dart';
 import 'package:didkyo/presentation/profile/widgets/stats_container.dart';
 import 'package:didkyo/presentation/profile/widgets/verfied_check.dart';
@@ -124,16 +125,23 @@ class ProfileBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               StatsContainer(
+                onTap: () {
+                  Get.to(() => FollowersPage(
+                        followersList: user.followers!,
+                      ));
+                },
                 size: size,
                 number: user.followers!.length.toString(),
                 factor: "followers",
               ),
               StatsContainer(
+                onTap: () {},
                 size: size,
                 number: "50",
                 factor: "posts",
               ),
               StatsContainer(
+                onTap: () {},
                 size: size,
                 number: user.following!.length.toString(),
                 factor: "following",
