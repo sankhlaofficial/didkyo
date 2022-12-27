@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../application/auth/sign_in_form/sign_in_form_bloc.dart';
+
 enum ThemeMode { Light, Dark }
 
 class AppWidget extends StatelessWidget {
@@ -18,7 +20,10 @@ class AppWidget extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested())),
-        BlocProvider(create: (context) => ThemeBloc())
+        BlocProvider(create: (context) => ThemeBloc()),
+        BlocProvider(
+          create: (context) => getIt<SignInFormBloc>(),
+        )
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, ThemeState state) {

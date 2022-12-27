@@ -15,7 +15,7 @@ class TrendingPage extends StatelessWidget {
           appBar: CustomAppBar(
             appBarTitle: "Trending",
           ),
-          body: TrendingPageBody()),
+          body: const TrendingPageBody()),
     );
   }
 }

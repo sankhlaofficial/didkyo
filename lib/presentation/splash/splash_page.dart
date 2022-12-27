@@ -13,10 +13,10 @@ class SplashPage extends StatelessWidget {
         state.map(
             initial: (_) {},
             authenticated: (_) {
-              Get.offAll(() => AppHome());
+              Get.offAll(() => const AppHome());
             },
             unauthenticated: (_) {
-              Get.offAll(() => SignInPage());
+              Get.offAll(() => const SignInPage());
             });
       },
       child: Scaffold(

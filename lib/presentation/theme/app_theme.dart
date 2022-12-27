@@ -7,6 +7,10 @@ class AppTheme {
 
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: Color(0xffF8EDE3),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.blue),
+            foregroundColor: MaterialStateProperty.all(Colors.white))),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Color(0xffFF6D28), foregroundColor: Colors.white),
     appBarTheme: const AppBarTheme(
@@ -69,8 +73,8 @@ class AppTheme {
     textTheme: TextTheme(
       displayMedium: GoogleFonts.aladin(
           fontSize: 23, fontWeight: FontWeight.w800, color: Colors.white),
-      titleMedium:
-          GoogleFonts.sacramento(fontSize: 23, fontWeight: FontWeight.w800),
+      titleMedium: GoogleFonts.sacramento(
+          fontSize: 23, fontWeight: FontWeight.w800, color: Colors.yellow),
       titleSmall:
           GoogleFonts.sacramento(fontSize: 10, fontWeight: FontWeight.w800),
     ),

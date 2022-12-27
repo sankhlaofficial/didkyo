@@ -10,5 +10,5 @@ void main() async {
   init(getIt);
   await Firebase.initializeApp();
 
-  runApp(AppWidget());
+  runApp(const AppWidget());
 }

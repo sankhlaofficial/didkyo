@@ -9,6 +9,8 @@ import 'package:didkyo/presentation/profile/widgets/your_posts_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'widgets/follow_button.dart';
+
 class GlobalProfilePage extends StatelessWidget {
   final User user;
   const GlobalProfilePage({Key? key, required this.user}) : super(key: key);
@@ -20,7 +22,6 @@ class GlobalProfilePage extends StatelessWidget {
     log(user.following.toString());
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xffF8ECD1),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
@@ -104,7 +105,11 @@ class GlobalProfilePage extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const VerfiedCheck()
+              const VerfiedCheck(),
+              const SizedBox(
+                width: 20,
+              ),
+              const FollowButton()
             ],
           ),
           const SizedBox(
