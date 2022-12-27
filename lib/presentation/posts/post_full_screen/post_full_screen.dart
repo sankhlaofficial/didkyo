@@ -55,7 +55,7 @@ class PostFullScreen extends StatelessWidget {
         children: [
           Container(
             width: size.width,
-            height: size.height / 2.5,
+            height: size.width / 1.1,
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.fill,

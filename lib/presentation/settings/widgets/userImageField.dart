@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:didkyo/application/user_settings/user_settings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserImageField extends StatefulWidget {
@@ -67,14 +68,25 @@ class _UserImageFieldState extends State<UserImageField> {
                           child: IconButton(
                             onPressed: () async {
                               ImagePicker picker = ImagePicker();
+                              ImageCropper cropper = ImageCropper();
                               final XFile? image = await picker.pickImage(
                                   source: ImageSource.gallery);
                               if (image != null) {
-                                setState(() {
-                                  imageWay = image.path;
-                                });
-                                context.bloc<UserSettingsBloc>().add(
-                                    UserSettingsEvent.imageChanged(image.path));
+                                final imageFile = await cropper.cropImage(
+                                  sourcePath: image.path,
+                                  aspectRatio: const CropAspectRatio(
+                                      ratioX: 1.0, ratioY: 1.0),
+                                );
+                                if (imageFile != null) {
+                                  log(imageFile.path);
+                                  setState(() {
+                                    log(image.path);
+                                    imageWay = imageFile.path;
+                                  });
+                                  context.bloc<UserSettingsBloc>().add(
+                                      UserSettingsEvent.imageChanged(
+                                          imageFile.path));
+                                }
                               }
                             },
                             icon: const Icon(
@@ -88,23 +100,33 @@ class _UserImageFieldState extends State<UserImageField> {
               : Stack(
                   children: [
                     Positioned.fill(
-                        child: Image.network(
-                      postImage != "" ? postImage : loadingImage,
-                    )),
+                      child: Image.network(
+                        postImage != "" ? postImage : loadingImage,
+                      ),
+                    ),
                     Align(
                       alignment: Alignment.bottomRight,
                       child: IconButton(
                         onPressed: () async {
                           ImagePicker picker = ImagePicker();
+                          ImageCropper cropper = ImageCropper();
                           final XFile? image = await picker.pickImage(
                               source: ImageSource.gallery);
                           if (image != null) {
-                            setState(() {
-                              imageWay = image.path;
-                              localImage = 'NOT NULL ';
-                            });
-                            context.bloc<UserSettingsBloc>().add(
-                                UserSettingsEvent.imageChanged(image.path));
+                            final imageFile = await cropper.cropImage(
+                              sourcePath: image.path,
+                              aspectRatio: const CropAspectRatio(
+                                  ratioX: 1.0, ratioY: 1.0),
+                            );
+                            if (imageFile != null) {
+                              setState(() {
+                                imageWay = imageFile.path;
+                                localImage = 'NOT NULL ';
+                              });
+                              context.bloc<UserSettingsBloc>().add(
+                                  UserSettingsEvent.imageChanged(
+                                      imageFile.path));
+                            }
                           }
                         },
                         icon: const Icon(
