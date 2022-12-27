@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:didkyo/application/posts/post_form/post_form_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageField extends StatefulWidget {
@@ -41,16 +42,25 @@ class _ImageFieldState extends State<ImageField> {
                           icon: const Icon(Icons.add_box_rounded),
                           onPressed: () async {
                             ImagePicker picker = ImagePicker();
+                            ImageCropper cropper = ImageCropper();
                             final XFile? image = await picker.pickImage(
                                 source: ImageSource.gallery);
-                            if (image != null) {
-                              setState(() {
-                                imageWay = image.path;
-                              });
 
-                              context
-                                  .bloc<PostFormBloc>()
-                                  .add(PostFormEvent.imageChanged(image.path));
+                            if (image != null) {
+                              final imageFile = await cropper.cropImage(
+                                sourcePath: image.path,
+                                aspectRatio: const CropAspectRatio(
+                                    ratioX: 1.0, ratioY: 1.0),
+                              );
+                              if (imageFile != null) {
+                                log(imageFile.path);
+                                setState(() {
+                                  log(image.path);
+                                  imageWay = imageFile.path;
+                                });
+                                context.bloc<PostFormBloc>().add(
+                                    PostFormEvent.imageChanged(imageFile.path));
+                              }
                             }
                           },
                         ))
@@ -66,15 +76,25 @@ class _ImageFieldState extends State<ImageField> {
                               child: IconButton(
                                 onPressed: () async {
                                   ImagePicker picker = ImagePicker();
+                                  ImageCropper cropper = ImageCropper();
                                   final XFile? image = await picker.pickImage(
                                       source: ImageSource.gallery);
                                   if (image != null) {
-                                    setState(() {
-                                      imageWay = image.path;
-                                    });
-                                    context.bloc<PostFormBloc>().add(
-                                        PostFormEvent.imageChanged(image.path));
-                                    log(state.post.postImage.getOrCrash());
+                                    final imageFile = await cropper.cropImage(
+                                      sourcePath: image.path,
+                                      aspectRatio: const CropAspectRatio(
+                                          ratioX: 1.0, ratioY: 1.0),
+                                    );
+                                    if (imageFile != null) {
+                                      log(imageFile.path);
+                                      setState(() {
+                                        log(image.path);
+                                        imageWay = imageFile.path;
+                                      });
+                                      context.bloc<PostFormBloc>().add(
+                                          PostFormEvent.imageChanged(
+                                              imageFile.path));
+                                    }
                                   }
                                 },
                                 icon: const Icon(
