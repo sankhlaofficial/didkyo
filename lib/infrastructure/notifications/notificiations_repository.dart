@@ -47,7 +47,7 @@ class NotificationsRepository {
       }
     };
     try {
-      var url = Uri.https('https://fcm.googleapis.com/fcm/send');
+      var url = Uri.parse('https://fcm.googleapis.com/fcm/send');
       var response = await post(url,
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',

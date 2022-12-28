@@ -1,6 +1,5 @@
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
-import 'package:didkyo/presentation/notifications/notifications_test.dart';
 import 'package:didkyo/presentation/posts/user_posts/user_posts_page.dart';
 import 'package:didkyo/presentation/profile/followers_page/followAndFollowing_page.dart';
 import 'package:didkyo/presentation/profile/widgets/follow_button.dart';
@@ -35,13 +34,6 @@ class ProfileBody extends StatelessWidget {
           style: Theme.of(context).textTheme.displayMedium,
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Get.to(() => TestNotifications());
-              },
-              icon: Icon(Icons.notification_important_outlined))
-        ],
       ),
       body: Column(
         children: [
