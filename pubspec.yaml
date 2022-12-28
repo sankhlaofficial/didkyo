@@ -40,6 +40,8 @@ dependencies:
   google_fonts: ^3.0.1
   equatable: ^2.0.5
   image_cropper: ^3.0.1
+  firebase_messaging: ^14.2.0
+  http: ^0.13.5
 
 
 

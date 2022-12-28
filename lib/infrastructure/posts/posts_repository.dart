@@ -8,6 +8,7 @@ import 'package:didkyo/domain/posts/i_post_repository.dart';
 import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/domain/posts/post_failure.dart';
 import 'package:didkyo/infrastructure/core/firestore_helpers.dart';
+import 'package:didkyo/infrastructure/notifications/notificiations_repository.dart';
 import 'package:didkyo/infrastructure/posts/post_dtos.dart';
 import 'package:didkyo/injection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -122,7 +123,16 @@ class PostRepository implements IPostRepository {
                   await _firebaseFirestore
                       .collection('analytics')
                       .doc('places')
-                      .update({postDTO.postLocation: FieldValue.increment(1)});
+                      .update({
+                    postDTO.postLocation: FieldValue.increment(1)
+                  }).whenComplete(() {
+                    if (user.followers!.isNotEmpty) {
+                      user.followers!.forEach((followerId) {
+                        NotificationsRepository.sendPushNotification(followerId,
+                            user.displayName!, postDTO.postLocation);
+                      });
+                    }
+                  });
                 });
               });
             })
@@ -148,7 +158,16 @@ class PostRepository implements IPostRepository {
                 await _firebaseFirestore
                     .collection('analytics')
                     .doc('places')
-                    .update({postDTO.postLocation: FieldValue.increment(1)});
+                    .update({
+                  postDTO.postLocation: FieldValue.increment(1)
+                }).whenComplete(() {
+                  if (user.followers!.isNotEmpty) {
+                    user.followers!.forEach((followerId) {
+                      NotificationsRepository.sendPushNotification(
+                          followerId, user.displayName!, postDTO.postLocation);
+                    });
+                  }
+                });
               });
             });
 

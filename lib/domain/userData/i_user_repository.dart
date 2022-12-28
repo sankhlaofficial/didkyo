@@ -6,6 +6,7 @@ abstract class IUserRepository {
       String displayName,
       String photoUrl,
       String id,
+      String pushToken,
       List<dynamic> followers,
       List<dynamic> following);
   Future<void> updateUser(User user);

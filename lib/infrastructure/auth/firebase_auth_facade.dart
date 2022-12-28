@@ -7,6 +7,7 @@ import 'package:didkyo/domain/auth/i_auth_facade.dart';
 import 'package:didkyo/domain/auth/user.dart' as user;
 import 'package:didkyo/domain/auth/value_objects.dart';
 import 'package:didkyo/infrastructure/auth/firebase_user_mapper.dart';
+import 'package:didkyo/infrastructure/notifications/notificiations_repository.dart';
 import 'package:didkyo/infrastructure/userData/userData_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -39,7 +40,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       try {
         await UserDataRepository(_firebaseFirestore, _firebaseStorage)
             .createNewUser(emailAddressString, emailAddressString,
-                anonymousPicture, _firebaseAuth.currentUser?.uid, [], []);
+                anonymousPicture, _firebaseAuth.currentUser?.uid, '', [], []);
       } catch (error) {
         log(error.toString());
       }
@@ -107,12 +108,15 @@ class FirebaseAuthFacade implements IAuthFacade {
         try {
           log("making user as new");
 
+          String? pushToken = await NotificationsRepository.getFCMToken();
+
           await UserDataRepository(_firebaseFirestore, _firebaseStorage)
               .createNewUser(
                   _firebaseAuth.currentUser?.email,
                   _firebaseAuth.currentUser?.displayName,
                   _firebaseAuth.currentUser?.photoURL,
-                  _firebaseAuth.currentUser?.uid, [], []);
+                  _firebaseAuth.currentUser?.uid,
+                  pushToken, [], []);
         } catch (error) {
           log(error.toString());
         }
@@ -126,6 +130,7 @@ class FirebaseAuthFacade implements IAuthFacade {
                   user.displayName,
                   user.photoUrl,
                   _firebaseAuth.currentUser?.uid,
+                  user.pushToken,
                   user.followers,
                   user.following);
         } catch (error) {
@@ -135,12 +140,14 @@ class FirebaseAuthFacade implements IAuthFacade {
     } else {
       try {
         log("making user as new else");
+        String? pushToken = await NotificationsRepository.getFCMToken();
         await UserDataRepository(_firebaseFirestore, _firebaseStorage)
             .createNewUser(
                 _firebaseAuth.currentUser?.email,
                 _firebaseAuth.currentUser?.email,
                 anonymousPicture,
-                _firebaseAuth.currentUser?.uid, [], []);
+                _firebaseAuth.currentUser?.uid,
+                pushToken, [], []);
       } catch (error) {
         log(error.toString());
       }

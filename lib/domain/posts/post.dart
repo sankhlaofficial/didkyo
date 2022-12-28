@@ -31,7 +31,8 @@ abstract class Post implements _$Post {
             emailAddress: "",
             photoUrl: "",
             following: [],
-            followers: []),
+            followers: [],
+            pushToken: ''),
 
         postDateTime: DateTime.now(),
         // postComments: []

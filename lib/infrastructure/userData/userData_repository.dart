@@ -21,6 +21,7 @@ class UserDataRepository implements IUserRepository {
       String? displayName,
       String? photoUrl,
       String? id,
+      String? pushToken,
       List<dynamic>? followers,
       List<dynamic>? following) async {
     await _firebaseFirestore.collection('users').doc(id).set({
@@ -29,7 +30,8 @@ class UserDataRepository implements IUserRepository {
       'displayName': displayName,
       'photoUrl': photoUrl,
       'followers': followers,
-      'following': following
+      'following': following,
+      'pushToken': pushToken
     });
   }
 
