@@ -23,6 +23,9 @@ class LikeButton extends StatelessWidget {
               initial: (_) => Container(),
               loadInProgress: (_) => Container(),
               loadSuccess: (state) {
+                context
+                    .repository<ActionsRepository>()
+                    .addView(postId, state.user.id!.getOrCrash());
                 isLiked = likedByList.contains(state.user.id!.getOrCrash())
                     ? true
                     : false;

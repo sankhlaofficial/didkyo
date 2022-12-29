@@ -17,6 +17,7 @@ class PostFullScreen extends StatelessWidget {
 
   bool isLiked = false;
   TextEditingController commentController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -96,7 +97,7 @@ class PostFullScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    Text(state.post.postLikes.length.toString()),
+                    Text(state.post.postViews.length.toString()),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 18.0, horizontal: 10),
@@ -119,6 +120,21 @@ class PostFullScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 170,
+                      width: 190,
+                      child: ListView.builder(
+                          itemCount: state.post.postComments.length,
+                          itemBuilder: (context, index) {
+                            return SizedBox(
+                              width: 140,
+                              height: 50,
+                              child: Text(state
+                                  .post.postComments[index].commentMessage
+                                  .getOrCrash()),
+                            );
+                          }),
+                    )
                   ],
                 ),
               ),

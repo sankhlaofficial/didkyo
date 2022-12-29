@@ -118,4 +118,11 @@ class ActionsRepository extends BaseActionsRepository {
       'postComments': FieldValue.arrayUnion([commentDTO])
     });
   }
+
+  @override
+  Future<void> addView(String postId, String currentUserId) async {
+    await _firebaseFirestore.collection('globalPosts').doc(postId).update({
+      'postViews': FieldValue.arrayUnion([currentUserId])
+    });
+  }
 }
