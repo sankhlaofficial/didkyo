@@ -24,9 +24,9 @@ class _AppHomeState extends State<AppHome> {
   static final List<Widget> _pages = <Widget>[
     GlobalPostsPage(),
     TrendingPage(),
-    PostFormPage(),
+    const PostFormPage(),
     ProfileOverview(),
-    UserProvider()
+    const UserProvider()
   ];
 
   @override
@@ -71,7 +71,7 @@ class _AppHomeState extends State<AppHome> {
                 containerColor: Colors.transparent,
               ),
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 label: 'Create',
                 icon: CircleAvatar(
                   child: Icon(Icons.add),

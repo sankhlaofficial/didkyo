@@ -11,11 +11,11 @@ class TrendingPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<AnalysisBloc>()
         ..add(const AnalysisEvent.watchAnalyticsStarted()),
-      child: Scaffold(
+      child: const Scaffold(
           appBar: CustomAppBar(
             appBarTitle: "Trending",
           ),
-          body: const TrendingPageBody()),
+          body: TrendingPageBody()),
     );
   }
 }

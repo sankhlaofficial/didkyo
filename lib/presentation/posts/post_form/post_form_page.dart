@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 class PostFormPage extends StatelessWidget {
   final Post? editedPost;
 
-  const PostFormPage({this.editedPost});
+  const PostFormPage({super.key, this.editedPost});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -55,7 +55,7 @@ class PostFormPage extends StatelessWidget {
         buildWhen: (p, c) => p.isSaving != c.isSaving,
         builder: (context, state) {
           return Stack(children: <Widget>[
-            PostFormPageScaffold(),
+            const PostFormPageScaffold(),
             SavingInProgressOverlay(
               isSaving: state.isSaving,
             )
@@ -69,7 +69,7 @@ class PostFormPage extends StatelessWidget {
 class SavingInProgressOverlay extends StatelessWidget {
   final bool isSaving;
 
-  const SavingInProgressOverlay({required this.isSaving});
+  const SavingInProgressOverlay({super.key, required this.isSaving});
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
@@ -106,7 +106,7 @@ class SavingInProgressOverlay extends StatelessWidget {
 }
 
 class PostFormPageScaffold extends StatelessWidget {
-  const PostFormPageScaffold();
+  const PostFormPageScaffold({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +146,7 @@ class PostFormPageScaffold extends StatelessWidget {
                 : AutovalidateMode.disabled,
             child: SingleChildScrollView(
               child: Column(
-                children: [CaptionField(), ImageField(), LocationField()],
+                children: const [CaptionField(), ImageField(), LocationField()],
               ),
             ),
           );

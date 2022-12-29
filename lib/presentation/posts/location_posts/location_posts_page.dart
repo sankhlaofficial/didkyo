@@ -31,7 +31,7 @@ class LocationPostsPage extends StatelessWidget {
           BlocListener<AuthBloc, AuthState>(listener: (context, state) {
             state.maybeMap(
                 unauthenticated: (_) {
-                  Get.offAll(() => SignInPage());
+                  Get.offAll(() => const SignInPage());
                 },
                 orElse: () {});
           }),

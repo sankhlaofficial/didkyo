@@ -13,7 +13,7 @@ class SignOutButton extends StatelessWidget {
       listener: (context, state) {
         state.maybeMap(
             unauthenticated: (_) {
-              Get.offAll(() => SignInPage());
+              Get.offAll(() => const SignInPage());
             },
             orElse: () {});
       },

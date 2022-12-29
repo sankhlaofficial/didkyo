@@ -9,6 +9,7 @@ class PostCardWidget extends StatelessWidget {
   final Post cardPost;
 
   const PostCardWidget({
+    super.key,
     required this.cardPost,
   });
   @override
@@ -26,14 +27,14 @@ class PostCardWidget extends StatelessWidget {
           width: size.width * 0.8,
           height: size.height * 0.575,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
                   color: Colors.black.withOpacity(0.3),
                   spreadRadius: 1,
                   blurRadius: 3,
-                  offset: Offset(1, 1))
+                  offset: const Offset(1, 1))
             ],
           ),
           child: Column(
@@ -43,7 +44,7 @@ class PostCardWidget extends StatelessWidget {
                 width: size.width * 0.94,
                 height: size.height * 0.37,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10)),
                     image: DecorationImage(
@@ -89,7 +90,7 @@ class PostCardWidget extends StatelessWidget {
                         )),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Padding(
@@ -125,7 +126,7 @@ class PostCardWidget extends StatelessWidget {
                         cardPost.postCaption.getOrCrash(),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style: TextStyle(fontWeight: FontWeight.w500),
+                        style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                     ),
                   ],
@@ -138,14 +139,14 @@ class PostCardWidget extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.favorite, color: Colors.blue),
-                        SizedBox(
+                        const Icon(Icons.favorite, color: Colors.blue),
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(cardPost.postLikes.length.toString())
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Row(
@@ -154,7 +155,7 @@ class PostCardWidget extends StatelessWidget {
                           Icons.comment,
                           color: Colors.blue,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(cardPost.postComments.length.toString())

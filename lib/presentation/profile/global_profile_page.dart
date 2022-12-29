@@ -28,7 +28,7 @@ class GlobalProfilePage extends StatelessWidget {
             return ProfileBody(
                 size: size, sampleWallpaper: sampleWallpaper, user: state.user);
           }
-          return Center(
+          return const Center(
             child: Text("Something went wrong"),
           );
         },

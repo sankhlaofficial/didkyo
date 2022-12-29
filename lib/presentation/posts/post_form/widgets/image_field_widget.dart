@@ -8,6 +8,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageField extends StatefulWidget {
+  const ImageField({super.key});
+
   @override
   State<ImageField> createState() => _ImageFieldState();
 }

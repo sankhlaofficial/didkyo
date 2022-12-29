@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class GlobalPostsPage extends StatelessWidget {
+  const GlobalPostsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -30,7 +32,7 @@ class GlobalPostsPage extends StatelessWidget {
                 orElse: () {});
           }),
         ],
-        child: Scaffold(
+        child: const Scaffold(
           extendBodyBehindAppBar: true,
           appBar: CustomAppBar(
             appBarTitle: "Global Posts",

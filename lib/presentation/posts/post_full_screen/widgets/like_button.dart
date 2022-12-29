@@ -43,11 +43,11 @@ class LikeButton extends StatelessWidget {
                       }
                     },
                     icon: !isLiked
-                        ? Icon(
+                        ? const Icon(
                             Icons.favorite_border,
                             color: Colors.blue,
                           )
-                        : Icon(
+                        : const Icon(
                             Icons.favorite,
                             color: Colors.blue,
                           ));

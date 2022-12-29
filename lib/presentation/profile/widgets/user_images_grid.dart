@@ -26,8 +26,9 @@ class UserImagesGrid extends StatelessWidget {
               loadSuccess: (state) {
                 return Expanded(
                     child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3),
                         itemCount: state.posts.length,
                         itemBuilder: (context, index) {
                           return InkWell(
@@ -36,7 +37,7 @@ class UserImagesGrid extends StatelessWidget {
                                     clickedPost: state.posts[index]));
                               },
                               child: Container(
-                                margin: EdgeInsets.all(3),
+                                margin: const EdgeInsets.all(3),
                                 width: 100,
                                 height: 100,
                                 decoration: BoxDecoration(

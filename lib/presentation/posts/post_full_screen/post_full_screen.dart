@@ -20,14 +20,13 @@ class PostFullScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocProvider(
       create: (context) => OnePostBloc(context.repository<ActionsRepository>())
         ..add(LoadOnePost(postID: clickedPost.postID.getOrCrash())),
       child: BlocBuilder<OnePostBloc, OnePostState>(
         builder: (context, state) {
           if (state is OnePostLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 color: Colors.red,
               ),
@@ -38,7 +37,7 @@ class PostFullScreen extends StatelessWidget {
                 extendBodyBehindAppBar: true,
                 resizeToAvoidBottomInset: false,
                 appBar: AppBar(
-                  iconTheme: IconThemeData(
+                  iconTheme: const IconThemeData(
                     color: Colors.white,
                   ),
                   backgroundColor: Colors.transparent,
@@ -55,7 +54,7 @@ class PostFullScreen extends StatelessWidget {
                       topRight: Radius.circular(40.0),
                     ),
                     panel: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40.0),
@@ -79,11 +78,11 @@ class PostFullScreen extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.remove_red_eye_rounded,
                                         color: Colors.blue,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 5,
                                       ),
                                       Text(state.post.postViews.length
@@ -96,9 +95,9 @@ class PostFullScreen extends StatelessWidget {
                                 height: 20,
                               ),
                               Text(state.post.postCaption.getOrCrash(),
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w500)),
-                              SizedBox(
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500)),
+                              const SizedBox(
                                 height: 25,
                               ),
                               Row(
@@ -113,7 +112,7 @@ class PostFullScreen extends StatelessWidget {
                                           .toString())
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20,
                                   ),
                                   Row(
@@ -122,7 +121,7 @@ class PostFullScreen extends StatelessWidget {
                                         Icons.comment,
                                         color: Colors.blue,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 18,
                                       ),
                                       Text(state.post.postComments.length
@@ -131,7 +130,7 @@ class PostFullScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               Row(
@@ -146,14 +145,14 @@ class PostFullScreen extends StatelessWidget {
                                     },
                                     child: Text(
                                       "More from ${state.post.postLocation.getOrCrash()}",
-                                      style: TextStyle(color: Colors.blue),
+                                      style:
+                                          const TextStyle(color: Colors.blue),
                                     ),
                                   ),
                                 ],
                               ),
                               Expanded(
                                 child: ListView.builder(
-                                    shrinkWrap: true,
                                     itemCount: state.post.postComments.length,
                                     itemBuilder: (context, index) {
                                       return Padding(
@@ -195,7 +194,7 @@ class PostFullScreen extends StatelessWidget {
                     )));
           }
 
-          return Center(
+          return const Center(
             child: Text("Something went wrong"),
           );
         },

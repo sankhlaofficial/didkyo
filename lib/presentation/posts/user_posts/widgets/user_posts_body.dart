@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserPostsBody extends StatelessWidget {
+  const UserPostsBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PostWatcherBloc, PostWatcherState>(

@@ -26,7 +26,7 @@ class UserTile extends StatelessWidget {
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           if (state is ProfileLoading) {
-            return CircularProgressIndicator(
+            return const CircularProgressIndicator(
               color: Colors.blue,
             );
           }
@@ -64,11 +64,11 @@ class UserTile extends StatelessWidget {
                           height: 20,
                           child: Text(
                             state.user.displayName!,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w900, fontSize: 15),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 3,
                         ),
                         location != null
@@ -77,7 +77,7 @@ class UserTile extends StatelessWidget {
                                 height: locationHeight,
                                 child: Text(
                                   location!,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 13, color: Colors.grey),
                                 ),
                               )

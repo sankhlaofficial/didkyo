@@ -22,14 +22,12 @@ class _FollowButtonState extends State<FollowButton> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserBloc()..add(UserEvent.watchUserStarted()),
+      create: (context) => UserBloc()..add(const UserEvent.watchUserStarted()),
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           return state.map(
               initial: (_) => Container(),
-              loadInProgress: (_) => Container(
-                    child: Text("Loading"),
-                  ),
+              loadInProgress: (_) => const Text("Loading"),
               loadSuccess: (state) {
                 bool isVisible =
                     widget.userId == state.user.id!.getOrCrash() ? false : true;

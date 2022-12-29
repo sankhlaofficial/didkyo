@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CaptionField extends HookWidget {
+  const CaptionField({super.key});
+
   @override
   Widget build(BuildContext context) {
     final textEditingController = useTextEditingController();

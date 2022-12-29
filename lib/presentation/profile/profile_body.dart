@@ -40,7 +40,7 @@ class ProfileBody extends StatelessWidget {
           ),
           minHeight: MediaQuery.of(context).size.height / 1.8,
           panel: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.0),
@@ -68,14 +68,14 @@ class ProfileBody extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
-                    Text(
+                    const Text(
                       "This is Some user bio that I have to add jhfjf da this si to be done yo",
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(

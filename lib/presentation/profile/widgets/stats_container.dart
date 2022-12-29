@@ -22,7 +22,7 @@ class StatsContainer extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         width: size.width / 5,
         height: size.height / 11,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         child: Column(

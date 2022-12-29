@@ -8,6 +8,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserImageField extends StatefulWidget {
+  const UserImageField({super.key});
+
   @override
   State<UserImageField> createState() => _UserImageFieldState();
 }
@@ -22,7 +24,7 @@ class _UserImageFieldState extends State<UserImageField> {
 
   @override
   Widget build(BuildContext context) {
-    log('post image is ' + postImage);
+    log('post image is $postImage');
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<UserSettingsBloc, UserSettingsState>(
         listener: (context, state) {

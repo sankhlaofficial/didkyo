@@ -17,7 +17,7 @@ class CommentBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserBloc()..add(UserEvent.watchUserStarted()),
+      create: (context) => UserBloc()..add(const UserEvent.watchUserStarted()),
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           return state.map(
@@ -34,7 +34,7 @@ class CommentBox extends StatelessWidget {
                         child: TextField(
                           controller: commentController,
                           decoration:
-                              InputDecoration(hintText: 'add a comment'),
+                              const InputDecoration(hintText: 'add a comment'),
                         ),
                       ),
                     ),

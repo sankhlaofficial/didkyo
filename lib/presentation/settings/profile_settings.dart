@@ -35,7 +35,7 @@ class ProfileSettingsPage extends StatelessWidget {
 class SavingInProgressOverlay extends StatelessWidget {
   final bool isSaving;
 
-  const SavingInProgressOverlay({required this.isSaving});
+  const SavingInProgressOverlay({super.key, required this.isSaving});
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
@@ -72,7 +72,7 @@ class SavingInProgressOverlay extends StatelessWidget {
 }
 
 class UserSettingsPageScaffold extends StatelessWidget {
-  const UserSettingsPageScaffold();
+  const UserSettingsPageScaffold({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -102,13 +102,13 @@ class UserSettingsPageScaffold extends StatelessWidget {
                 : AutovalidateMode.disabled,
             child: SingleChildScrollView(
               child: Column(
-                children: [
+                children: const [
                   NameField(),
                   UserImageField(),
-                  const SizedBox(
+                  SizedBox(
                     height: 120,
                   ),
-                  const SignOutButton()
+                  SignOutButton()
                 ],
               ),
             ),
