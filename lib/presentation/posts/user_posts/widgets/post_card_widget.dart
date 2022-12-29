@@ -1,7 +1,7 @@
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
-import 'package:didkyo/presentation/helpers/presentation_helpers.dart';
 import 'package:didkyo/presentation/posts/post_full_screen/post_full_screen.dart';
+import 'package:didkyo/presentation/profile/followers_page/widgets/user_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,25 +24,28 @@ class PostCardWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 28.0, horizontal: 10),
         child: Container(
           width: size.width * 0.8,
-          height: size.height * 0.52,
+          height: size.height * 0.575,
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
             color: Colors.white,
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                  color: Colors.black,
+                  color: Colors.black.withOpacity(0.3),
                   spreadRadius: 1,
-                  blurRadius: 1,
-                  offset: Offset(4, 5))
+                  blurRadius: 3,
+                  offset: Offset(1, 1))
             ],
           ),
           child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 8),
-                width: size.width * 0.9,
-                height: size.height * 0.4,
+                margin: const EdgeInsets.only(top: 2),
+                width: size.width * 0.94,
+                height: size.height * 0.37,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 2.5),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10)),
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: NetworkImage(cardPost.postImage.getOrCrash()))),
@@ -72,44 +75,91 @@ class PostCardWidget extends StatelessWidget {
                 height: 10,
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                padding: const EdgeInsets.only(left: 15.0, top: 5),
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          '${cardPost.postUser!.displayName} ',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            const Icon(
-                              Icons.push_pin_rounded,
-                              color: Colors.red,
-                            ),
-                            Text(
-                              cardPost.postLocation.getOrCrash(),
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          ],
-                        )
+                        SizedBox(
+                            child: UserTile(
+                          followId: cardPost.postUserId,
+                          locationHeight: 20,
+                          location: cardPost.postLocation.getOrCrash(),
+                        )),
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: Row(
+                        children: [
+                          // const SizedBox(
+                          //   width: 15,
+                          // ),
+                          // Row(
+                          //   children: [
+                          //     Text(
+                          //       PresentationHelpers.formatDateTime(
+                          //           cardPost.postDateTime),
+                          //       style: Theme.of(context).textTheme.titleSmall,
+                          //     ),
+                          //   ],
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 4),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        cardPost.postCaption.getOrCrash(),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8),
+                child: Row(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.favorite, color: Colors.blue),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(cardPost.postLikes.length.toString())
+                      ],
+                    ),
+                    SizedBox(
+                      width: 20,
                     ),
                     Row(
                       children: [
-                        Text(
-                          PresentationHelpers.formatDateTime(
-                              cardPost.postDateTime),
-                          style: Theme.of(context).textTheme.titleSmall,
+                        const Icon(
+                          Icons.comment,
+                          color: Colors.blue,
                         ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(cardPost.postComments.length.toString())
                       ],
-                    ),
+                    )
                   ],
                 ),
               )

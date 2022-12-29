@@ -22,8 +22,8 @@ class FollowAndFollowingPage extends StatelessWidget {
             itemCount: followList.length,
             itemBuilder: (context, index) {
               return UserTile(
-                followList: followList,
-                index: index,
+                followId: followList[index],
+                locationHeight: 20,
               );
             }),
       ),

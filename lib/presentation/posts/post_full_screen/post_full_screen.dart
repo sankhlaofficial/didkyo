@@ -1,139 +1,204 @@
-import 'dart:developer';
-
+import 'package:didkyo/application/onePost/one_post_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
-import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
+import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:didkyo/presentation/posts/location_posts/location_posts_page.dart';
-import 'package:didkyo/presentation/profile/global_profile_page.dart';
+import 'package:didkyo/presentation/posts/post_full_screen/widgets/comment_box.dart';
+import 'package:didkyo/presentation/posts/post_full_screen/widgets/like_button.dart';
+import 'package:didkyo/presentation/profile/followers_page/widgets/user_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class PostFullScreen extends StatelessWidget {
-  const PostFullScreen({Key? key, required this.clickedPost}) : super(key: key);
+  PostFullScreen({Key? key, required this.clickedPost}) : super(key: key);
 
   final Post clickedPost;
-  static const String sampleImage =
-      'https://images.herzindagi.info/image/2022/Jul/things-to-do-in-kasol-himachal-pradesh_g.jpg';
-  static const String sampleProfileImage =
-      'https://media.istockphoto.com/id/1338134336/photo/headshot-portrait-african-30s-man-smile-look-at-camera.jpg?b=1&s=170667a&w=0&k=20&c=j-oMdWCMLx5rIx-_W33o3q3aW9CiAWEvv9XrJQ3fTMU=';
+
+  bool isLiked = false;
+  TextEditingController commentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    log(clickedPost.postUser.toString());
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          clickedPost.postLocation.getOrCrash(),
-          style: Theme.of(context).textTheme.displayMedium,
-        ),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Get.to(() => LocationPostsPage(
-                    selectedLocation: clickedPost.postLocation.getOrCrash()));
-              },
-              child: ShadowContainer(
-                color: Theme.of(context).cardTheme.color!,
-                child: SizedBox(
-                    width: 140,
-                    height: 50,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                          child: Text(
-                              "See all ${clickedPost.postLocation.getOrCrash()} posts")),
-                    )),
+    return BlocProvider(
+      create: (context) => OnePostBloc(context.repository<ActionsRepository>())
+        ..add(LoadOnePost(postID: clickedPost.postID.getOrCrash())),
+      child: BlocBuilder<OnePostBloc, OnePostState>(
+        builder: (context, state) {
+          if (state is OnePostLoading) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Colors.red,
               ),
-            ),
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          Container(
-            width: size.width,
-            height: size.width / 1.1,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(clickedPost.postImage.getOrCrash()),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
-            child: Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.to(() => GlobalProfilePage(
-                          userId: clickedPost.postUser!.id!.getOrCrash(),
-                        ));
-                  },
-                  child: CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Colors.black,
-                    child: CircleAvatar(
-                      radius: 23,
-                      backgroundImage:
-                          NetworkImage(clickedPost.postUser!.photoUrl!),
-                    ),
+            );
+          }
+          if (state is OnePostLoaded) {
+            return Scaffold(
+                extendBodyBehindAppBar: true,
+                resizeToAvoidBottomInset: false,
+                appBar: AppBar(
+                  iconTheme: IconThemeData(
+                    color: Colors.white,
                   ),
+                  backgroundColor: Colors.transparent,
+                  // title: Text(
+                  //   state.post.postLocation.getOrCrash(),
+                  //   style: Theme.of(context).textTheme.displayMedium,
+                  // ),
+                  centerTitle: true,
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                ShadowContainer(
-                  color: Colors.white,
-                  child: Container(
-                    width: size.width / 2.5,
-                    height: size.height / 13,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.black)),
-                    child: Center(
-                      child: TextButton(
-                        onPressed: () {
-                          Get.to(() => GlobalProfilePage(
-                                userId: clickedPost.postUser!.id!.getOrCrash(),
-                              ));
-                        },
-                        child: Text(
-                          clickedPost.postUser!.displayName!,
-                          style: Theme.of(context).textTheme.titleMedium,
+                body: SlidingUpPanel(
+                    minHeight: 270,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0),
+                    ),
+                    panel: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40.0),
+                            topRight: Radius.circular(40.0),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10),
-            child: ShadowContainer(
-              color: Colors.yellow,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.yellow,
-                    borderRadius: BorderRadius.circular(12)),
-                padding: const EdgeInsets.all(20),
-                height: size.height / 4,
-                width: size.width,
-                child: Text(
-                  clickedPost.postCaption.getOrCrash(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(fontWeight: FontWeight.w400),
-                ),
-              ),
-            ),
-          )
-        ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(28.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  UserTile(
+                                    followId: state.post.postUserId,
+                                    location:
+                                        state.post.postLocation.getOrCrash(),
+                                    locationHeight: 20,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.remove_red_eye_rounded,
+                                        color: Colors.blue,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(state.post.postViews.length
+                                          .toString())
+                                    ],
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(state.post.postCaption.getOrCrash(),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w500)),
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      LikeButton(
+                                        postId: state.post.postID.getOrCrash(),
+                                        likedByList: state.post.postLikes,
+                                      ),
+                                      Text(state.post.postLikes.length
+                                          .toString())
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.comment,
+                                        color: Colors.blue,
+                                      ),
+                                      SizedBox(
+                                        width: 18,
+                                      ),
+                                      Text(state.post.postComments.length
+                                          .toString())
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.to(() => LocationPostsPage(
+                                          selectedLocation: state
+                                              .post.postLocation
+                                              .getOrCrash()));
+                                    },
+                                    child: Text(
+                                      "More from ${state.post.postLocation.getOrCrash()}",
+                                      style: TextStyle(color: Colors.blue),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: state.post.postComments.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: UserTile(
+                                          followId: state
+                                              .post
+                                              .postComments[index]
+                                              .commentUserId,
+                                          locationHeight: 50,
+                                          location: state
+                                              .post
+                                              .postComments[index]
+                                              .commentMessage
+                                              .getOrCrash(),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                              CommentBox(
+                                postId: state.post.postID.getOrCrash(),
+                              ),
+                            ],
+                          ),
+                        )),
+                    body: Column(
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height / 1.2,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(
+                                      state.post.postImage.getOrCrash()))),
+                        ),
+                      ],
+                    )));
+          }
+
+          return Center(
+            child: Text("Something went wrong"),
+          );
+        },
       ),
     );
   }

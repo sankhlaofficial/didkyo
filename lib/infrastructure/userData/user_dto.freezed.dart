@@ -26,6 +26,7 @@ mixin _$UserDTO {
   String get emailAddress => throw _privateConstructorUsedError;
   List<dynamic> get followers => throw _privateConstructorUsedError;
   List<dynamic> get following => throw _privateConstructorUsedError;
+  String get pushToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $UserDTOCopyWith<$Res> {
       String photoUrl,
       String emailAddress,
       List<dynamic> followers,
-      List<dynamic> following});
+      List<dynamic> following,
+      String pushToken});
 }
 
 /// @nodoc
@@ -65,6 +67,7 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
     Object? emailAddress = null,
     Object? followers = null,
     Object? following = null,
+    Object? pushToken = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -91,6 +94,10 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
           ? _value.following
           : following // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      pushToken: null == pushToken
+          ? _value.pushToken
+          : pushToken // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -108,7 +115,8 @@ abstract class _$$_UserDTOCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
       String photoUrl,
       String emailAddress,
       List<dynamic> followers,
-      List<dynamic> following});
+      List<dynamic> following,
+      String pushToken});
 }
 
 /// @nodoc
@@ -127,6 +135,7 @@ class __$$_UserDTOCopyWithImpl<$Res>
     Object? emailAddress = null,
     Object? followers = null,
     Object? following = null,
+    Object? pushToken = null,
   }) {
     return _then(_$_UserDTO(
       id: null == id
@@ -153,6 +162,10 @@ class __$$_UserDTOCopyWithImpl<$Res>
           ? _value._following
           : following // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      pushToken: null == pushToken
+          ? _value.pushToken
+          : pushToken // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -166,7 +179,8 @@ class _$_UserDTO extends _UserDTO {
       required this.photoUrl,
       required this.emailAddress,
       required final List<dynamic> followers,
-      required final List<dynamic> following})
+      required final List<dynamic> following,
+      required this.pushToken})
       : _followers = followers,
         _following = following,
         super._();
@@ -199,8 +213,11 @@ class _$_UserDTO extends _UserDTO {
   }
 
   @override
+  final String pushToken;
+
+  @override
   String toString() {
-    return 'UserDTO(id: $id, displayName: $displayName, photoUrl: $photoUrl, emailAddress: $emailAddress, followers: $followers, following: $following)';
+    return 'UserDTO(id: $id, displayName: $displayName, photoUrl: $photoUrl, emailAddress: $emailAddress, followers: $followers, following: $following, pushToken: $pushToken)';
   }
 
   @override
@@ -218,7 +235,9 @@ class _$_UserDTO extends _UserDTO {
             const DeepCollectionEquality()
                 .equals(other._followers, _followers) &&
             const DeepCollectionEquality()
-                .equals(other._following, _following));
+                .equals(other._following, _following) &&
+            (identical(other.pushToken, pushToken) ||
+                other.pushToken == pushToken));
   }
 
   @JsonKey(ignore: true)
@@ -230,7 +249,8 @@ class _$_UserDTO extends _UserDTO {
       photoUrl,
       emailAddress,
       const DeepCollectionEquality().hash(_followers),
-      const DeepCollectionEquality().hash(_following));
+      const DeepCollectionEquality().hash(_following),
+      pushToken);
 
   @JsonKey(ignore: true)
   @override
@@ -253,7 +273,8 @@ abstract class _UserDTO extends UserDTO {
       required final String photoUrl,
       required final String emailAddress,
       required final List<dynamic> followers,
-      required final List<dynamic> following}) = _$_UserDTO;
+      required final List<dynamic> following,
+      required final String pushToken}) = _$_UserDTO;
   const _UserDTO._() : super._();
 
   factory _UserDTO.fromJson(Map<String, dynamic> json) = _$_UserDTO.fromJson;
@@ -270,6 +291,8 @@ abstract class _UserDTO extends UserDTO {
   List<dynamic> get followers;
   @override
   List<dynamic> get following;
+  @override
+  String get pushToken;
   @override
   @JsonKey(ignore: true)
   _$$_UserDTOCopyWith<_$_UserDTO> get copyWith =>

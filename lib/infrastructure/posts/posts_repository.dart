@@ -8,6 +8,7 @@ import 'package:didkyo/domain/posts/i_post_repository.dart';
 import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/domain/posts/post_failure.dart';
 import 'package:didkyo/infrastructure/core/firestore_helpers.dart';
+import 'package:didkyo/infrastructure/notifications/notificiations_repository.dart';
 import 'package:didkyo/infrastructure/posts/post_dtos.dart';
 import 'package:didkyo/injection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -22,9 +23,10 @@ class PostRepository implements IPostRepository {
 
   PostRepository(this._firebaseFirestore, this._firebaseStorage);
   @override
-  Stream<Either<PostFailure, List<Post>>> watchUserAllPosts() async* {
+  Stream<Either<PostFailure, List<Post>>> watchUserAllPosts(
+      String userId) async* {
     try {
-      final userDoc = await _firebaseFirestore.userDocument();
+      final userDoc = await _firebaseFirestore.userDocument(userId);
       yield* userDoc.postsCollection
           .orderBy('postDateTime', descending: true)
           .snapshots()
@@ -48,7 +50,6 @@ class PostRepository implements IPostRepository {
   @override
   Stream<Either<PostFailure, List<Post>>> watchUserLocationSpecificPosts(
       String selectedLocation) async* {
-    final userDoc = await _firebaseFirestore.userDocument();
     yield* _firebaseFirestore
         .collection('globalPosts')
         .where('postLocation', isEqualTo: selectedLocation)
@@ -76,7 +77,8 @@ class PostRepository implements IPostRepository {
     try {
       final userOption = await getIt<IAuthFacade>().getCurrentUser();
       final user = userOption;
-      final userDoc = await _firebaseFirestore.userDocument();
+      final userDoc =
+          await _firebaseFirestore.userDocument(user.id!.getOrCrash());
       final postDTO = PostDTO.fromDomain(post);
       final fileName = File(post.postImage.getOrCrash());
       bool doesFileExist = await fileName.exists();
@@ -96,12 +98,7 @@ class PostRepository implements IPostRepository {
                   .set(postDTO
                       .copyWith(
                           postImageURL: downloadURL,
-                          postUser: {
-                            'id': user.id!.getOrCrash(),
-                            'emailAddress': user.emailAddress,
-                            'photoUrl': user.photoUrl,
-                            'displayName': user.displayName
-                          },
+                          postUserId: user.id!.getOrCrash(),
                           postDateTime: DateTime.now())
                       .toJson())
                   .whenComplete(() async {
@@ -110,45 +107,56 @@ class PostRepository implements IPostRepository {
                     .set(postDTO
                         .copyWith(
                             postImageURL: downloadURL,
-                            postUser: {
-                              'id': user.id!.getOrCrash(),
-                              'emailAddress': user.emailAddress,
-                              'photoUrl': user.photoUrl,
-                              'displayName': user.displayName
-                            },
+                            postUserId: user.id!.getOrCrash(),
                             postDateTime: DateTime.now())
                         .toJson())
                     .whenComplete(() async {
                   await _firebaseFirestore
                       .collection('analytics')
                       .doc('places')
-                      .update({postDTO.postLocation: FieldValue.increment(1)});
+                      .update({
+                    postDTO.postLocation: FieldValue.increment(1)
+                  }).whenComplete(() {
+                    if (user.followers!.isNotEmpty) {
+                      user.followers!.forEach((followerId) {
+                        NotificationsRepository.sendPushNotification(followerId,
+                            user.displayName!, postDTO.postLocation);
+                      });
+                    }
+                  });
                 });
               });
             })
           : await userDoc.postsCollection
               .doc(postDTO.postID)
-              .set(postDTO.copyWith(postUser: {
-                'id': user.id!.getOrCrash(),
-                'emailAddress': user.emailAddress,
-                'photoUrl': user.photoUrl,
-                'displayName': user.displayName
-              }, postDateTime: DateTime.now()).toJson())
+              .set(postDTO
+                  .copyWith(
+                      postUserId: user.id!.getOrCrash(),
+                      postDateTime: DateTime.now())
+                  .toJson())
               .whenComplete(() async {
               await _firebaseFirestore
                   .collection('globalPosts')
                   .doc(postDTO.postID)
-                  .set(postDTO.copyWith(postUser: {
-                    'id': user.id!.getOrCrash(),
-                    'emailAddress': user.emailAddress,
-                    'photoUrl': user.photoUrl,
-                    'displayName': user.displayName
-                  }, postDateTime: DateTime.now()).toJson())
+                  .set(postDTO
+                      .copyWith(
+                          postUserId: user.id!.getOrCrash(),
+                          postDateTime: DateTime.now())
+                      .toJson())
                   .whenComplete(() async {
                 await _firebaseFirestore
                     .collection('analytics')
                     .doc('places')
-                    .update({postDTO.postLocation: FieldValue.increment(1)});
+                    .update({
+                  postDTO.postLocation: FieldValue.increment(1)
+                }).whenComplete(() {
+                  if (user.followers!.isNotEmpty) {
+                    user.followers!.forEach((followerId) {
+                      NotificationsRepository.sendPushNotification(
+                          followerId, user.displayName!, postDTO.postLocation);
+                    });
+                  }
+                });
               });
             });
 
@@ -165,7 +173,10 @@ class PostRepository implements IPostRepository {
   @override
   Future<Either<PostFailure, Unit>> deletePost(Post post) async {
     try {
-      final userDoc = await _firebaseFirestore.userDocument();
+      final userOption = await getIt<IAuthFacade>().getCurrentUser();
+      final user = userOption;
+      final userDoc =
+          await _firebaseFirestore.userDocument(user.id!.getOrCrash());
       final postID = post.postID.getOrCrash();
       await userDoc.postsCollection.doc(postID).delete();
       return right(unit);
@@ -182,10 +193,12 @@ class PostRepository implements IPostRepository {
   @override
   Future<Either<PostFailure, Unit>> updatePost(Post post) async {
     try {
-      final userDoc = await _firebaseFirestore.userDocument();
-      final postDTO = PostDTO.fromDomain(post);
       final userOption = await getIt<IAuthFacade>().getCurrentUser();
       final user = userOption;
+      final userDoc =
+          await _firebaseFirestore.userDocument(user.id!.getOrCrash());
+      final postDTO = PostDTO.fromDomain(post);
+
       try {
         final fileName = File(post.postImage.getOrCrash());
         bool doesFileExist = await fileName.exists();
@@ -224,7 +237,6 @@ class PostRepository implements IPostRepository {
   @override
   Stream<Either<PostFailure, List<Post>>> watchGlobalPosts() async* {
     try {
-      final userDoc = await _firebaseFirestore.userDocument();
       yield* _firebaseFirestore
           .collection('globalPosts')
           .orderBy('postDateTime', descending: true)

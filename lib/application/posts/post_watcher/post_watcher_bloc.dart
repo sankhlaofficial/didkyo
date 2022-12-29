@@ -39,8 +39,9 @@ class PostWatcherBloc extends Bloc<PostWatcherEvent, PostWatcherState> {
       try {
         yield const PostWatcherState.loadInProgress();
         await _postStreamSubscription?.cancel();
-        _postStreamSubscription = _iPostRepository.watchUserAllPosts().listen(
-            (failureOrPosts) =>
+        _postStreamSubscription = _iPostRepository
+            .watchUserAllPosts(e.userId)
+            .listen((failureOrPosts) =>
                 add(PostWatcherEvent.postsReceived(failureOrPosts)));
       } catch (e) {
         log(e.toString());

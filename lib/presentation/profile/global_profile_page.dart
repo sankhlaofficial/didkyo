@@ -8,7 +8,7 @@ class GlobalProfilePage extends StatelessWidget {
   final String userId;
   const GlobalProfilePage({Key? key, required this.userId}) : super(key: key);
   static const String sampleWallpaper =
-      'https://img.freepik.com/premium-photo/watercolor-grunge-background-yellow-colors-vintage-poster-banner-scrapbook-page-handmade-aged-paper-texture-retro-style-can-be-used-cards-invitations-web_154156-5525.jpg';
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxUIJ09dIOu4Vu25wxGzYbfv8bB1gjixI3VA&usqp=CAU";
 
   @override
   Widget build(BuildContext context) {

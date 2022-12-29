@@ -24,8 +24,12 @@ mixin _$PostDTO {
   String get postID => throw _privateConstructorUsedError;
   String get postImageURL => throw _privateConstructorUsedError;
   String get postLocation => throw _privateConstructorUsedError;
-  Map<dynamic, dynamic>? get postUser => throw _privateConstructorUsedError;
+  String get postUserId => throw _privateConstructorUsedError;
   DateTime get postDateTime => throw _privateConstructorUsedError;
+  List<dynamic> get postLikes => throw _privateConstructorUsedError;
+  List<dynamic> get postViews => throw _privateConstructorUsedError;
+  List<dynamic> get postSavedBy => throw _privateConstructorUsedError;
+  List<CommentDTO>? get postComments => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,8 +46,12 @@ abstract class $PostDTOCopyWith<$Res> {
       String postID,
       String postImageURL,
       String postLocation,
-      Map<dynamic, dynamic>? postUser,
-      DateTime postDateTime});
+      String postUserId,
+      DateTime postDateTime,
+      List<dynamic> postLikes,
+      List<dynamic> postViews,
+      List<dynamic> postSavedBy,
+      List<CommentDTO>? postComments});
 }
 
 /// @nodoc
@@ -63,8 +71,12 @@ class _$PostDTOCopyWithImpl<$Res, $Val extends PostDTO>
     Object? postID = null,
     Object? postImageURL = null,
     Object? postLocation = null,
-    Object? postUser = freezed,
+    Object? postUserId = null,
     Object? postDateTime = null,
+    Object? postLikes = null,
+    Object? postViews = null,
+    Object? postSavedBy = null,
+    Object? postComments = freezed,
   }) {
     return _then(_value.copyWith(
       postCaption: null == postCaption
@@ -83,14 +95,30 @@ class _$PostDTOCopyWithImpl<$Res, $Val extends PostDTO>
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
               as String,
-      postUser: freezed == postUser
-          ? _value.postUser
-          : postUser // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>?,
+      postUserId: null == postUserId
+          ? _value.postUserId
+          : postUserId // ignore: cast_nullable_to_non_nullable
+              as String,
       postDateTime: null == postDateTime
           ? _value.postDateTime
           : postDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      postLikes: null == postLikes
+          ? _value.postLikes
+          : postLikes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postViews: null == postViews
+          ? _value.postViews
+          : postViews // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postSavedBy: null == postSavedBy
+          ? _value.postSavedBy
+          : postSavedBy // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postComments: freezed == postComments
+          ? _value.postComments
+          : postComments // ignore: cast_nullable_to_non_nullable
+              as List<CommentDTO>?,
     ) as $Val);
   }
 }
@@ -107,8 +135,12 @@ abstract class _$$_PostDTOCopyWith<$Res> implements $PostDTOCopyWith<$Res> {
       String postID,
       String postImageURL,
       String postLocation,
-      Map<dynamic, dynamic>? postUser,
-      DateTime postDateTime});
+      String postUserId,
+      DateTime postDateTime,
+      List<dynamic> postLikes,
+      List<dynamic> postViews,
+      List<dynamic> postSavedBy,
+      List<CommentDTO>? postComments});
 }
 
 /// @nodoc
@@ -125,8 +157,12 @@ class __$$_PostDTOCopyWithImpl<$Res>
     Object? postID = null,
     Object? postImageURL = null,
     Object? postLocation = null,
-    Object? postUser = freezed,
+    Object? postUserId = null,
     Object? postDateTime = null,
+    Object? postLikes = null,
+    Object? postViews = null,
+    Object? postSavedBy = null,
+    Object? postComments = freezed,
   }) {
     return _then(_$_PostDTO(
       postCaption: null == postCaption
@@ -145,14 +181,30 @@ class __$$_PostDTOCopyWithImpl<$Res>
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
               as String,
-      postUser: freezed == postUser
-          ? _value._postUser
-          : postUser // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>?,
+      postUserId: null == postUserId
+          ? _value.postUserId
+          : postUserId // ignore: cast_nullable_to_non_nullable
+              as String,
       postDateTime: null == postDateTime
           ? _value.postDateTime
           : postDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      postLikes: null == postLikes
+          ? _value._postLikes
+          : postLikes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postViews: null == postViews
+          ? _value._postViews
+          : postViews // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postSavedBy: null == postSavedBy
+          ? _value._postSavedBy
+          : postSavedBy // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postComments: freezed == postComments
+          ? _value._postComments
+          : postComments // ignore: cast_nullable_to_non_nullable
+              as List<CommentDTO>?,
     ));
   }
 }
@@ -165,9 +217,16 @@ class _$_PostDTO extends _PostDTO {
       required this.postID,
       required this.postImageURL,
       required this.postLocation,
-      final Map<dynamic, dynamic>? postUser,
-      required this.postDateTime})
-      : _postUser = postUser,
+      required this.postUserId,
+      required this.postDateTime,
+      required final List<dynamic> postLikes,
+      required final List<dynamic> postViews,
+      required final List<dynamic> postSavedBy,
+      required final List<CommentDTO>? postComments})
+      : _postLikes = postLikes,
+        _postViews = postViews,
+        _postSavedBy = postSavedBy,
+        _postComments = postComments,
         super._();
 
   factory _$_PostDTO.fromJson(Map<String, dynamic> json) =>
@@ -181,22 +240,47 @@ class _$_PostDTO extends _PostDTO {
   final String postImageURL;
   @override
   final String postLocation;
-  final Map<dynamic, dynamic>? _postUser;
   @override
-  Map<dynamic, dynamic>? get postUser {
-    final value = _postUser;
-    if (value == null) return null;
-    if (_postUser is EqualUnmodifiableMapView) return _postUser;
+  final String postUserId;
+  @override
+  final DateTime postDateTime;
+  final List<dynamic> _postLikes;
+  @override
+  List<dynamic> get postLikes {
+    if (_postLikes is EqualUnmodifiableListView) return _postLikes;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
+    return EqualUnmodifiableListView(_postLikes);
+  }
+
+  final List<dynamic> _postViews;
+  @override
+  List<dynamic> get postViews {
+    if (_postViews is EqualUnmodifiableListView) return _postViews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postViews);
+  }
+
+  final List<dynamic> _postSavedBy;
+  @override
+  List<dynamic> get postSavedBy {
+    if (_postSavedBy is EqualUnmodifiableListView) return _postSavedBy;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postSavedBy);
+  }
+
+  final List<CommentDTO>? _postComments;
+  @override
+  List<CommentDTO>? get postComments {
+    final value = _postComments;
+    if (value == null) return null;
+    if (_postComments is EqualUnmodifiableListView) return _postComments;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  final DateTime postDateTime;
-
-  @override
   String toString() {
-    return 'PostDTO(postCaption: $postCaption, postID: $postID, postImageURL: $postImageURL, postLocation: $postLocation, postUser: $postUser, postDateTime: $postDateTime)';
+    return 'PostDTO(postCaption: $postCaption, postID: $postID, postImageURL: $postImageURL, postLocation: $postLocation, postUserId: $postUserId, postDateTime: $postDateTime, postLikes: $postLikes, postViews: $postViews, postSavedBy: $postSavedBy, postComments: $postComments)';
   }
 
   @override
@@ -211,9 +295,18 @@ class _$_PostDTO extends _PostDTO {
                 other.postImageURL == postImageURL) &&
             (identical(other.postLocation, postLocation) ||
                 other.postLocation == postLocation) &&
-            const DeepCollectionEquality().equals(other._postUser, _postUser) &&
+            (identical(other.postUserId, postUserId) ||
+                other.postUserId == postUserId) &&
             (identical(other.postDateTime, postDateTime) ||
-                other.postDateTime == postDateTime));
+                other.postDateTime == postDateTime) &&
+            const DeepCollectionEquality()
+                .equals(other._postLikes, _postLikes) &&
+            const DeepCollectionEquality()
+                .equals(other._postViews, _postViews) &&
+            const DeepCollectionEquality()
+                .equals(other._postSavedBy, _postSavedBy) &&
+            const DeepCollectionEquality()
+                .equals(other._postComments, _postComments));
   }
 
   @JsonKey(ignore: true)
@@ -224,8 +317,12 @@ class _$_PostDTO extends _PostDTO {
       postID,
       postImageURL,
       postLocation,
-      const DeepCollectionEquality().hash(_postUser),
-      postDateTime);
+      postUserId,
+      postDateTime,
+      const DeepCollectionEquality().hash(_postLikes),
+      const DeepCollectionEquality().hash(_postViews),
+      const DeepCollectionEquality().hash(_postSavedBy),
+      const DeepCollectionEquality().hash(_postComments));
 
   @JsonKey(ignore: true)
   @override
@@ -247,8 +344,12 @@ abstract class _PostDTO extends PostDTO {
       required final String postID,
       required final String postImageURL,
       required final String postLocation,
-      final Map<dynamic, dynamic>? postUser,
-      required final DateTime postDateTime}) = _$_PostDTO;
+      required final String postUserId,
+      required final DateTime postDateTime,
+      required final List<dynamic> postLikes,
+      required final List<dynamic> postViews,
+      required final List<dynamic> postSavedBy,
+      required final List<CommentDTO>? postComments}) = _$_PostDTO;
   const _PostDTO._() : super._();
 
   factory _PostDTO.fromJson(Map<String, dynamic> json) = _$_PostDTO.fromJson;
@@ -262,9 +363,17 @@ abstract class _PostDTO extends PostDTO {
   @override
   String get postLocation;
   @override
-  Map<dynamic, dynamic>? get postUser;
+  String get postUserId;
   @override
   DateTime get postDateTime;
+  @override
+  List<dynamic> get postLikes;
+  @override
+  List<dynamic> get postViews;
+  @override
+  List<dynamic> get postSavedBy;
+  @override
+  List<CommentDTO>? get postComments;
   @override
   @JsonKey(ignore: true)
   _$$_PostDTOCopyWith<_$_PostDTO> get copyWith =>
@@ -281,6 +390,8 @@ mixin _$CommentDTO {
   String get commentMessage => throw _privateConstructorUsedError;
   DateTime get commentDateTime => throw _privateConstructorUsedError;
   String get commentUserId => throw _privateConstructorUsedError;
+  List<dynamic> get commentLikes => throw _privateConstructorUsedError;
+  List<dynamic> get commentReplies => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -298,7 +409,9 @@ abstract class $CommentDTOCopyWith<$Res> {
       {String commentID,
       String commentMessage,
       DateTime commentDateTime,
-      String commentUserId});
+      String commentUserId,
+      List<dynamic> commentLikes,
+      List<dynamic> commentReplies});
 }
 
 /// @nodoc
@@ -318,6 +431,8 @@ class _$CommentDTOCopyWithImpl<$Res, $Val extends CommentDTO>
     Object? commentMessage = null,
     Object? commentDateTime = null,
     Object? commentUserId = null,
+    Object? commentLikes = null,
+    Object? commentReplies = null,
   }) {
     return _then(_value.copyWith(
       commentID: null == commentID
@@ -336,6 +451,14 @@ class _$CommentDTOCopyWithImpl<$Res, $Val extends CommentDTO>
           ? _value.commentUserId
           : commentUserId // ignore: cast_nullable_to_non_nullable
               as String,
+      commentLikes: null == commentLikes
+          ? _value.commentLikes
+          : commentLikes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      commentReplies: null == commentReplies
+          ? _value.commentReplies
+          : commentReplies // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ) as $Val);
   }
 }
@@ -352,7 +475,9 @@ abstract class _$$_CommentDTOCopyWith<$Res>
       {String commentID,
       String commentMessage,
       DateTime commentDateTime,
-      String commentUserId});
+      String commentUserId,
+      List<dynamic> commentLikes,
+      List<dynamic> commentReplies});
 }
 
 /// @nodoc
@@ -370,6 +495,8 @@ class __$$_CommentDTOCopyWithImpl<$Res>
     Object? commentMessage = null,
     Object? commentDateTime = null,
     Object? commentUserId = null,
+    Object? commentLikes = null,
+    Object? commentReplies = null,
   }) {
     return _then(_$_CommentDTO(
       commentID: null == commentID
@@ -388,6 +515,14 @@ class __$$_CommentDTOCopyWithImpl<$Res>
           ? _value.commentUserId
           : commentUserId // ignore: cast_nullable_to_non_nullable
               as String,
+      commentLikes: null == commentLikes
+          ? _value._commentLikes
+          : commentLikes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      commentReplies: null == commentReplies
+          ? _value._commentReplies
+          : commentReplies // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ));
   }
 }
@@ -399,8 +534,12 @@ class _$_CommentDTO extends _CommentDTO {
       {required this.commentID,
       required this.commentMessage,
       required this.commentDateTime,
-      required this.commentUserId})
-      : super._();
+      required this.commentUserId,
+      required final List<dynamic> commentLikes,
+      required final List<dynamic> commentReplies})
+      : _commentLikes = commentLikes,
+        _commentReplies = commentReplies,
+        super._();
 
   factory _$_CommentDTO.fromJson(Map<String, dynamic> json) =>
       _$$_CommentDTOFromJson(json);
@@ -413,10 +552,25 @@ class _$_CommentDTO extends _CommentDTO {
   final DateTime commentDateTime;
   @override
   final String commentUserId;
+  final List<dynamic> _commentLikes;
+  @override
+  List<dynamic> get commentLikes {
+    if (_commentLikes is EqualUnmodifiableListView) return _commentLikes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_commentLikes);
+  }
+
+  final List<dynamic> _commentReplies;
+  @override
+  List<dynamic> get commentReplies {
+    if (_commentReplies is EqualUnmodifiableListView) return _commentReplies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_commentReplies);
+  }
 
   @override
   String toString() {
-    return 'CommentDTO(commentID: $commentID, commentMessage: $commentMessage, commentDateTime: $commentDateTime, commentUserId: $commentUserId)';
+    return 'CommentDTO(commentID: $commentID, commentMessage: $commentMessage, commentDateTime: $commentDateTime, commentUserId: $commentUserId, commentLikes: $commentLikes, commentReplies: $commentReplies)';
   }
 
   @override
@@ -431,13 +585,23 @@ class _$_CommentDTO extends _CommentDTO {
             (identical(other.commentDateTime, commentDateTime) ||
                 other.commentDateTime == commentDateTime) &&
             (identical(other.commentUserId, commentUserId) ||
-                other.commentUserId == commentUserId));
+                other.commentUserId == commentUserId) &&
+            const DeepCollectionEquality()
+                .equals(other._commentLikes, _commentLikes) &&
+            const DeepCollectionEquality()
+                .equals(other._commentReplies, _commentReplies));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, commentID, commentMessage, commentDateTime, commentUserId);
+      runtimeType,
+      commentID,
+      commentMessage,
+      commentDateTime,
+      commentUserId,
+      const DeepCollectionEquality().hash(_commentLikes),
+      const DeepCollectionEquality().hash(_commentReplies));
 
   @JsonKey(ignore: true)
   @override
@@ -458,7 +622,9 @@ abstract class _CommentDTO extends CommentDTO {
       {required final String commentID,
       required final String commentMessage,
       required final DateTime commentDateTime,
-      required final String commentUserId}) = _$_CommentDTO;
+      required final String commentUserId,
+      required final List<dynamic> commentLikes,
+      required final List<dynamic> commentReplies}) = _$_CommentDTO;
   const _CommentDTO._() : super._();
 
   factory _CommentDTO.fromJson(Map<String, dynamic> json) =
@@ -472,6 +638,10 @@ abstract class _CommentDTO extends CommentDTO {
   DateTime get commentDateTime;
   @override
   String get commentUserId;
+  @override
+  List<dynamic> get commentLikes;
+  @override
+  List<dynamic> get commentReplies;
   @override
   @JsonKey(ignore: true)
   _$$_CommentDTOCopyWith<_$_CommentDTO> get copyWith =>

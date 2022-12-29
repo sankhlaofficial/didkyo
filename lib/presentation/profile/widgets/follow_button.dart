@@ -27,7 +27,9 @@ class _FollowButtonState extends State<FollowButton> {
         builder: (context, state) {
           return state.map(
               initial: (_) => Container(),
-              loadInProgress: (_) => Container(),
+              loadInProgress: (_) => Container(
+                    child: Text("Loading"),
+                  ),
               loadSuccess: (state) {
                 bool isVisible =
                     widget.userId == state.user.id!.getOrCrash() ? false : true;

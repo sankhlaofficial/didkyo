@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$User {
+  String? get pushToken => throw _privateConstructorUsedError;
   UniqueId? get id => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   String? get emailAddress => throw _privateConstructorUsedError;
@@ -33,7 +34,8 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {UniqueId? id,
+      {String? pushToken,
+      UniqueId? id,
       String? displayName,
       String? emailAddress,
       String? photoUrl,
@@ -54,6 +56,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? pushToken = freezed,
     Object? id = freezed,
     Object? displayName = freezed,
     Object? emailAddress = freezed,
@@ -62,6 +65,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? following = freezed,
   }) {
     return _then(_value.copyWith(
+      pushToken: freezed == pushToken
+          ? _value.pushToken
+          : pushToken // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -97,7 +104,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {UniqueId? id,
+      {String? pushToken,
+      UniqueId? id,
       String? displayName,
       String? emailAddress,
       String? photoUrl,
@@ -114,6 +122,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? pushToken = freezed,
     Object? id = freezed,
     Object? displayName = freezed,
     Object? emailAddress = freezed,
@@ -122,6 +131,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? following = freezed,
   }) {
     return _then(_$_User(
+      pushToken: freezed == pushToken
+          ? _value.pushToken
+          : pushToken // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -154,7 +167,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 
 class _$_User implements _User {
   const _$_User(
-      {required this.id,
+      {required this.pushToken,
+      required this.id,
       required this.displayName,
       required this.emailAddress,
       required this.photoUrl,
@@ -163,6 +177,8 @@ class _$_User implements _User {
       : _followers = followers,
         _following = following;
 
+  @override
+  final String? pushToken;
   @override
   final UniqueId? id;
   @override
@@ -193,7 +209,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, displayName: $displayName, emailAddress: $emailAddress, photoUrl: $photoUrl, followers: $followers, following: $following)';
+    return 'User(pushToken: $pushToken, id: $id, displayName: $displayName, emailAddress: $emailAddress, photoUrl: $photoUrl, followers: $followers, following: $following)';
   }
 
   @override
@@ -201,6 +217,8 @@ class _$_User implements _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_User &&
+            (identical(other.pushToken, pushToken) ||
+                other.pushToken == pushToken) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
@@ -217,6 +235,7 @@ class _$_User implements _User {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      pushToken,
       id,
       displayName,
       emailAddress,
@@ -233,13 +252,16 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {required final UniqueId? id,
+      {required final String? pushToken,
+      required final UniqueId? id,
       required final String? displayName,
       required final String? emailAddress,
       required final String? photoUrl,
       required final List<dynamic>? followers,
       required final List<dynamic>? following}) = _$_User;
 
+  @override
+  String? get pushToken;
   @override
   UniqueId? get id;
   @override
