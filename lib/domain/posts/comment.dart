@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/domain/core/failures.dart';
 import 'package:didkyo/domain/core/value_objects.dart';
 import 'package:didkyo/domain/posts/value_objects.dart';
@@ -15,13 +14,17 @@ abstract class PostComment implements _$PostComment {
     required PostCommentMessage commentMessage,
     required DateTime commentDateTime,
     required String commentUserId,
+    required List<dynamic> commentLikes,
+    required List<PostComment> commentReplies,
   }) = _PostComment;
 
   factory PostComment.empty() => PostComment(
       commentID: UniqueId(),
       commentMessage: PostCommentMessage(''),
       commentDateTime: DateTime.now(),
-      commentUserId: "");
+      commentUserId: "",
+      commentLikes: [],
+      commentReplies: []);
 
   Option<ValueFailure<dynamic>> get failureOption {
     return commentMessage.value.fold((f) => some(f), (_) => none());

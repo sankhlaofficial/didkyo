@@ -20,6 +20,8 @@ mixin _$PostComment {
   PostCommentMessage get commentMessage => throw _privateConstructorUsedError;
   DateTime get commentDateTime => throw _privateConstructorUsedError;
   String get commentUserId => throw _privateConstructorUsedError;
+  List<dynamic> get commentLikes => throw _privateConstructorUsedError;
+  List<PostComment> get commentReplies => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostCommentCopyWith<PostComment> get copyWith =>
@@ -36,7 +38,9 @@ abstract class $PostCommentCopyWith<$Res> {
       {UniqueId commentID,
       PostCommentMessage commentMessage,
       DateTime commentDateTime,
-      String commentUserId});
+      String commentUserId,
+      List<dynamic> commentLikes,
+      List<PostComment> commentReplies});
 }
 
 /// @nodoc
@@ -56,6 +60,8 @@ class _$PostCommentCopyWithImpl<$Res, $Val extends PostComment>
     Object? commentMessage = null,
     Object? commentDateTime = null,
     Object? commentUserId = null,
+    Object? commentLikes = null,
+    Object? commentReplies = null,
   }) {
     return _then(_value.copyWith(
       commentID: null == commentID
@@ -74,6 +80,14 @@ class _$PostCommentCopyWithImpl<$Res, $Val extends PostComment>
           ? _value.commentUserId
           : commentUserId // ignore: cast_nullable_to_non_nullable
               as String,
+      commentLikes: null == commentLikes
+          ? _value.commentLikes
+          : commentLikes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      commentReplies: null == commentReplies
+          ? _value.commentReplies
+          : commentReplies // ignore: cast_nullable_to_non_nullable
+              as List<PostComment>,
     ) as $Val);
   }
 }
@@ -90,7 +104,9 @@ abstract class _$$_PostCommentCopyWith<$Res>
       {UniqueId commentID,
       PostCommentMessage commentMessage,
       DateTime commentDateTime,
-      String commentUserId});
+      String commentUserId,
+      List<dynamic> commentLikes,
+      List<PostComment> commentReplies});
 }
 
 /// @nodoc
@@ -108,6 +124,8 @@ class __$$_PostCommentCopyWithImpl<$Res>
     Object? commentMessage = null,
     Object? commentDateTime = null,
     Object? commentUserId = null,
+    Object? commentLikes = null,
+    Object? commentReplies = null,
   }) {
     return _then(_$_PostComment(
       commentID: null == commentID
@@ -126,6 +144,14 @@ class __$$_PostCommentCopyWithImpl<$Res>
           ? _value.commentUserId
           : commentUserId // ignore: cast_nullable_to_non_nullable
               as String,
+      commentLikes: null == commentLikes
+          ? _value._commentLikes
+          : commentLikes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      commentReplies: null == commentReplies
+          ? _value._commentReplies
+          : commentReplies // ignore: cast_nullable_to_non_nullable
+              as List<PostComment>,
     ));
   }
 }
@@ -137,8 +163,12 @@ class _$_PostComment extends _PostComment {
       {required this.commentID,
       required this.commentMessage,
       required this.commentDateTime,
-      required this.commentUserId})
-      : super._();
+      required this.commentUserId,
+      required final List<dynamic> commentLikes,
+      required final List<PostComment> commentReplies})
+      : _commentLikes = commentLikes,
+        _commentReplies = commentReplies,
+        super._();
 
   @override
   final UniqueId commentID;
@@ -148,10 +178,25 @@ class _$_PostComment extends _PostComment {
   final DateTime commentDateTime;
   @override
   final String commentUserId;
+  final List<dynamic> _commentLikes;
+  @override
+  List<dynamic> get commentLikes {
+    if (_commentLikes is EqualUnmodifiableListView) return _commentLikes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_commentLikes);
+  }
+
+  final List<PostComment> _commentReplies;
+  @override
+  List<PostComment> get commentReplies {
+    if (_commentReplies is EqualUnmodifiableListView) return _commentReplies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_commentReplies);
+  }
 
   @override
   String toString() {
-    return 'PostComment(commentID: $commentID, commentMessage: $commentMessage, commentDateTime: $commentDateTime, commentUserId: $commentUserId)';
+    return 'PostComment(commentID: $commentID, commentMessage: $commentMessage, commentDateTime: $commentDateTime, commentUserId: $commentUserId, commentLikes: $commentLikes, commentReplies: $commentReplies)';
   }
 
   @override
@@ -166,12 +211,22 @@ class _$_PostComment extends _PostComment {
             (identical(other.commentDateTime, commentDateTime) ||
                 other.commentDateTime == commentDateTime) &&
             (identical(other.commentUserId, commentUserId) ||
-                other.commentUserId == commentUserId));
+                other.commentUserId == commentUserId) &&
+            const DeepCollectionEquality()
+                .equals(other._commentLikes, _commentLikes) &&
+            const DeepCollectionEquality()
+                .equals(other._commentReplies, _commentReplies));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, commentID, commentMessage, commentDateTime, commentUserId);
+      runtimeType,
+      commentID,
+      commentMessage,
+      commentDateTime,
+      commentUserId,
+      const DeepCollectionEquality().hash(_commentLikes),
+      const DeepCollectionEquality().hash(_commentReplies));
 
   @JsonKey(ignore: true)
   @override
@@ -185,7 +240,9 @@ abstract class _PostComment extends PostComment {
       {required final UniqueId commentID,
       required final PostCommentMessage commentMessage,
       required final DateTime commentDateTime,
-      required final String commentUserId}) = _$_PostComment;
+      required final String commentUserId,
+      required final List<dynamic> commentLikes,
+      required final List<PostComment> commentReplies}) = _$_PostComment;
   const _PostComment._() : super._();
 
   @override
@@ -196,6 +253,10 @@ abstract class _PostComment extends PostComment {
   DateTime get commentDateTime;
   @override
   String get commentUserId;
+  @override
+  List<dynamic> get commentLikes;
+  @override
+  List<PostComment> get commentReplies;
   @override
   @JsonKey(ignore: true)
   _$$_PostCommentCopyWith<_$_PostComment> get copyWith =>

@@ -20,8 +20,12 @@ mixin _$Post {
   PostCaption get postCaption => throw _privateConstructorUsedError;
   PostImageURL get postImage => throw _privateConstructorUsedError;
   PostLocation get postLocation => throw _privateConstructorUsedError;
-  User? get postUser => throw _privateConstructorUsedError;
+  String get postUserId => throw _privateConstructorUsedError;
   DateTime get postDateTime => throw _privateConstructorUsedError;
+  List<dynamic> get postLikes => throw _privateConstructorUsedError;
+  List<dynamic> get postViews => throw _privateConstructorUsedError;
+  List<dynamic> get postSavedBy => throw _privateConstructorUsedError;
+  List<PostComment> get postComments => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostCopyWith<Post> get copyWith => throw _privateConstructorUsedError;
@@ -37,10 +41,12 @@ abstract class $PostCopyWith<$Res> {
       PostCaption postCaption,
       PostImageURL postImage,
       PostLocation postLocation,
-      User? postUser,
-      DateTime postDateTime});
-
-  $UserCopyWith<$Res>? get postUser;
+      String postUserId,
+      DateTime postDateTime,
+      List<dynamic> postLikes,
+      List<dynamic> postViews,
+      List<dynamic> postSavedBy,
+      List<PostComment> postComments});
 }
 
 /// @nodoc
@@ -60,8 +66,12 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? postCaption = null,
     Object? postImage = null,
     Object? postLocation = null,
-    Object? postUser = freezed,
+    Object? postUserId = null,
     Object? postDateTime = null,
+    Object? postLikes = null,
+    Object? postViews = null,
+    Object? postSavedBy = null,
+    Object? postComments = null,
   }) {
     return _then(_value.copyWith(
       postID: null == postID
@@ -80,27 +90,31 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
               as PostLocation,
-      postUser: freezed == postUser
-          ? _value.postUser
-          : postUser // ignore: cast_nullable_to_non_nullable
-              as User?,
+      postUserId: null == postUserId
+          ? _value.postUserId
+          : postUserId // ignore: cast_nullable_to_non_nullable
+              as String,
       postDateTime: null == postDateTime
           ? _value.postDateTime
           : postDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      postLikes: null == postLikes
+          ? _value.postLikes
+          : postLikes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postViews: null == postViews
+          ? _value.postViews
+          : postViews // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postSavedBy: null == postSavedBy
+          ? _value.postSavedBy
+          : postSavedBy // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postComments: null == postComments
+          ? _value.postComments
+          : postComments // ignore: cast_nullable_to_non_nullable
+              as List<PostComment>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res>? get postUser {
-    if (_value.postUser == null) {
-      return null;
-    }
-
-    return $UserCopyWith<$Res>(_value.postUser!, (value) {
-      return _then(_value.copyWith(postUser: value) as $Val);
-    });
   }
 }
 
@@ -115,11 +129,12 @@ abstract class _$$_PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       PostCaption postCaption,
       PostImageURL postImage,
       PostLocation postLocation,
-      User? postUser,
-      DateTime postDateTime});
-
-  @override
-  $UserCopyWith<$Res>? get postUser;
+      String postUserId,
+      DateTime postDateTime,
+      List<dynamic> postLikes,
+      List<dynamic> postViews,
+      List<dynamic> postSavedBy,
+      List<PostComment> postComments});
 }
 
 /// @nodoc
@@ -135,8 +150,12 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
     Object? postCaption = null,
     Object? postImage = null,
     Object? postLocation = null,
-    Object? postUser = freezed,
+    Object? postUserId = null,
     Object? postDateTime = null,
+    Object? postLikes = null,
+    Object? postViews = null,
+    Object? postSavedBy = null,
+    Object? postComments = null,
   }) {
     return _then(_$_Post(
       postID: null == postID
@@ -155,14 +174,30 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
           ? _value.postLocation
           : postLocation // ignore: cast_nullable_to_non_nullable
               as PostLocation,
-      postUser: freezed == postUser
-          ? _value.postUser
-          : postUser // ignore: cast_nullable_to_non_nullable
-              as User?,
+      postUserId: null == postUserId
+          ? _value.postUserId
+          : postUserId // ignore: cast_nullable_to_non_nullable
+              as String,
       postDateTime: null == postDateTime
           ? _value.postDateTime
           : postDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      postLikes: null == postLikes
+          ? _value._postLikes
+          : postLikes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postViews: null == postViews
+          ? _value._postViews
+          : postViews // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postSavedBy: null == postSavedBy
+          ? _value._postSavedBy
+          : postSavedBy // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      postComments: null == postComments
+          ? _value._postComments
+          : postComments // ignore: cast_nullable_to_non_nullable
+              as List<PostComment>,
     ));
   }
 }
@@ -175,9 +210,17 @@ class _$_Post extends _Post {
       required this.postCaption,
       required this.postImage,
       required this.postLocation,
-      this.postUser,
-      required this.postDateTime})
-      : super._();
+      required this.postUserId,
+      required this.postDateTime,
+      required final List<dynamic> postLikes,
+      required final List<dynamic> postViews,
+      required final List<dynamic> postSavedBy,
+      required final List<PostComment> postComments})
+      : _postLikes = postLikes,
+        _postViews = postViews,
+        _postSavedBy = postSavedBy,
+        _postComments = postComments,
+        super._();
 
   @override
   final UniqueId postID;
@@ -188,13 +231,44 @@ class _$_Post extends _Post {
   @override
   final PostLocation postLocation;
   @override
-  final User? postUser;
+  final String postUserId;
   @override
   final DateTime postDateTime;
+  final List<dynamic> _postLikes;
+  @override
+  List<dynamic> get postLikes {
+    if (_postLikes is EqualUnmodifiableListView) return _postLikes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postLikes);
+  }
+
+  final List<dynamic> _postViews;
+  @override
+  List<dynamic> get postViews {
+    if (_postViews is EqualUnmodifiableListView) return _postViews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postViews);
+  }
+
+  final List<dynamic> _postSavedBy;
+  @override
+  List<dynamic> get postSavedBy {
+    if (_postSavedBy is EqualUnmodifiableListView) return _postSavedBy;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postSavedBy);
+  }
+
+  final List<PostComment> _postComments;
+  @override
+  List<PostComment> get postComments {
+    if (_postComments is EqualUnmodifiableListView) return _postComments;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postComments);
+  }
 
   @override
   String toString() {
-    return 'Post(postID: $postID, postCaption: $postCaption, postImage: $postImage, postLocation: $postLocation, postUser: $postUser, postDateTime: $postDateTime)';
+    return 'Post(postID: $postID, postCaption: $postCaption, postImage: $postImage, postLocation: $postLocation, postUserId: $postUserId, postDateTime: $postDateTime, postLikes: $postLikes, postViews: $postViews, postSavedBy: $postSavedBy, postComments: $postComments)';
   }
 
   @override
@@ -209,15 +283,33 @@ class _$_Post extends _Post {
                 other.postImage == postImage) &&
             (identical(other.postLocation, postLocation) ||
                 other.postLocation == postLocation) &&
-            (identical(other.postUser, postUser) ||
-                other.postUser == postUser) &&
+            (identical(other.postUserId, postUserId) ||
+                other.postUserId == postUserId) &&
             (identical(other.postDateTime, postDateTime) ||
-                other.postDateTime == postDateTime));
+                other.postDateTime == postDateTime) &&
+            const DeepCollectionEquality()
+                .equals(other._postLikes, _postLikes) &&
+            const DeepCollectionEquality()
+                .equals(other._postViews, _postViews) &&
+            const DeepCollectionEquality()
+                .equals(other._postSavedBy, _postSavedBy) &&
+            const DeepCollectionEquality()
+                .equals(other._postComments, _postComments));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, postID, postCaption, postImage,
-      postLocation, postUser, postDateTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      postID,
+      postCaption,
+      postImage,
+      postLocation,
+      postUserId,
+      postDateTime,
+      const DeepCollectionEquality().hash(_postLikes),
+      const DeepCollectionEquality().hash(_postViews),
+      const DeepCollectionEquality().hash(_postSavedBy),
+      const DeepCollectionEquality().hash(_postComments));
 
   @JsonKey(ignore: true)
   @override
@@ -232,8 +324,12 @@ abstract class _Post extends Post {
       required final PostCaption postCaption,
       required final PostImageURL postImage,
       required final PostLocation postLocation,
-      final User? postUser,
-      required final DateTime postDateTime}) = _$_Post;
+      required final String postUserId,
+      required final DateTime postDateTime,
+      required final List<dynamic> postLikes,
+      required final List<dynamic> postViews,
+      required final List<dynamic> postSavedBy,
+      required final List<PostComment> postComments}) = _$_Post;
   const _Post._() : super._();
 
   @override
@@ -245,9 +341,17 @@ abstract class _Post extends Post {
   @override
   PostLocation get postLocation;
   @override
-  User? get postUser;
+  String get postUserId;
   @override
   DateTime get postDateTime;
+  @override
+  List<dynamic> get postLikes;
+  @override
+  List<dynamic> get postViews;
+  @override
+  List<dynamic> get postSavedBy;
+  @override
+  List<PostComment> get postComments;
   @override
   @JsonKey(ignore: true)
   _$$_PostCopyWith<_$_Post> get copyWith => throw _privateConstructorUsedError;

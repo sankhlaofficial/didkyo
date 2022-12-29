@@ -2,6 +2,7 @@ import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/presentation/helpers/presentation_helpers.dart';
 import 'package:didkyo/presentation/posts/post_full_screen/post_full_screen.dart';
+import 'package:didkyo/presentation/profile/followers_page/widgets/user_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -79,10 +80,8 @@ class PostCardWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          '${cardPost.postUser!.displayName} ',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
+                        SizedBox(
+                            child: UserTile(followId: cardPost.postUserId)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [

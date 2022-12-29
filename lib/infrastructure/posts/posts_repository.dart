@@ -97,12 +97,7 @@ class PostRepository implements IPostRepository {
                   .set(postDTO
                       .copyWith(
                           postImageURL: downloadURL,
-                          postUser: {
-                            'id': user.id!.getOrCrash(),
-                            'emailAddress': user.emailAddress,
-                            'photoUrl': user.photoUrl,
-                            'displayName': user.displayName
-                          },
+                          postUserId: user.id!.getOrCrash(),
                           postDateTime: DateTime.now())
                       .toJson())
                   .whenComplete(() async {
@@ -111,12 +106,7 @@ class PostRepository implements IPostRepository {
                     .set(postDTO
                         .copyWith(
                             postImageURL: downloadURL,
-                            postUser: {
-                              'id': user.id!.getOrCrash(),
-                              'emailAddress': user.emailAddress,
-                              'photoUrl': user.photoUrl,
-                              'displayName': user.displayName
-                            },
+                            postUserId: user.id!.getOrCrash(),
                             postDateTime: DateTime.now())
                         .toJson())
                     .whenComplete(() async {
@@ -138,22 +128,20 @@ class PostRepository implements IPostRepository {
             })
           : await userDoc.postsCollection
               .doc(postDTO.postID)
-              .set(postDTO.copyWith(postUser: {
-                'id': user.id!.getOrCrash(),
-                'emailAddress': user.emailAddress,
-                'photoUrl': user.photoUrl,
-                'displayName': user.displayName
-              }, postDateTime: DateTime.now()).toJson())
+              .set(postDTO
+                  .copyWith(
+                      postUserId: user.id!.getOrCrash(),
+                      postDateTime: DateTime.now())
+                  .toJson())
               .whenComplete(() async {
               await _firebaseFirestore
                   .collection('globalPosts')
                   .doc(postDTO.postID)
-                  .set(postDTO.copyWith(postUser: {
-                    'id': user.id!.getOrCrash(),
-                    'emailAddress': user.emailAddress,
-                    'photoUrl': user.photoUrl,
-                    'displayName': user.displayName
-                  }, postDateTime: DateTime.now()).toJson())
+                  .set(postDTO
+                      .copyWith(
+                          postUserId: user.id!.getOrCrash(),
+                          postDateTime: DateTime.now())
+                      .toJson())
                   .whenComplete(() async {
                 await _firebaseFirestore
                     .collection('analytics')

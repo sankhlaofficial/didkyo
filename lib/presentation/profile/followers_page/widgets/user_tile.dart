@@ -8,19 +8,17 @@ import 'package:get/get.dart';
 class UserTile extends StatelessWidget {
   const UserTile({
     Key? key,
-    required this.followList,
-    required this.index,
+    required this.followId,
   }) : super(key: key);
-  final int index;
 
-  final List followList;
+  final String followId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProfileBloc(
         context.repository<ActionsRepository>(),
-      )..add(LoadProfile(userID: followList[index])),
+      )..add(LoadProfile(userID: followId)),
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           if (state is ProfileLoading) {
@@ -28,16 +26,16 @@ class UserTile extends StatelessWidget {
           }
           if (state is ProfileLoaded) {
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              padding: const EdgeInsets.symmetric(vertical: 0.0),
               child: InkWell(
                 onTap: () {
-                  Get.to(() => GlobalProfilePage(userId: followList[index]));
+                  Get.to(() => GlobalProfilePage(userId: followId));
                 },
                 child: Row(
                   children: [
                     CircleAvatar(
                         backgroundColor: Colors.transparent,
-                        radius: 30,
+                        radius: 20,
                         backgroundImage: NetworkImage(
                           state.user.photoUrl!,
                         )),
