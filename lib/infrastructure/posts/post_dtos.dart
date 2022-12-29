@@ -85,7 +85,11 @@ abstract class CommentDTO implements _$CommentDTO {
         commentMessage: comment.commentMessage.getOrCrash(),
         commentDateTime: comment.commentDateTime,
         commentUserId: comment.commentUserId,
-        commentReplies: comment.commentReplies,
+        commentReplies: comment.commentReplies != null
+            ? comment.commentReplies
+                .map((reply) => CommentDTO.fromDomain(reply))
+                .toList()
+            : [],
         commentLikes: comment.commentLikes);
   }
 

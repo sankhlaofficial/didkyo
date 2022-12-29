@@ -3,7 +3,10 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:didkyo/domain/actions/base_actions_repository.dart';
 import 'package:didkyo/domain/auth/user.dart';
+import 'package:didkyo/domain/core/value_objects.dart';
+import 'package:didkyo/domain/posts/comment.dart';
 import 'package:didkyo/domain/posts/post.dart';
+import 'package:didkyo/domain/posts/value_objects.dart';
 import 'package:didkyo/infrastructure/posts/post_dtos.dart';
 
 class ActionsRepository extends BaseActionsRepository {
@@ -95,6 +98,24 @@ class ActionsRepository extends BaseActionsRepository {
           .update({
         'postLikes': FieldValue.arrayRemove([currentUserId])
       });
+    });
+  }
+
+  @override
+  Future<void> addComment(
+      String commentMessage, String currentUserId, String postId) async {
+    final comment = PostComment(
+        commentID: UniqueId(),
+        commentMessage: PostCommentMessage(commentMessage),
+        commentDateTime: DateTime.now(),
+        commentUserId: currentUserId,
+        commentLikes: [],
+        commentReplies: []);
+
+    final commentDTO = CommentDTO.fromDomain(comment).toJson();
+
+    await _firebaseFirestore.collection('globalPosts').doc(postId).update({
+      'postComments': FieldValue.arrayUnion([commentDTO])
     });
   }
 }

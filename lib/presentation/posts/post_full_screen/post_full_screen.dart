@@ -3,6 +3,7 @@ import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
 import 'package:didkyo/presentation/posts/location_posts/location_posts_page.dart';
+import 'package:didkyo/presentation/posts/post_full_screen/widgets/comment_box.dart';
 import 'package:didkyo/presentation/posts/post_full_screen/widgets/like_button.dart';
 import 'package:didkyo/presentation/profile/followers_page/widgets/user_tile.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class PostFullScreen extends StatelessWidget {
   final Post clickedPost;
 
   bool isLiked = false;
+  TextEditingController commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -32,6 +34,7 @@ class PostFullScreen extends StatelessWidget {
           }
           if (state is OnePostLoaded) {
             return Scaffold(
+              resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 title: Text(
                   state.post.postLocation.getOrCrash(),
@@ -63,55 +66,61 @@ class PostFullScreen extends StatelessWidget {
                   )
                 ],
               ),
-              body: Column(
-                children: [
-                  Container(
-                    width: size.width,
-                    height: size.width / 1.1,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(state.post.postImage.getOrCrash()),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 12),
-                        child: UserTile(followId: state.post.postUserId),
-                      ),
-                      LikeButton(
-                        postId: state.post.postID.getOrCrash(),
-                        likedByList: state.post.postLikes,
-                      )
-                    ],
-                  ),
-                  Text(state.post.postLikes.length.toString()),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 18.0, horizontal: 10),
-                    child: ShadowContainer(
-                      color: Colors.yellow,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.yellow,
-                            borderRadius: BorderRadius.circular(12)),
-                        padding: const EdgeInsets.all(20),
-                        height: size.height / 4,
-                        width: size.width,
-                        child: Text(
-                          state.post.postCaption.getOrCrash(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(fontWeight: FontWeight.w400),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      width: size.width,
+                      height: size.width / 2,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image:
+                              NetworkImage(state.post.postImage.getOrCrash()),
                         ),
                       ),
                     ),
-                  )
-                ],
+                    CommentBox(
+                      postId: state.post.postID.getOrCrash(),
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 12),
+                          child: UserTile(followId: state.post.postUserId),
+                        ),
+                        LikeButton(
+                          postId: state.post.postID.getOrCrash(),
+                          likedByList: state.post.postLikes,
+                        )
+                      ],
+                    ),
+                    Text(state.post.postLikes.length.toString()),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 18.0, horizontal: 10),
+                      child: ShadowContainer(
+                        color: Colors.yellow,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.yellow,
+                              borderRadius: BorderRadius.circular(12)),
+                          padding: const EdgeInsets.all(20),
+                          height: size.height / 8,
+                          width: size.width,
+                          child: Text(
+                            state.post.postCaption.getOrCrash(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }

@@ -6,6 +6,8 @@ abstract class BaseActionsRepository {
   Future<void> likePost(String toBeLikedPostId, String currentUserId);
   Future<void> unLikePost(String toBeUnLikedPostId, String currentUserId);
   Future<void> unFollowUser(String toBeUnFollowedUserId, String currentUserId);
+  Future<void> addComment(
+      String commentMessage, String postId, String currentUserId);
 
   Stream<User?> getUser(String userID);
   Stream<Post?> getPost(String postID);
