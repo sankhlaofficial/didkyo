@@ -49,7 +49,7 @@ class PostFullScreen extends StatelessWidget {
                   centerTitle: true,
                 ),
                 body: SlidingUpPanel(
-                    minHeight: 200,
+                    minHeight: 270,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(40.0),
                       topRight: Radius.circular(40.0),
