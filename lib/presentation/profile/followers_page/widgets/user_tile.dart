@@ -10,11 +10,12 @@ class UserTile extends StatelessWidget {
     Key? key,
     this.location,
     required this.followId,
+    required this.locationHeight,
   }) : super(key: key);
 
   final String followId;
   String? location;
-
+  final double locationHeight;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -24,7 +25,9 @@ class UserTile extends StatelessWidget {
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           if (state is ProfileLoading) {
-            return Container();
+            return CircularProgressIndicator(
+              color: Colors.blue,
+            );
           }
           if (state is ProfileLoaded) {
             return Padding(
@@ -62,7 +65,7 @@ class UserTile extends StatelessWidget {
                         location != null
                             ? SizedBox(
                                 width: 100,
-                                height: 20,
+                                height: locationHeight,
                                 child: Text(
                                   location!,
                                   style: TextStyle(

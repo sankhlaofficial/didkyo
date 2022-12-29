@@ -23,6 +23,7 @@ class FollowAndFollowingPage extends StatelessWidget {
             itemBuilder: (context, index) {
               return UserTile(
                 followId: followList[index],
+                locationHeight: 20,
               );
             }),
       ),

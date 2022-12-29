@@ -84,6 +84,7 @@ class PostCardWidget extends StatelessWidget {
                         SizedBox(
                             child: UserTile(
                           followId: cardPost.postUserId,
+                          locationHeight: 20,
                           location: cardPost.postLocation.getOrCrash(),
                         )),
                       ],

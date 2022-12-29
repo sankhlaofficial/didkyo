@@ -43,8 +43,14 @@ class LikeButton extends StatelessWidget {
                       }
                     },
                     icon: !isLiked
-                        ? Icon(Icons.favorite_border)
-                        : Icon(Icons.favorite));
+                        ? Icon(
+                            Icons.favorite_border,
+                            color: Colors.blue,
+                          )
+                        : Icon(
+                            Icons.favorite,
+                            color: Colors.blue,
+                          ));
               },
               loadFailure: (_) => Container());
         },

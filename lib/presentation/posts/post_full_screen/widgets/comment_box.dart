@@ -29,7 +29,7 @@ class CommentBox extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.5,
+                        width: MediaQuery.of(context).size.width / 1.8,
                         height: 50,
                         child: TextField(
                           controller: commentController,
