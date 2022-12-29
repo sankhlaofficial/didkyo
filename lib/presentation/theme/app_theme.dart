@@ -6,7 +6,7 @@ class AppTheme {
   AppTheme._();
 
   static final ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: Color(0xffF8EDE3),
+    scaffoldBackgroundColor: Color(0xffF9F9F9),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.blue),
@@ -47,7 +47,7 @@ class AppTheme {
   );
 
   static final ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.black,
+    scaffoldBackgroundColor: Color(0xff393E46),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       elevation: 0,
