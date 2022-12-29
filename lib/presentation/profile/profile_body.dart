@@ -163,10 +163,7 @@ class ProfileBody extends StatelessWidget {
       //                     color: Colors.transparent,
       //                     child: InkWell(
       //                       onTap: () {
-      //                         Get.to(() => ImageFullScreen(
-      //                               imageUrl: user.photoUrl!,
-      //                               userName: user.displayName!,
-      //                             ));
+      //
       //                       },
       //                       child: Container(
       //                         width: size.width / 3,

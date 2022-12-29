@@ -1,6 +1,7 @@
 import 'package:didkyo/application/profile/profile_bloc.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:didkyo/presentation/profile/global_profile_page.dart';
+import 'package:didkyo/presentation/profile/widgets/image_full_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -38,12 +39,20 @@ class UserTile extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        radius: 25,
-                        backgroundImage: NetworkImage(
-                          state.user.photoUrl!,
-                        )),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => ImageFullScreen(
+                              imageUrl: state.user.photoUrl!,
+                              userName: state.user.displayName!,
+                            ));
+                      },
+                      child: CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          radius: 25,
+                          backgroundImage: NetworkImage(
+                            state.user.photoUrl!,
+                          )),
+                    ),
                     const SizedBox(
                       width: 15,
                     ),
