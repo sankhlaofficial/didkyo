@@ -19,7 +19,7 @@ mixin _$PostWatcherEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() watchGlobalStarted,
-    required TResult Function() watchAllStarted,
+    required TResult Function(String userId) watchAllStarted,
     required TResult Function(String selectedLocation)
         watchLocationSpecificStarted,
     required TResult Function(Either<PostFailure, List<Post>> failureOrPosts)
@@ -29,7 +29,7 @@ mixin _$PostWatcherEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? watchGlobalStarted,
-    TResult? Function()? watchAllStarted,
+    TResult? Function(String userId)? watchAllStarted,
     TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,
@@ -38,7 +38,7 @@ mixin _$PostWatcherEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? watchGlobalStarted,
-    TResult Function()? watchAllStarted,
+    TResult Function(String userId)? watchAllStarted,
     TResult Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,
@@ -132,7 +132,7 @@ class _$_WatchGlobalStarted implements _WatchGlobalStarted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() watchGlobalStarted,
-    required TResult Function() watchAllStarted,
+    required TResult Function(String userId) watchAllStarted,
     required TResult Function(String selectedLocation)
         watchLocationSpecificStarted,
     required TResult Function(Either<PostFailure, List<Post>> failureOrPosts)
@@ -145,7 +145,7 @@ class _$_WatchGlobalStarted implements _WatchGlobalStarted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? watchGlobalStarted,
-    TResult? Function()? watchAllStarted,
+    TResult? Function(String userId)? watchAllStarted,
     TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,
@@ -157,7 +157,7 @@ class _$_WatchGlobalStarted implements _WatchGlobalStarted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? watchGlobalStarted,
-    TResult Function()? watchAllStarted,
+    TResult Function(String userId)? watchAllStarted,
     TResult Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,
@@ -219,6 +219,8 @@ abstract class _$$_WatchAllStartedCopyWith<$Res> {
   factory _$$_WatchAllStartedCopyWith(
           _$_WatchAllStarted value, $Res Function(_$_WatchAllStarted) then) =
       __$$_WatchAllStartedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String userId});
 }
 
 /// @nodoc
@@ -228,64 +230,88 @@ class __$$_WatchAllStartedCopyWithImpl<$Res>
   __$$_WatchAllStartedCopyWithImpl(
       _$_WatchAllStarted _value, $Res Function(_$_WatchAllStarted) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userId = null,
+  }) {
+    return _then(_$_WatchAllStarted(
+      null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_WatchAllStarted implements _WatchAllStarted {
-  const _$_WatchAllStarted();
+  const _$_WatchAllStarted(this.userId);
+
+  @override
+  final String userId;
 
   @override
   String toString() {
-    return 'PostWatcherEvent.watchAllStarted()';
+    return 'PostWatcherEvent.watchAllStarted(userId: $userId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_WatchAllStarted);
+        (other.runtimeType == runtimeType &&
+            other is _$_WatchAllStarted &&
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, userId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_WatchAllStartedCopyWith<_$_WatchAllStarted> get copyWith =>
+      __$$_WatchAllStartedCopyWithImpl<_$_WatchAllStarted>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() watchGlobalStarted,
-    required TResult Function() watchAllStarted,
+    required TResult Function(String userId) watchAllStarted,
     required TResult Function(String selectedLocation)
         watchLocationSpecificStarted,
     required TResult Function(Either<PostFailure, List<Post>> failureOrPosts)
         postsReceived,
   }) {
-    return watchAllStarted();
+    return watchAllStarted(userId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? watchGlobalStarted,
-    TResult? Function()? watchAllStarted,
+    TResult? Function(String userId)? watchAllStarted,
     TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,
   }) {
-    return watchAllStarted?.call();
+    return watchAllStarted?.call(userId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? watchGlobalStarted,
-    TResult Function()? watchAllStarted,
+    TResult Function(String userId)? watchAllStarted,
     TResult Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,
     required TResult orElse(),
   }) {
     if (watchAllStarted != null) {
-      return watchAllStarted();
+      return watchAllStarted(userId);
     }
     return orElse();
   }
@@ -332,7 +358,12 @@ class _$_WatchAllStarted implements _WatchAllStarted {
 }
 
 abstract class _WatchAllStarted implements PostWatcherEvent {
-  const factory _WatchAllStarted() = _$_WatchAllStarted;
+  const factory _WatchAllStarted(final String userId) = _$_WatchAllStarted;
+
+  String get userId;
+  @JsonKey(ignore: true)
+  _$$_WatchAllStartedCopyWith<_$_WatchAllStarted> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -405,7 +436,7 @@ class _$_WatchLocationSpecificStarted implements _WatchLocationSpecificStarted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() watchGlobalStarted,
-    required TResult Function() watchAllStarted,
+    required TResult Function(String userId) watchAllStarted,
     required TResult Function(String selectedLocation)
         watchLocationSpecificStarted,
     required TResult Function(Either<PostFailure, List<Post>> failureOrPosts)
@@ -418,7 +449,7 @@ class _$_WatchLocationSpecificStarted implements _WatchLocationSpecificStarted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? watchGlobalStarted,
-    TResult? Function()? watchAllStarted,
+    TResult? Function(String userId)? watchAllStarted,
     TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,
@@ -430,7 +461,7 @@ class _$_WatchLocationSpecificStarted implements _WatchLocationSpecificStarted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? watchGlobalStarted,
-    TResult Function()? watchAllStarted,
+    TResult Function(String userId)? watchAllStarted,
     TResult Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,
@@ -559,7 +590,7 @@ class _$_PostsReceived implements _PostsReceived {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() watchGlobalStarted,
-    required TResult Function() watchAllStarted,
+    required TResult Function(String userId) watchAllStarted,
     required TResult Function(String selectedLocation)
         watchLocationSpecificStarted,
     required TResult Function(Either<PostFailure, List<Post>> failureOrPosts)
@@ -572,7 +603,7 @@ class _$_PostsReceived implements _PostsReceived {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? watchGlobalStarted,
-    TResult? Function()? watchAllStarted,
+    TResult? Function(String userId)? watchAllStarted,
     TResult? Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult? Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,
@@ -584,7 +615,7 @@ class _$_PostsReceived implements _PostsReceived {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? watchGlobalStarted,
-    TResult Function()? watchAllStarted,
+    TResult Function(String userId)? watchAllStarted,
     TResult Function(String selectedLocation)? watchLocationSpecificStarted,
     TResult Function(Either<PostFailure, List<Post>> failureOrPosts)?
         postsReceived,

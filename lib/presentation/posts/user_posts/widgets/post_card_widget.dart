@@ -117,12 +117,16 @@ class PostCardWidget extends StatelessWidget {
 
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 4),
                 child: Row(
                   children: [
-                    Text(
-                      cardPost.postCaption.getOrCrash(),
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                    Expanded(
+                      child: Text(
+                        cardPost.postCaption.getOrCrash(),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
                     ),
                   ],
                 ),

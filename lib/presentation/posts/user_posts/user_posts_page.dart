@@ -13,8 +13,9 @@ import 'package:get/get.dart';
 
 class UserPostsPage extends StatelessWidget {
   final String appBarTitle;
+  final String userId;
 
-  const UserPostsPage({super.key, required this.appBarTitle});
+  UserPostsPage({super.key, required this.appBarTitle, required this.userId});
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -22,7 +23,7 @@ class UserPostsPage extends StatelessWidget {
         BlocProvider<PostWatcherBloc>(
           create: (context) => getIt<PostWatcherBloc>()
             ..add(
-              const PostWatcherEvent.watchAllStarted(),
+              PostWatcherEvent.watchAllStarted(userId),
             ),
         ),
         BlocProvider<PostActorBloc>(
