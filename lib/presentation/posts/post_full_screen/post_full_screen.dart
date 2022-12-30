@@ -6,6 +6,7 @@ import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/posts/location_posts/location_posts_page.dart';
+import 'package:didkyo/presentation/posts/post_form/post_form_page.dart';
 import 'package:didkyo/presentation/posts/post_full_screen/widgets/comment_box.dart';
 import 'package:didkyo/presentation/posts/post_full_screen/widgets/like_button.dart';
 import 'package:didkyo/presentation/profile/followers_page/widgets/user_tile.dart';
@@ -86,7 +87,9 @@ class PostFullScreen extends StatelessWidget {
                           },
                           onSelected: (value) {
                             if (value == 0) {
-                              log("Edit is selected.");
+                              Get.to(() => PostFormPage(
+                                    editedPost: clickedPost,
+                                  ));
                             } else if (value == 1) {
                               final postActorBloc =
                                   context.bloc<PostActorBloc>();

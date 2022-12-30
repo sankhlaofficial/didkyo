@@ -224,12 +224,26 @@ class PostRepository implements IPostRepository {
                     .ref(
                         'users/${user.id!.getOrCrash()}/${post.postLocation.getOrCrash()}')
                     .getDownloadURL();
-                await userDoc.postsCollection.doc(postDTO.postID).update(
-                    postDTO.copyWith(postImageURL: downloadURL).toJson());
+                await userDoc.postsCollection
+                    .doc(postDTO.postID)
+                    .update(
+                        postDTO.copyWith(postImageURL: downloadURL).toJson())
+                    .whenComplete(() async {
+                  await _firebaseFirestore
+                      .collection('globalPosts')
+                      .doc(postDTO.postID)
+                      .update(postDTO.toJson());
+                });
               })
             : await userDoc.postsCollection
                 .doc(postDTO.postID)
-                .update(postDTO.toJson());
+                .update(postDTO.toJson())
+                .whenComplete(() async {
+                await _firebaseFirestore
+                    .collection('globalPosts')
+                    .doc(postDTO.postID)
+                    .update(postDTO.toJson());
+              });
       } catch (error) {
         log(error.toString());
       }
