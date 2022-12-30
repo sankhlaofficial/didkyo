@@ -103,14 +103,14 @@ class UserSettingsPageScaffold extends StatelessWidget {
                 : AutovalidateMode.disabled,
             child: SingleChildScrollView(
               child: Column(
-                children: const [
+                children: [
                   NameField(),
-                  UserImageField(),
+                  const UserImageField(),
                   BioField(),
-                  SizedBox(
+                  const SizedBox(
                     height: 120,
                   ),
-                  SignOutButton()
+                  const SignOutButton()
                 ],
               ),
             ),

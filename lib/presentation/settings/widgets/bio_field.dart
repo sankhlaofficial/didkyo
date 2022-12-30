@@ -14,6 +14,8 @@ class BioField extends HookWidget {
     return BlocListener<UserSettingsBloc, UserSettingsState>(
       listener: (context, state) {
         textEditingController.text = state.user.bio!;
+        textEditingController.selection = TextSelection.fromPosition(
+            TextPosition(offset: textEditingController.text.length));
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),

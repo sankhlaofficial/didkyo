@@ -5,15 +5,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class NameField extends HookWidget {
-  const NameField({super.key});
+  NameField({super.key});
+
+  TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final textEditingController = useTextEditingController();
     Size size = MediaQuery.of(context).size;
     return BlocListener<UserSettingsBloc, UserSettingsState>(
       listener: (context, state) {
         textEditingController.text = state.user.displayName!;
+        textEditingController.selection = TextSelection.fromPosition(
+            TextPosition(offset: textEditingController.text.length));
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),

@@ -17,6 +17,7 @@ class PostFullScreen extends StatelessWidget {
 
   bool isLiked = false;
   TextEditingController commentController = TextEditingController();
+  ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class PostFullScreen extends StatelessWidget {
           if (state is OnePostLoaded) {
             return Scaffold(
                 extendBodyBehindAppBar: true,
-                resizeToAvoidBottomInset: false,
+                resizeToAvoidBottomInset: true,
                 appBar: AppBar(
                   iconTheme: const IconThemeData(
                     color: Colors.white,
@@ -49,6 +50,15 @@ class PostFullScreen extends StatelessWidget {
                 ),
                 body: SlidingUpPanel(
                     minHeight: 270,
+                    onPanelClosed: () {
+                      scrollController.animateTo(
+                          //go to top of scroll
+                          0, //scroll offset to go
+                          duration: const Duration(
+                              milliseconds: 500), //duration of scroll
+                          curve: Curves.fastOutSlowIn //scroll type
+                          );
+                    },
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(40.0),
                       topRight: Radius.circular(40.0),
@@ -63,122 +73,130 @@ class PostFullScreen extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(28.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  UserTile(
-                                    followId: state.post.postUserId,
-                                    location:
-                                        state.post.postLocation.getOrCrash(),
-                                    locationHeight: 20,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.remove_red_eye_rounded,
-                                        color: Colors.blue,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(state.post.postViews.length
-                                          .toString())
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(state.post.postCaption.getOrCrash(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500)),
-                              const SizedBox(
-                                height: 25,
-                              ),
-                              Row(
-                                children: [
-                                  Row(
-                                    children: [
-                                      LikeButton(
-                                        postUserId: state.post.postUserId,
-                                        postId: state.post.postID.getOrCrash(),
-                                        likedByList: state.post.postLikes,
-                                      ),
-                                      Text(state.post.postLikes.length
-                                          .toString())
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.comment,
-                                        color: Colors.blue,
-                                      ),
-                                      const SizedBox(
-                                        width: 18,
-                                      ),
-                                      Text(state.post.postComments.length
-                                          .toString())
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Get.to(() => LocationPostsPage(
-                                          selectedLocation: state
-                                              .post.postLocation
-                                              .getOrCrash()));
-                                    },
-                                    child: Text(
-                                      "More from ${state.post.postLocation.getOrCrash()}",
-                                      style:
-                                          const TextStyle(color: Colors.blue),
+                          child: SingleChildScrollView(
+                            controller: scrollController,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    UserTile(
+                                      followId: state.post.postUserId,
+                                      location:
+                                          state.post.postLocation.getOrCrash(),
+                                      locationHeight: 20,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: ListView.builder(
-                                    itemCount: state.post.postComments.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        child: UserTile(
-                                          followId: state
-                                              .post
-                                              .postComments[index]
-                                              .commentUserId,
-                                          locationHeight: 50,
-                                          location: state
-                                              .post
-                                              .postComments[index]
-                                              .commentMessage
-                                              .getOrCrash(),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.remove_red_eye_rounded,
+                                          color: Colors.blue,
                                         ),
-                                      );
-                                    }),
-                              ),
-                              CommentBox(
-                                postUserId: state.post.postUserId,
-                                postId: state.post.postID.getOrCrash(),
-                              ),
-                            ],
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(state.post.postViews.length
+                                            .toString())
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(state.post.postCaption.getOrCrash(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500)),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        LikeButton(
+                                          postUserId: state.post.postUserId,
+                                          postId:
+                                              state.post.postID.getOrCrash(),
+                                          likedByList: state.post.postLikes,
+                                        ),
+                                        Text(state.post.postLikes.length
+                                            .toString())
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.comment,
+                                          color: Colors.blue,
+                                        ),
+                                        const SizedBox(
+                                          width: 18,
+                                        ),
+                                        Text(state.post.postComments.length
+                                            .toString())
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.to(() => LocationPostsPage(
+                                            selectedLocation: state
+                                                .post.postLocation
+                                                .getOrCrash()));
+                                      },
+                                      child: Text(
+                                        "More from ${state.post.postLocation.getOrCrash()}",
+                                        style:
+                                            const TextStyle(color: Colors.blue),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Flexible(
+                                  child: ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: state.post.postComments.length,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 8.0),
+                                          child: UserTile(
+                                            followId: state
+                                                .post
+                                                .postComments[index]
+                                                .commentUserId,
+                                            locationHeight: 50,
+                                            location: state
+                                                .post
+                                                .postComments[index]
+                                                .commentMessage
+                                                .getOrCrash(),
+                                          ),
+                                        );
+                                      }),
+                                ),
+                                CommentBox(
+                                  postUserId: state.post.postUserId,
+                                  postId: state.post.postID.getOrCrash(),
+                                ),
+                              ],
+                            ),
                           ),
                         )),
                     body: Column(
