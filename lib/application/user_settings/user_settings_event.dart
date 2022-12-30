@@ -5,6 +5,7 @@ abstract class UserSettingsEvent with _$UserSettingsEvent {
   const factory UserSettingsEvent.initialized(User initialUserData) =
       _Initialized;
   const factory UserSettingsEvent.nameChanged(String newName) = _NameChanged;
+  const factory UserSettingsEvent.bioChanged(String newBio) = _BioChanged;
   const factory UserSettingsEvent.imageChanged(String newImagePath) =
       _ImageChanged;
 

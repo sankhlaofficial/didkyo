@@ -14,6 +14,7 @@ _$_UserDTO _$$_UserDTOFromJson(Map<String, dynamic> json) => _$_UserDTO(
       followers: json['followers'] as List<dynamic>,
       following: json['following'] as List<dynamic>,
       pushToken: json['pushToken'] as String,
+      bio: json['bio'] as String,
     );
 
 Map<String, dynamic> _$$_UserDTOToJson(_$_UserDTO instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$$_UserDTOToJson(_$_UserDTO instance) =>
       'followers': instance.followers,
       'following': instance.following,
       'pushToken': instance.pushToken,
+      'bio': instance.bio,
     };

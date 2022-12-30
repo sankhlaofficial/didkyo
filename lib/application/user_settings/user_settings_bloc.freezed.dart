@@ -20,6 +20,7 @@ mixin _$UserSettingsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(User initialUserData) initialized,
     required TResult Function(String newName) nameChanged,
+    required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
     required TResult Function() saved,
   }) =>
@@ -28,6 +29,7 @@ mixin _$UserSettingsEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User initialUserData)? initialized,
     TResult? Function(String newName)? nameChanged,
+    TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
     TResult? Function()? saved,
   }) =>
@@ -36,6 +38,7 @@ mixin _$UserSettingsEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User initialUserData)? initialized,
     TResult Function(String newName)? nameChanged,
+    TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
     TResult Function()? saved,
     required TResult orElse(),
@@ -45,6 +48,7 @@ mixin _$UserSettingsEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_NameChanged value) nameChanged,
+    required TResult Function(_BioChanged value) bioChanged,
     required TResult Function(_ImageChanged value) imageChanged,
     required TResult Function(_PostSaved value) saved,
   }) =>
@@ -53,6 +57,7 @@ mixin _$UserSettingsEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_NameChanged value)? nameChanged,
+    TResult? Function(_BioChanged value)? bioChanged,
     TResult? Function(_ImageChanged value)? imageChanged,
     TResult? Function(_PostSaved value)? saved,
   }) =>
@@ -61,6 +66,7 @@ mixin _$UserSettingsEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialized value)? initialized,
     TResult Function(_NameChanged value)? nameChanged,
+    TResult Function(_BioChanged value)? bioChanged,
     TResult Function(_ImageChanged value)? imageChanged,
     TResult Function(_PostSaved value)? saved,
     required TResult orElse(),
@@ -163,6 +169,7 @@ class _$_Initialized implements _Initialized {
   TResult when<TResult extends Object?>({
     required TResult Function(User initialUserData) initialized,
     required TResult Function(String newName) nameChanged,
+    required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
     required TResult Function() saved,
   }) {
@@ -174,6 +181,7 @@ class _$_Initialized implements _Initialized {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User initialUserData)? initialized,
     TResult? Function(String newName)? nameChanged,
+    TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
     TResult? Function()? saved,
   }) {
@@ -185,6 +193,7 @@ class _$_Initialized implements _Initialized {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User initialUserData)? initialized,
     TResult Function(String newName)? nameChanged,
+    TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
     TResult Function()? saved,
     required TResult orElse(),
@@ -200,6 +209,7 @@ class _$_Initialized implements _Initialized {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_NameChanged value) nameChanged,
+    required TResult Function(_BioChanged value) bioChanged,
     required TResult Function(_ImageChanged value) imageChanged,
     required TResult Function(_PostSaved value) saved,
   }) {
@@ -211,6 +221,7 @@ class _$_Initialized implements _Initialized {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_NameChanged value)? nameChanged,
+    TResult? Function(_BioChanged value)? bioChanged,
     TResult? Function(_ImageChanged value)? imageChanged,
     TResult? Function(_PostSaved value)? saved,
   }) {
@@ -222,6 +233,7 @@ class _$_Initialized implements _Initialized {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialized value)? initialized,
     TResult Function(_NameChanged value)? nameChanged,
+    TResult Function(_BioChanged value)? bioChanged,
     TResult Function(_ImageChanged value)? imageChanged,
     TResult Function(_PostSaved value)? saved,
     required TResult orElse(),
@@ -308,6 +320,7 @@ class _$_NameChanged implements _NameChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(User initialUserData) initialized,
     required TResult Function(String newName) nameChanged,
+    required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
     required TResult Function() saved,
   }) {
@@ -319,6 +332,7 @@ class _$_NameChanged implements _NameChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User initialUserData)? initialized,
     TResult? Function(String newName)? nameChanged,
+    TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
     TResult? Function()? saved,
   }) {
@@ -330,6 +344,7 @@ class _$_NameChanged implements _NameChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User initialUserData)? initialized,
     TResult Function(String newName)? nameChanged,
+    TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
     TResult Function()? saved,
     required TResult orElse(),
@@ -345,6 +360,7 @@ class _$_NameChanged implements _NameChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_NameChanged value) nameChanged,
+    required TResult Function(_BioChanged value) bioChanged,
     required TResult Function(_ImageChanged value) imageChanged,
     required TResult Function(_PostSaved value) saved,
   }) {
@@ -356,6 +372,7 @@ class _$_NameChanged implements _NameChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_NameChanged value)? nameChanged,
+    TResult? Function(_BioChanged value)? bioChanged,
     TResult? Function(_ImageChanged value)? imageChanged,
     TResult? Function(_PostSaved value)? saved,
   }) {
@@ -367,6 +384,7 @@ class _$_NameChanged implements _NameChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialized value)? initialized,
     TResult Function(_NameChanged value)? nameChanged,
+    TResult Function(_BioChanged value)? bioChanged,
     TResult Function(_ImageChanged value)? imageChanged,
     TResult Function(_PostSaved value)? saved,
     required TResult orElse(),
@@ -384,6 +402,157 @@ abstract class _NameChanged implements UserSettingsEvent {
   String get newName;
   @JsonKey(ignore: true)
   _$$_NameChangedCopyWith<_$_NameChanged> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_BioChangedCopyWith<$Res> {
+  factory _$$_BioChangedCopyWith(
+          _$_BioChanged value, $Res Function(_$_BioChanged) then) =
+      __$$_BioChangedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String newBio});
+}
+
+/// @nodoc
+class __$$_BioChangedCopyWithImpl<$Res>
+    extends _$UserSettingsEventCopyWithImpl<$Res, _$_BioChanged>
+    implements _$$_BioChangedCopyWith<$Res> {
+  __$$_BioChangedCopyWithImpl(
+      _$_BioChanged _value, $Res Function(_$_BioChanged) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? newBio = null,
+  }) {
+    return _then(_$_BioChanged(
+      null == newBio
+          ? _value.newBio
+          : newBio // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_BioChanged implements _BioChanged {
+  const _$_BioChanged(this.newBio);
+
+  @override
+  final String newBio;
+
+  @override
+  String toString() {
+    return 'UserSettingsEvent.bioChanged(newBio: $newBio)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_BioChanged &&
+            (identical(other.newBio, newBio) || other.newBio == newBio));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, newBio);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_BioChangedCopyWith<_$_BioChanged> get copyWith =>
+      __$$_BioChangedCopyWithImpl<_$_BioChanged>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(User initialUserData) initialized,
+    required TResult Function(String newName) nameChanged,
+    required TResult Function(String newBio) bioChanged,
+    required TResult Function(String newImagePath) imageChanged,
+    required TResult Function() saved,
+  }) {
+    return bioChanged(newBio);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(User initialUserData)? initialized,
+    TResult? Function(String newName)? nameChanged,
+    TResult? Function(String newBio)? bioChanged,
+    TResult? Function(String newImagePath)? imageChanged,
+    TResult? Function()? saved,
+  }) {
+    return bioChanged?.call(newBio);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(User initialUserData)? initialized,
+    TResult Function(String newName)? nameChanged,
+    TResult Function(String newBio)? bioChanged,
+    TResult Function(String newImagePath)? imageChanged,
+    TResult Function()? saved,
+    required TResult orElse(),
+  }) {
+    if (bioChanged != null) {
+      return bioChanged(newBio);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_NameChanged value) nameChanged,
+    required TResult Function(_BioChanged value) bioChanged,
+    required TResult Function(_ImageChanged value) imageChanged,
+    required TResult Function(_PostSaved value) saved,
+  }) {
+    return bioChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_NameChanged value)? nameChanged,
+    TResult? Function(_BioChanged value)? bioChanged,
+    TResult? Function(_ImageChanged value)? imageChanged,
+    TResult? Function(_PostSaved value)? saved,
+  }) {
+    return bioChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_NameChanged value)? nameChanged,
+    TResult Function(_BioChanged value)? bioChanged,
+    TResult Function(_ImageChanged value)? imageChanged,
+    TResult Function(_PostSaved value)? saved,
+    required TResult orElse(),
+  }) {
+    if (bioChanged != null) {
+      return bioChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BioChanged implements UserSettingsEvent {
+  const factory _BioChanged(final String newBio) = _$_BioChanged;
+
+  String get newBio;
+  @JsonKey(ignore: true)
+  _$$_BioChangedCopyWith<_$_BioChanged> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -454,6 +623,7 @@ class _$_ImageChanged implements _ImageChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(User initialUserData) initialized,
     required TResult Function(String newName) nameChanged,
+    required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
     required TResult Function() saved,
   }) {
@@ -465,6 +635,7 @@ class _$_ImageChanged implements _ImageChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User initialUserData)? initialized,
     TResult? Function(String newName)? nameChanged,
+    TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
     TResult? Function()? saved,
   }) {
@@ -476,6 +647,7 @@ class _$_ImageChanged implements _ImageChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User initialUserData)? initialized,
     TResult Function(String newName)? nameChanged,
+    TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
     TResult Function()? saved,
     required TResult orElse(),
@@ -491,6 +663,7 @@ class _$_ImageChanged implements _ImageChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_NameChanged value) nameChanged,
+    required TResult Function(_BioChanged value) bioChanged,
     required TResult Function(_ImageChanged value) imageChanged,
     required TResult Function(_PostSaved value) saved,
   }) {
@@ -502,6 +675,7 @@ class _$_ImageChanged implements _ImageChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_NameChanged value)? nameChanged,
+    TResult? Function(_BioChanged value)? bioChanged,
     TResult? Function(_ImageChanged value)? imageChanged,
     TResult? Function(_PostSaved value)? saved,
   }) {
@@ -513,6 +687,7 @@ class _$_ImageChanged implements _ImageChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialized value)? initialized,
     TResult Function(_NameChanged value)? nameChanged,
+    TResult Function(_BioChanged value)? bioChanged,
     TResult Function(_ImageChanged value)? imageChanged,
     TResult Function(_PostSaved value)? saved,
     required TResult orElse(),
@@ -573,6 +748,7 @@ class _$_PostSaved implements _PostSaved {
   TResult when<TResult extends Object?>({
     required TResult Function(User initialUserData) initialized,
     required TResult Function(String newName) nameChanged,
+    required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
     required TResult Function() saved,
   }) {
@@ -584,6 +760,7 @@ class _$_PostSaved implements _PostSaved {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User initialUserData)? initialized,
     TResult? Function(String newName)? nameChanged,
+    TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
     TResult? Function()? saved,
   }) {
@@ -595,6 +772,7 @@ class _$_PostSaved implements _PostSaved {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User initialUserData)? initialized,
     TResult Function(String newName)? nameChanged,
+    TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
     TResult Function()? saved,
     required TResult orElse(),
@@ -610,6 +788,7 @@ class _$_PostSaved implements _PostSaved {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_NameChanged value) nameChanged,
+    required TResult Function(_BioChanged value) bioChanged,
     required TResult Function(_ImageChanged value) imageChanged,
     required TResult Function(_PostSaved value) saved,
   }) {
@@ -621,6 +800,7 @@ class _$_PostSaved implements _PostSaved {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_NameChanged value)? nameChanged,
+    TResult? Function(_BioChanged value)? bioChanged,
     TResult? Function(_ImageChanged value)? imageChanged,
     TResult? Function(_PostSaved value)? saved,
   }) {
@@ -632,6 +812,7 @@ class _$_PostSaved implements _PostSaved {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialized value)? initialized,
     TResult Function(_NameChanged value)? nameChanged,
+    TResult Function(_BioChanged value)? bioChanged,
     TResult Function(_ImageChanged value)? imageChanged,
     TResult Function(_PostSaved value)? saved,
     required TResult orElse(),

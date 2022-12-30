@@ -8,7 +8,8 @@ abstract class IUserRepository {
       String id,
       String pushToken,
       List<dynamic> followers,
-      List<dynamic> following);
+      List<dynamic> following,
+      String bio);
   Future<void> updateUser(User user);
   Future<User> fetchUser(String userId);
 }

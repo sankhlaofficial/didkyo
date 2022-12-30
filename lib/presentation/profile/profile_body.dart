@@ -71,9 +71,13 @@ class ProfileBody extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Text(
-                      "This is Some user bio that I have to add jhfjf da this si to be done yo",
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                    Row(
+                      children: [
+                        Text(
+                          user.bio!,
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 15,
