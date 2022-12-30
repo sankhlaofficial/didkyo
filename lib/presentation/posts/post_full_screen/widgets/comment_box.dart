@@ -9,10 +9,12 @@ class CommentBox extends StatelessWidget {
   CommentBox({
     Key? key,
     required this.postId,
+    required this.postUserId,
   }) : super(key: key);
 
   TextEditingController commentController = TextEditingController();
   final String postId;
+  final String postUserId;
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +44,10 @@ class CommentBox extends StatelessWidget {
                         onPressed: () {
                           log(commentController.text);
                           context.repository<ActionsRepository>().addComment(
-                              commentController.text,
-                              state.user.id!.getOrCrash(),
-                              postId);
+                              commentMessage: commentController.text,
+                              currentUserId: state.user.id!.getOrCrash(),
+                              postUserId: postUserId,
+                              postId: postId);
                         },
                         icon: const Icon(Icons.send))
                   ],

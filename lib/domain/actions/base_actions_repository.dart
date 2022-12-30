@@ -3,12 +3,24 @@ import 'package:didkyo/domain/posts/post.dart';
 
 abstract class BaseActionsRepository {
   Future<void> followUser(String toBeFollowedUserId, String currentUserId);
-  Future<void> addView(String postId, String currentUserId);
-  Future<void> likePost(String toBeLikedPostId, String currentUserId);
-  Future<void> unLikePost(String toBeUnLikedPostId, String currentUserId);
+  Future<void> addView(
+      {required String postId,
+      required String postUserId,
+      required String currentUserId});
+  Future<void> likePost(
+      {required String toBeLikedPostId,
+      required String postUserId,
+      required String currentUserId});
+  Future<void> unLikePost(
+      {required String toBeUnLikedPostId,
+      required String postUserId,
+      required String currentUserId});
   Future<void> unFollowUser(String toBeUnFollowedUserId, String currentUserId);
   Future<void> addComment(
-      String commentMessage, String postId, String currentUserId);
+      {required String commentMessage,
+      required String postUserId,
+      required String postId,
+      required String currentUserId});
 
   Stream<User?> getUser(String userID);
   Stream<Post?> getPost(String postID);

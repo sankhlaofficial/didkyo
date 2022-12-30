@@ -105,6 +105,7 @@ class PostFullScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       LikeButton(
+                                        postUserId: state.post.postUserId,
                                         postId: state.post.postID.getOrCrash(),
                                         likedByList: state.post.postLikes,
                                       ),
@@ -174,6 +175,7 @@ class PostFullScreen extends StatelessWidget {
                                     }),
                               ),
                               CommentBox(
+                                postUserId: state.post.postUserId,
                                 postId: state.post.postID.getOrCrash(),
                               ),
                             ],

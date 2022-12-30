@@ -8,10 +8,12 @@ class LikeButton extends StatelessWidget {
     Key? key,
     required this.likedByList,
     required this.postId,
+    required this.postUserId,
   }) : super(key: key);
   final List<dynamic> likedByList;
   bool isLiked = false;
   final String postId;
+  final String postUserId;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,10 @@ class LikeButton extends StatelessWidget {
               initial: (_) => Container(),
               loadInProgress: (_) => Container(),
               loadSuccess: (state) {
-                context
-                    .repository<ActionsRepository>()
-                    .addView(postId, state.user.id!.getOrCrash());
+                context.repository<ActionsRepository>().addView(
+                    postId: postId,
+                    postUserId: postUserId,
+                    currentUserId: state.user.id!.getOrCrash());
                 isLiked = likedByList.contains(state.user.id!.getOrCrash())
                     ? true
                     : false;
@@ -33,13 +36,15 @@ class LikeButton extends StatelessWidget {
                 return IconButton(
                     onPressed: () {
                       if (isLiked) {
-                        context
-                            .repository<ActionsRepository>()
-                            .unLikePost(postId, state.user.id!.getOrCrash());
+                        context.repository<ActionsRepository>().unLikePost(
+                            toBeUnLikedPostId: postId,
+                            postUserId: postUserId,
+                            currentUserId: state.user.id!.getOrCrash());
                       } else {
-                        context
-                            .repository<ActionsRepository>()
-                            .likePost(postId, state.user.id!.getOrCrash());
+                        context.repository<ActionsRepository>().likePost(
+                            toBeLikedPostId: postId,
+                            postUserId: postUserId,
+                            currentUserId: state.user.id!.getOrCrash());
                       }
                     },
                     icon: !isLiked
