@@ -15,8 +15,10 @@ class ImageField extends StatefulWidget {
 }
 
 class _ImageFieldState extends State<ImageField> {
+  static const String loadingImage =
+      'https://cdn3.vectorstock.com/i/1000x1000/98/47/loading-icon-on-black-vector-24559847.jpg';
   String postImage = '';
-
+  String localImage = '';
   String imageWay = '';
 
   @override
@@ -37,7 +39,7 @@ class _ImageFieldState extends State<ImageField> {
               ),
               width: size.width,
               height: size.height / 4,
-              child: postImage == ""
+              child: localImage != ''
                   ? imageWay == ""
                       ? Center(
                           child: IconButton(
@@ -111,7 +113,7 @@ class _ImageFieldState extends State<ImageField> {
                       children: [
                         Positioned.fill(
                             child: Image.network(
-                          postImage,
+                          postImage != "" ? postImage : loadingImage,
                         )),
                         Align(
                           alignment: Alignment.bottomRight,
@@ -132,6 +134,7 @@ class _ImageFieldState extends State<ImageField> {
                                   setState(() {
                                     log(image.path);
                                     imageWay = imageFile.path;
+                                    localImage = 'NOT NULL ';
                                   });
                                   context.bloc<PostFormBloc>().add(
                                       PostFormEvent.imageChanged(

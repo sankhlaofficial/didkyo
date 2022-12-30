@@ -232,7 +232,8 @@ class PostRepository implements IPostRepository {
                   await _firebaseFirestore
                       .collection('globalPosts')
                       .doc(postDTO.postID)
-                      .update(postDTO.toJson());
+                      .update(
+                          postDTO.copyWith(postImageURL: downloadURL).toJson());
                 });
               })
             : await userDoc.postsCollection
