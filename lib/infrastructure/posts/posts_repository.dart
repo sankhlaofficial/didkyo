@@ -178,9 +178,20 @@ class PostRepository implements IPostRepository {
       final userDoc =
           await _firebaseFirestore.userDocument(user.id!.getOrCrash());
       final postID = post.postID.getOrCrash();
-      await userDoc.postsCollection.doc(postID).delete();
+      await userDoc.postsCollection.doc(postID).delete().then((value) async {
+        await _firebaseFirestore
+            .collection('globalPosts')
+            .doc(postID)
+            .delete()
+            .whenComplete(() async {
+          await _firebaseFirestore.collection('analytics').doc('places').update(
+              {post.postLocation.getOrCrash(): FieldValue.increment(-1)});
+        });
+      });
       return right(unit);
     } on PlatformException catch (e) {
+      log(e.toString());
+
       if (e.message!.contains('PERMISSION_DENIED')) {
         return left(const PostFailure.permissionDenied());
       } else if (e.message!.contains('NOT_FOUND')) {

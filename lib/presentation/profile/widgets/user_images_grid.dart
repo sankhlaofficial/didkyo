@@ -34,6 +34,7 @@ class UserImagesGrid extends StatelessWidget {
                           return InkWell(
                               onTap: () {
                                 Get.to(() => PostFullScreen(
+                                    currentUserId: user.id!.getOrCrash(),
                                     clickedPost: state.posts[index]));
                               },
                               child: Container(

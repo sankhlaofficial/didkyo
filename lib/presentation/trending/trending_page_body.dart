@@ -27,10 +27,15 @@ class TrendingPageBody extends StatelessWidget {
             final data = state.trendingData;
             final sortedData = sortData(data);
             log(sortedData.toString());
-            return Center(
-                child: TrendingCardsGrid(
-              trendingData: sortedData,
-            ));
+            return state.trendingData.isNotEmpty ||
+                    state.trendingData.values.toList()[0] == 0
+                ? Center(
+                    child: TrendingCardsGrid(
+                    trendingData: sortedData,
+                  ))
+                : Container(
+                    child: Text("No posts yet"),
+                  );
           },
           loadFailure: (_) => const Center(
                 child: Text('Some error'),

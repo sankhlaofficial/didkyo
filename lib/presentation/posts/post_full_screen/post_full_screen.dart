@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:didkyo/application/onePost/one_post_bloc.dart';
+import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
+import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/posts/location_posts/location_posts_page.dart';
 import 'package:didkyo/presentation/posts/post_full_screen/widgets/comment_box.dart';
 import 'package:didkyo/presentation/posts/post_full_screen/widgets/like_button.dart';
@@ -11,9 +15,12 @@ import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class PostFullScreen extends StatelessWidget {
-  PostFullScreen({Key? key, required this.clickedPost}) : super(key: key);
+  PostFullScreen(
+      {Key? key, required this.clickedPost, required this.currentUserId})
+      : super(key: key);
 
   final Post clickedPost;
+  final String currentUserId;
 
   bool isLiked = false;
   TextEditingController commentController = TextEditingController();
@@ -21,9 +28,17 @@ class PostFullScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => OnePostBloc(context.repository<ActionsRepository>())
-        ..add(LoadOnePost(postID: clickedPost.postID.getOrCrash())),
+    log(currentUserId + "+" + clickedPost.postUserId);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              OnePostBloc(context.repository<ActionsRepository>())
+                ..add(LoadOnePost(postID: clickedPost.postID.getOrCrash())),
+        ),
+        BlocProvider<PostActorBloc>(
+            create: (context) => getIt<PostActorBloc>()),
+      ],
       child: BlocBuilder<OnePostBloc, OnePostState>(
         builder: (context, state) {
           if (state is OnePostLoading) {
@@ -47,6 +62,39 @@ class PostFullScreen extends StatelessWidget {
                   //   style: Theme.of(context).textTheme.displayMedium,
                   // ),
                   centerTitle: true,
+                  actions: [
+                    Visibility(
+                      visible: clickedPost.postUserId == currentUserId
+                          ? true
+                          : false,
+                      child: PopupMenuButton(
+                          icon: Icon(
+                            Icons.more_horiz_rounded,
+                            color: Colors.white,
+                          ),
+                          itemBuilder: (context) {
+                            return [
+                              PopupMenuItem<int>(
+                                value: 0,
+                                child: Text("Edit"),
+                              ),
+                              PopupMenuItem<int>(
+                                value: 1,
+                                child: Text("Delete"),
+                              ),
+                            ];
+                          },
+                          onSelected: (value) {
+                            if (value == 0) {
+                              log("Edit is selected.");
+                            } else if (value == 1) {
+                              final postActorBloc =
+                                  context.bloc<PostActorBloc>();
+                              _showDeleteDialogBox(context, postActorBloc);
+                            }
+                          }),
+                    )
+                  ],
                 ),
                 body: SlidingUpPanel(
                     minHeight: 270,
@@ -220,5 +268,33 @@ class PostFullScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _showDeleteDialogBox(BuildContext context, PostActorBloc postActorBloc) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Are you sure?"),
+            content: const Text("Post once deleted cannot be recovered"),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(color: Colors.black),
+                  )),
+              TextButton(
+                  onPressed: () {
+                    postActorBloc.add(PostActorEvent.deleted(clickedPost));
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Delete",
+                      style: TextStyle(color: Colors.black))),
+            ],
+          );
+        });
   }
 }
