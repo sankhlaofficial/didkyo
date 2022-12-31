@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
 import 'package:didkyo/injection.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +26,20 @@ class ProfileBackgroundImage extends StatelessWidget {
           return state.map(initial: (_) {
             return Column(
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height / 1.2,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(sampleWallpaper))),
+                CachedNetworkImage(
+                  imageUrl: sampleWallpaper,
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: MediaQuery.of(context).size.height / 1.2,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fill, image: imageProvider)),
+                  ),
+                  placeholder: (context, url) => Container(
+                    height: MediaQuery.of(context).size.height / 1.2,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(color: Colors.transparent),
+                  ),
                 ),
               ],
             );
@@ -52,15 +60,23 @@ class ProfileBackgroundImage extends StatelessWidget {
             log(state.posts.toString());
             return Column(
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height / 1.2,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(state.posts.isNotEmpty
-                              ? state.posts[0].postImage.getOrCrash()
-                              : sampleWallpaper))),
+                CachedNetworkImage(
+                  imageUrl: state.posts.isNotEmpty
+                      ? state.posts[0].postImage.getOrCrash()
+                      : sampleWallpaper,
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: MediaQuery.of(context).size.height / 1.2,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fill, image: imageProvider)),
+                  ),
+                  placeholder: (context, url) => Container(
+                    height: MediaQuery.of(context).size.height / 1.2,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(color: Colors.grey),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ],
             );

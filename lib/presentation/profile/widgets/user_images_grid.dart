@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/injection.dart';
@@ -33,24 +34,32 @@ class UserImagesGrid extends StatelessWidget {
                     itemCount: state.posts.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                          onTap: () {
-                            nav.Get.to(
-                                () => PostFullScreen(
-                                    currentUserId: user.id!.getOrCrash(),
-                                    clickedPost: state.posts[index]),
-                                transition: nav.Transition.downToUp);
-                          },
-                          child: Container(
+                        onTap: () {
+                          nav.Get.to(
+                              () => PostFullScreen(
+                                  currentUserId: user.id!.getOrCrash(),
+                                  clickedPost: state.posts[index]),
+                              transition: nav.Transition.downToUp);
+                        },
+                        child: CachedNetworkImage(
+                          imageUrl: state.posts[index].postImage.getOrCrash(),
+                          imageBuilder: (context, imageProvider) => Container(
                             margin: const EdgeInsets.all(3),
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
-                                image: DecorationImage(
-                                    image: NetworkImage(state
-                                        .posts[index].postImage
-                                        .getOrCrash()))),
-                          ));
+                                image: DecorationImage(image: imageProvider)),
+                          ),
+                          placeholder: (context, url) => Container(
+                              margin: const EdgeInsets.all(3),
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.grey)),
+                        ),
+                      );
                     });
               },
               loadFailure: (_) => Container());

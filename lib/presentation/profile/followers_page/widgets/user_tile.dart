@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:didkyo/application/profile/profile_bloc.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:didkyo/presentation/profile/global_profile_page.dart';
@@ -49,12 +50,19 @@ class UserTile extends StatelessWidget {
                                 ),
                             transition: nav.Transition.rightToLeft);
                       },
-                      child: CircleAvatar(
-                          backgroundColor: Colors.transparent,
+                      child: CachedNetworkImage(
+                        imageUrl: state.user.photoUrl!,
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius: 25,
+                            backgroundImage: imageProvider),
+                        placeholder: (context, url) => const CircleAvatar(
+                          backgroundColor: Colors.grey,
                           radius: 25,
-                          backgroundImage: NetworkImage(
-                            state.user.photoUrl!,
-                          )),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
                     ),
                     const SizedBox(
                       width: 15,

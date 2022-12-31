@@ -35,7 +35,7 @@ class PostCardWidget extends StatelessWidget {
                               currentUserId: state.user.id!.getOrCrash(),
                               clickedPost: cardPost,
                             ),
-                        transition: nav.Transition.rightToLeft);
+                        transition: nav.Transition.zoom);
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
