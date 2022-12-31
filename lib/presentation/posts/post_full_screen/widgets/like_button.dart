@@ -34,6 +34,7 @@ class LikeButton extends StatelessWidget {
                     : false;
 
                 return IconButton(
+                    padding: const EdgeInsets.all(0),
                     onPressed: () {
                       if (isLiked) {
                         context.repository<ActionsRepository>().unLikePost(

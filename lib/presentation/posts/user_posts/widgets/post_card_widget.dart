@@ -1,7 +1,9 @@
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/application/user/user_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
+import 'package:didkyo/presentation/helpers/presentation_helpers.dart';
 import 'package:didkyo/presentation/posts/post_full_screen/post_full_screen.dart';
+import 'package:didkyo/presentation/posts/post_full_screen/widgets/like_button.dart';
 import 'package:didkyo/presentation/profile/followers_page/widgets/user_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -159,10 +161,12 @@ class PostCardWidget extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    const Icon(Icons.favorite,
-                                        color: Colors.blue),
-                                    const SizedBox(
-                                      width: 5,
+                                    SizedBox(
+                                      height: 20,
+                                      child: LikeButton(
+                                          likedByList: cardPost.postLikes,
+                                          postId: cardPost.postID.getOrCrash(),
+                                          postUserId: cardPost.postUserId),
                                     ),
                                     Text(
                                       cardPost.postLikes.length.toString(),
@@ -188,7 +192,29 @@ class PostCardWidget extends StatelessWidget {
                                         cardPost.postComments.length.toString(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .labelSmall)
+                                            .labelSmall),
+                                    const SizedBox(
+                                      width: 75,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              PresentationHelpers
+                                                  .formatDateTime(
+                                                      cardPost.postDateTime),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 )
                               ],

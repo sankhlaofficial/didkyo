@@ -247,7 +247,7 @@ class PostFullScreen extends StatelessWidget {
                                                 .post
                                                 .postComments[index]
                                                 .commentUserId,
-                                            locationHeight: 50,
+                                            locationHeight: 20,
                                             location: state
                                                 .post
                                                 .postComments[index]
