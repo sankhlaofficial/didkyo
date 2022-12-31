@@ -26,6 +26,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      iconTheme: IconThemeData(
+        color: Theme.of(context).textTheme.titleSmall!.color,
+      ),
       elevation: 0,
       title: Text(
         widget.appBarTitle,
@@ -34,17 +37,25 @@ class _CustomAppBarState extends State<CustomAppBar> {
       actions: [
         BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, state) {
-            return Switch(
-              value: state.themeData == AppTheme.lightTheme ? false : true,
-              onChanged: (value) {
-                BlocProvider.of<ThemeBloc>(context).add(ThemeEvent(
-                    appTheme:
-                        value ? AppTheme.darkTheme : AppTheme.lightTheme));
-                log(value.toString());
-                setState(() {
-                  isDarkModeEnabled = value;
-                });
-              },
+            return Row(
+              children: [
+                Icon(
+                  isDarkModeEnabled ? Icons.nights_stay_rounded : Icons.sunny,
+                  color: isDarkModeEnabled ? Colors.white : Colors.yellow,
+                ),
+                Switch(
+                  value: state.themeData == AppTheme.lightTheme ? false : true,
+                  onChanged: (value) {
+                    BlocProvider.of<ThemeBloc>(context).add(ThemeEvent(
+                        appTheme:
+                            value ? AppTheme.darkTheme : AppTheme.lightTheme));
+                    log(value.toString());
+                    setState(() {
+                      isDarkModeEnabled = value;
+                    });
+                  },
+                ),
+              ],
             );
           },
         )
