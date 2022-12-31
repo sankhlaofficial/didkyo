@@ -14,6 +14,7 @@ class PostFormPage extends StatelessWidget {
   final Post? editedPost;
 
   const PostFormPage({super.key, this.editedPost});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

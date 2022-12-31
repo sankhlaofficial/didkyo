@@ -14,32 +14,38 @@ class AppHome extends StatefulWidget {
 
 class _AppHomeState extends State<AppHome> {
   int _selectedIndex = 0;
-
+  final _pageController = PageController();
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+
+      _pageController.animateToPage(index,
+          duration: const Duration(milliseconds: 200), curve: Curves.linear);
     });
   }
 
   static final List<Widget> _pages = <Widget>[
-    GlobalPostsPage(),
+    const GlobalPostsPage(),
     TrendingPage(),
-    const PostFormPage(),
-    ProfileOverview(),
+    PostFormPage(),
+    const ProfileOverview(),
     const UserProvider()
   ];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Get.to(() => const PostFormPage());
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(30),
@@ -102,8 +108,13 @@ class _AppHomeState extends State<AppHome> {
           ],
         ),
       ),
-      body: Center(
-        child: _pages.elementAt(_selectedIndex),
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() => _selectedIndex = index);
+        },
+        children: _pages,
       ),
     );
   }
