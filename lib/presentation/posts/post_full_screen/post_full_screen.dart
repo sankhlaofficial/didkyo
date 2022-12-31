@@ -69,17 +69,17 @@ class PostFullScreen extends StatelessWidget {
                           ? true
                           : false,
                       child: PopupMenuButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.more_horiz_rounded,
                             color: Colors.white,
                           ),
                           itemBuilder: (context) {
                             return [
-                              PopupMenuItem<int>(
+                              const PopupMenuItem<int>(
                                 value: 0,
                                 child: Text("Edit"),
                               ),
-                              PopupMenuItem<int>(
+                              const PopupMenuItem<int>(
                                 value: 1,
                                 child: Text("Delete"),
                               ),
@@ -100,7 +100,7 @@ class PostFullScreen extends StatelessWidget {
                   ],
                 ),
                 body: SlidingUpPanel(
-                    minHeight: 270,
+                    minHeight: 200,
                     onPanelClosed: () {
                       scrollController.animateTo(
                           //go to top of scroll
@@ -115,9 +115,9 @@ class PostFullScreen extends StatelessWidget {
                       topRight: Radius.circular(40.0),
                     ),
                     panel: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(40.0),
                             topRight: Radius.circular(40.0),
                           ),
@@ -149,8 +149,13 @@ class PostFullScreen extends StatelessWidget {
                                         const SizedBox(
                                           width: 5,
                                         ),
-                                        Text(state.post.postViews.length
-                                            .toString())
+                                        Text(
+                                          state.post.postViews.length
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall,
+                                        )
                                       ],
                                     )
                                   ],
@@ -159,8 +164,8 @@ class PostFullScreen extends StatelessWidget {
                                   height: 20,
                                 ),
                                 Text(state.post.postCaption.getOrCrash(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w500)),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge),
                                 const SizedBox(
                                   height: 25,
                                 ),
@@ -174,8 +179,13 @@ class PostFullScreen extends StatelessWidget {
                                               state.post.postID.getOrCrash(),
                                           likedByList: state.post.postLikes,
                                         ),
-                                        Text(state.post.postLikes.length
-                                            .toString())
+                                        Text(
+                                          state.post.postLikes.length
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall,
+                                        )
                                       ],
                                     ),
                                     const SizedBox(
@@ -190,8 +200,13 @@ class PostFullScreen extends StatelessWidget {
                                         const SizedBox(
                                           width: 18,
                                         ),
-                                        Text(state.post.postComments.length
-                                            .toString())
+                                        Text(
+                                          state.post.postComments.length
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall,
+                                        )
                                       ],
                                     ),
                                   ],

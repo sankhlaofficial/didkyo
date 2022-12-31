@@ -51,7 +51,7 @@ class _AppHomeState extends State<AppHome> {
           onTap: _onItemTapped,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           type: BottomNavigationBarType.fixed,
           selectedIconTheme: const IconThemeData(color: Colors.amberAccent),
           items: [
@@ -59,7 +59,9 @@ class _AppHomeState extends State<AppHome> {
               label: 'Home',
               icon: CustomBottomNavItem(
                 navIcon: Icons.home_outlined,
-                iconColor: _selectedIndex == 0 ? Colors.blue : Colors.grey,
+                iconColor: _selectedIndex == 0
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.grey,
                 containerColor: Colors.transparent,
               ),
             ),
@@ -67,7 +69,9 @@ class _AppHomeState extends State<AppHome> {
               label: 'Trending',
               icon: CustomBottomNavItem(
                 navIcon: Icons.trending_up_outlined,
-                iconColor: _selectedIndex == 1 ? Colors.blue : Colors.grey,
+                iconColor: _selectedIndex == 1
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.grey,
                 containerColor: Colors.transparent,
               ),
             ),
@@ -81,14 +85,18 @@ class _AppHomeState extends State<AppHome> {
               icon: CustomBottomNavItem(
                 navIcon: Icons.person_outlined,
                 containerColor: Colors.transparent,
-                iconColor: _selectedIndex == 3 ? Colors.blue : Colors.grey,
+                iconColor: _selectedIndex == 3
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.grey,
               ),
             ),
             BottomNavigationBarItem(
               label: 'Settings',
               icon: CustomBottomNavItem(
                   navIcon: Icons.settings_outlined,
-                  iconColor: _selectedIndex == 4 ? Colors.blue : Colors.grey,
+                  iconColor: _selectedIndex == 4
+                      ? Theme.of(context).colorScheme.secondary
+                      : Colors.grey,
                   containerColor: Colors.transparent),
             ),
           ],

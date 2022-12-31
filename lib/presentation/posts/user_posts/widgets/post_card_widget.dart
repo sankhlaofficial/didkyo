@@ -5,7 +5,7 @@ import 'package:didkyo/presentation/posts/post_full_screen/post_full_screen.dart
 import 'package:didkyo/presentation/profile/followers_page/widgets/user_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as nav;
 
 class PostCardWidget extends StatelessWidget {
   final Post cardPost;
@@ -27,10 +27,12 @@ class PostCardWidget extends StatelessWidget {
               loadSuccess: (state) {
                 return InkWell(
                   onTap: () {
-                    Get.to(() => PostFullScreen(
-                          currentUserId: state.user.id!.getOrCrash(),
-                          clickedPost: cardPost,
-                        ));
+                    nav.Get.to(
+                        () => PostFullScreen(
+                              currentUserId: state.user.id!.getOrCrash(),
+                              clickedPost: cardPost,
+                            ),
+                        transition: nav.Transition.rightToLeft);
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -41,7 +43,7 @@ class PostCardWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
-                        color: Colors.white,
+                        color: Theme.of(context).cardTheme.color,
                         boxShadow: [
                           BoxShadow(
                               color: Colors.black.withOpacity(0.3),
@@ -143,8 +145,8 @@ class PostCardWidget extends StatelessWidget {
                                     cardPost.postCaption.getOrCrash(),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w500),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
                                   ),
                                 ),
                               ],
@@ -162,7 +164,12 @@ class PostCardWidget extends StatelessWidget {
                                     const SizedBox(
                                       width: 5,
                                     ),
-                                    Text(cardPost.postLikes.length.toString())
+                                    Text(
+                                      cardPost.postLikes.length.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall,
+                                    )
                                   ],
                                 ),
                                 const SizedBox(
@@ -178,7 +185,10 @@ class PostCardWidget extends StatelessWidget {
                                       width: 5,
                                     ),
                                     Text(
-                                        cardPost.postComments.length.toString())
+                                        cardPost.postComments.length.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall)
                                   ],
                                 )
                               ],

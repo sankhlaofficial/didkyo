@@ -6,7 +6,7 @@ import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
 import 'package:didkyo/presentation/posts/location_posts/location_posts_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as nav;
 
 class TrendingCardsGrid extends StatelessWidget {
   const TrendingCardsGrid({Key? key, required this.trendingData})
@@ -43,9 +43,11 @@ class TrendingCardsGrid extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             log(trendingData.keys.toList()[index]);
-                            Get.to(() => LocationPostsPage(
-                                selectedLocation:
-                                    trendingData.keys.toList()[index]));
+                            nav.Get.to(
+                                () => LocationPostsPage(
+                                    selectedLocation:
+                                        trendingData.keys.toList()[index]),
+                                transition: nav.Transition.upToDown);
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -76,8 +78,18 @@ class TrendingCardsGrid extends StatelessWidget {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Text(
-                                          '${trendingData.values.toList()[index]} posts'),
+                                      CircleAvatar(
+                                        radius: 23,
+                                        backgroundColor:
+                                            Theme.of(context).cardTheme.color,
+                                        child: Text(
+                                          '${trendingData.values.toList()[index]} posts',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(fontSize: 18),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),

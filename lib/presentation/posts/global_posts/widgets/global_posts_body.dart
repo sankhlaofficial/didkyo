@@ -20,6 +20,7 @@ class GlobalPostsBody extends StatelessWidget {
               )),
           loadSuccess: (state) {
             return ListView.builder(
+                cacheExtent: 30,
                 // shrinkWrap: true,
                 // scrollDirection: Axis.horizontal,
                 itemCount: state.posts.length,

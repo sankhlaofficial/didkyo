@@ -22,8 +22,8 @@ class StatsContainer extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         width: size.width / 5,
         height: size.height / 11,
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         child: Column(
           children: [

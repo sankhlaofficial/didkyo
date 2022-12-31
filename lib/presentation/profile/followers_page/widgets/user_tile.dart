@@ -4,7 +4,7 @@ import 'package:didkyo/presentation/profile/global_profile_page.dart';
 import 'package:didkyo/presentation/profile/widgets/image_full_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as nav;
 
 class UserTile extends StatelessWidget {
   UserTile({
@@ -35,16 +35,19 @@ class UserTile extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 0.0),
               child: InkWell(
                 onTap: () {
-                  Get.to(() => GlobalProfilePage(userId: followId));
+                  nav.Get.to(() => GlobalProfilePage(userId: followId),
+                      transition: nav.Transition.rightToLeft);
                 },
                 child: Row(
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.to(() => ImageFullScreen(
-                              imageUrl: state.user.photoUrl!,
-                              userName: state.user.displayName!,
-                            ));
+                        nav.Get.to(
+                            () => ImageFullScreen(
+                                  imageUrl: state.user.photoUrl!,
+                                  userName: state.user.displayName!,
+                                ),
+                            transition: nav.Transition.rightToLeft);
                       },
                       child: CircleAvatar(
                           backgroundColor: Colors.transparent,
@@ -64,8 +67,7 @@ class UserTile extends StatelessWidget {
                           height: 20,
                           child: Text(
                             state.user.displayName!,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w900, fontSize: 15),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
                         const SizedBox(
