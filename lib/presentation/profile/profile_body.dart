@@ -1,4 +1,6 @@
+import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
 import 'package:didkyo/domain/auth/user.dart';
+import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/profile/followers_page/followAndFollowing_page.dart';
 import 'package:didkyo/presentation/profile/followers_page/widgets/user_tile.dart';
 import 'package:didkyo/presentation/profile/widgets/follow_button.dart';
@@ -6,6 +8,7 @@ import 'package:didkyo/presentation/profile/widgets/profile_background_image.dar
 import 'package:didkyo/presentation/profile/widgets/stats_container.dart';
 import 'package:didkyo/presentation/profile/widgets/user_images_grid.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart' as nav;
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -99,11 +102,27 @@ class ProfileBody extends StatelessWidget {
                             number: user.followers!.length.toString(),
                             factor: "followers",
                           ),
-                          StatsContainer(
-                            onTap: () {},
-                            size: size,
-                            number: "50",
-                            factor: "posts",
+                          BlocProvider(
+                            create: (context) => getIt<PostWatcherBloc>()
+                              ..add(PostWatcherEvent.watchAllStarted(
+                                  user.id!.getOrCrash())),
+                            child:
+                                BlocBuilder<PostWatcherBloc, PostWatcherState>(
+                              builder: (context, state) {
+                                return state.map(
+                                    initial: (_) => Container(),
+                                    loadInProgress: (_) => Container(),
+                                    loadSuccess: (state) {
+                                      return StatsContainer(
+                                        onTap: () {},
+                                        size: size,
+                                        number: state.posts.length.toString(),
+                                        factor: "posts",
+                                      );
+                                    },
+                                    loadFailure: (_) => Container());
+                              },
+                            ),
                           ),
                           StatsContainer(
                             onTap: () {
