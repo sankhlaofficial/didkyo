@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
 import 'package:didkyo/injection.dart';
 import 'package:didkyo/presentation/global_widgets/shadow_container.dart';
@@ -54,45 +55,89 @@ class TrendingCardsGrid extends StatelessWidget {
                                 vertical: 15.0, horizontal: 10),
                             child: ShadowContainer(
                               color: Colors.transparent,
-                              child: Container(
-                                width: 40,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: NetworkImage(state
-                                            .posts[0].postImage
-                                            .getOrCrash())),
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: Colors.black)),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        trendingData.keys.toList()[index],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium,
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      CircleAvatar(
-                                        radius: 23,
-                                        backgroundColor:
-                                            Theme.of(context).cardTheme.color,
-                                        child: Text(
-                                          '${trendingData.values.toList()[index]} posts',
+                              child: CachedNetworkImage(
+                                imageUrl: state.posts[0].postImage.getOrCrash(),
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  width: 40,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(state
+                                              .posts[0].postImage
+                                              .getOrCrash())),
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(color: Colors.black)),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          trendingData.keys.toList()[index],
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleSmall!
-                                              .copyWith(fontSize: 18),
+                                              .displayMedium,
                                         ),
-                                      ),
-                                    ],
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        CircleAvatar(
+                                          radius: 23,
+                                          backgroundColor:
+                                              Theme.of(context).cardTheme.color,
+                                          child: Text(
+                                            '${trendingData.values.toList()[index]} posts',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(fontSize: 18),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
+                                placeholder: (context, url) => Container(
+                                  width: 40,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(color: Colors.black)),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          trendingData.keys.toList()[index],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium,
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        CircleAvatar(
+                                          radius: 23,
+                                          backgroundColor:
+                                              Theme.of(context).cardTheme.color,
+                                          child: Text(
+                                            '${trendingData.values.toList()[index]} posts',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(fontSize: 18),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
                               ),
                             ),
                           ),

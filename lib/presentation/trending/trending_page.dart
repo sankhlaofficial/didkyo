@@ -5,9 +5,18 @@ import 'package:didkyo/presentation/trending/trending_page_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TrendingPage extends StatelessWidget {
+class TrendingPage extends StatefulWidget {
+  const TrendingPage({super.key});
+
+  @override
+  State<TrendingPage> createState() => _TrendingPageState();
+}
+
+class _TrendingPageState extends State<TrendingPage>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider(
       create: (context) => getIt<AnalysisBloc>()
         ..add(const AnalysisEvent.watchAnalyticsStarted()),
@@ -18,4 +27,8 @@ class TrendingPage extends StatelessWidget {
           body: TrendingPageBody()),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

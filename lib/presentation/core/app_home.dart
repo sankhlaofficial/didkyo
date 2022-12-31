@@ -26,8 +26,8 @@ class _AppHomeState extends State<AppHome> {
 
   static final List<Widget> _pages = <Widget>[
     const GlobalPostsPage(),
-    TrendingPage(),
-    PostFormPage(),
+    const TrendingPage(),
+    const PostFormPage(),
     const ProfileOverview(),
     const UserProvider()
   ];

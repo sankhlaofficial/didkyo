@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:didkyo/application/onePost/one_post_bloc.dart';
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
@@ -267,14 +268,19 @@ class PostFullScreen extends StatelessWidget {
                         )),
                     body: Column(
                       children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height / 1.2,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(
-                                      state.post.postImage.getOrCrash()))),
+                        CachedNetworkImage(
+                          imageUrl: state.post.postImage.getOrCrash(),
+                          imageBuilder: (context, imageProvider) => Container(
+                            height: MediaQuery.of(context).size.height / 1.2,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.fill, image: imageProvider)),
+                          ),
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      value: downloadProgress.progress),
                         ),
                       ],
                     )));

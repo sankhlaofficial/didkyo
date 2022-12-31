@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:didkyo/application/posts/post_actor/post_actor_bloc.dart';
 import 'package:didkyo/application/user/user_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
@@ -56,40 +57,33 @@ class PostCardWidget extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          Container(
-                            margin: const EdgeInsets.only(top: 2),
-                            width: size.width * 0.94,
-                            height: size.height * 0.37,
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
+                          CachedNetworkImage(
+                            imageUrl: cardPost.postImage.getOrCrash(),
+                            imageBuilder: (context, imageProvider) => Container(
+                              margin: const EdgeInsets.only(top: 2),
+                              width: size.width * 0.94,
+                              height: size.height * 0.37,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill, image: imageProvider)),
+                            ),
+                            placeholder: (context, url) => Container(
+                              margin: const EdgeInsets.only(top: 2),
+                              width: size.width * 0.94,
+                              height: size.height * 0.37,
+                              decoration: const BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(10),
                                     topRight: Radius.circular(10)),
-                                image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        cardPost.postImage.getOrCrash()))),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     IconButton(
-                          //         onPressed: () {
-                          //           final postActorBloc = context.bloc<PostActorBloc>();
-                          //           _showDeleteDialogBox(context, postActorBloc);
-                          //         },
-                          //         icon: const Icon(Icons.delete)),
-                          //     const SizedBox(
-                          //       width: 15,
-                          //     ),
-                          //     IconButton(
-                          //         onPressed: () {
-                          //           Get.to(() => PostFormPage(
-                          //                 editedPost: cardPost,
-                          //               ));
-                          //         },
-                          //         icon: const Icon(Icons.edit)),
-                          //   ],
-                          // )
                           const SizedBox(
                             height: 10,
                           ),
@@ -136,7 +130,6 @@ class PostCardWidget extends StatelessWidget {
                               ],
                             ),
                           ),
-
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 18.0, vertical: 4),
@@ -200,7 +193,7 @@ class PostCardWidget extends StatelessWidget {
                                       children: [
                                         Column(
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             Text(
