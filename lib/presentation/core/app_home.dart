@@ -24,14 +24,6 @@ class _AppHomeState extends State<AppHome> {
     });
   }
 
-  static final List<Widget> _pages = <Widget>[
-    const GlobalPostsPage(),
-    const TrendingPage(),
-    const PostFormPage(),
-    const ProfileOverview(),
-    const UserProvider()
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -114,7 +106,19 @@ class _AppHomeState extends State<AppHome> {
         onPageChanged: (index) {
           setState(() => _selectedIndex = index);
         },
-        children: _pages,
+        children: <Widget>[
+          const GlobalPostsPage(),
+          const TrendingPage(),
+          PostFormPage(
+            onPostCreation: () {
+              _pageController.animateToPage(0,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.linear);
+            },
+          ),
+          const ProfileOverview(),
+          const UserProvider()
+        ],
       ),
     );
   }

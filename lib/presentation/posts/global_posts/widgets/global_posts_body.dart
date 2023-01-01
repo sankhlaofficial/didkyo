@@ -19,33 +19,56 @@ class GlobalPostsBody extends StatelessWidget {
                 color: Colors.red,
               )),
           loadSuccess: (state) {
-            return ListView.builder(
-                cacheExtent: 999999999999999,
-                // shrinkWrap: true,
-                // scrollDirection: Axis.horizontal,
-                itemCount: state.posts.length,
-                itemBuilder: (context, index) {
-                  final post = state.posts[index];
-                  if (post.failureOption.isSome()) {
-                    String failureValue = state.posts[index].failureOption
-                        .fold(() => '', (f) => f.toString());
+            return RefreshIndicator(
+              onRefresh: () {
+                context
+                    .bloc<PostWatcherBloc>()
+                    .add(const PostWatcherEvent.watchGlobalStarted());
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    margin: const EdgeInsets.all(30),
+                    content: Text(
+                      "Page refreshed",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                );
 
-                    //Todo : Create a separate card for failure in data
-                    return Container(
-                      color: Colors.red,
-                      width: 100,
-                      height: 100,
-                      child: Text(
-                        failureValue,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    );
-                  } else {
-                    return PostCardWidget(
-                      cardPost: state.posts[index],
-                    );
-                  }
-                });
+                return Future.delayed(const Duration(seconds: 500));
+              },
+              child: ListView.builder(
+                  cacheExtent: 999999999999999,
+                  // shrinkWrap: true,
+                  // scrollDirection: Axis.horizontal,
+                  itemCount: state.posts.length,
+                  itemBuilder: (context, index) {
+                    final post = state.posts[index];
+                    if (post.failureOption.isSome()) {
+                      String failureValue = state.posts[index].failureOption
+                          .fold(() => '', (f) => f.toString());
+
+                      //Todo : Create a separate card for failure in data
+                      return Container(
+                        color: Colors.red,
+                        width: 100,
+                        height: 100,
+                        child: Text(
+                          failureValue,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      );
+                    } else {
+                      return PostCardWidget(
+                        cardPost: state.posts[index],
+                      );
+                    }
+                  }),
+            );
           },
           loadFailure: (state) {
             state.postFailure.map(

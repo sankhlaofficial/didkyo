@@ -51,5 +51,5 @@ class _GlobalPostsPageState extends State<GlobalPostsPage>
 
   @override
   // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 }

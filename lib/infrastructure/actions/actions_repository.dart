@@ -141,17 +141,21 @@ class ActionsRepository extends BaseActionsRepository {
       {required String postId,
       required String postUserId,
       required String currentUserId}) async {
-    await _firebaseFirestore.collection('globalPosts').doc(postId).update({
-      'postViews': FieldValue.arrayUnion([currentUserId])
-    }).then((value) async {
-      await _firebaseFirestore
-          .collection('users')
-          .doc(postUserId)
-          .collection('posts')
-          .doc(postId)
-          .update({
+    try {
+      await _firebaseFirestore.collection('globalPosts').doc(postId).update({
         'postViews': FieldValue.arrayUnion([currentUserId])
+      }).then((value) async {
+        await _firebaseFirestore
+            .collection('users')
+            .doc(postUserId)
+            .collection('posts')
+            .doc(postId)
+            .update({
+          'postViews': FieldValue.arrayUnion([currentUserId])
+        });
       });
-    });
+    } catch (error) {
+      rethrow;
+    }
   }
 }

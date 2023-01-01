@@ -1,4 +1,3 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dartz/dartz.dart';
 import 'package:didkyo/application/posts/post_form/post_form_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
@@ -12,8 +11,10 @@ import 'package:get/get.dart';
 
 class PostFormPage extends StatelessWidget {
   final Post? editedPost;
+  final VoidCallback onPostCreation;
 
-  const PostFormPage({super.key, this.editedPost});
+  const PostFormPage(
+      {super.key, this.editedPost, required this.onPostCreation});
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +33,9 @@ class PostFormPage extends StatelessWidget {
                 elevation: 0,
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
-                content: AwesomeSnackbarContent(
-                  contentType: ContentType.failure,
-                  title: '',
-                  message: failure.map(
+                content: SnackBar(
+                    content: Text(
+                  failure.map(
                     unexpected: (_) =>
                         'Unexpected error occurred. Please contact support',
                     permissionDenied: (_) =>
@@ -43,20 +43,26 @@ class PostFormPage extends StatelessWidget {
                     unableToUpdate: (_) =>
                         'Unable to update post. Was it deleted from another interface?',
                   ),
-                ),
+                )),
               );
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
             }, (_) {
-              Get.back();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Post created'),
+                  backgroundColor: Colors.green,
+                ),
+              );
+              onPostCreation();
             });
           });
         },
         buildWhen: (p, c) => p.isSaving != c.isSaving,
         builder: (context, state) {
           return Stack(children: <Widget>[
-            const PostFormPageScaffold(),
+            PostFormPageScaffold(),
             SavingInProgressOverlay(
               isSaving: state.isSaving,
             )
@@ -107,7 +113,9 @@ class SavingInProgressOverlay extends StatelessWidget {
 }
 
 class PostFormPageScaffold extends StatelessWidget {
-  const PostFormPageScaffold({super.key});
+  const PostFormPageScaffold({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

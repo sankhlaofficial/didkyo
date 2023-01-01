@@ -90,6 +90,9 @@ class PostFullScreen extends StatelessWidget {
                           onSelected: (value) {
                             if (value == 0) {
                               Get.to(() => PostFormPage(
+                                    onPostCreation: () {
+                                      Get.back();
+                                    },
                                     editedPost: clickedPost,
                                   ));
                             } else if (value == 1) {

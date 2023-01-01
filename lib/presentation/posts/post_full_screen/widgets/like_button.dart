@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:didkyo/application/user/user_bloc.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:flutter/material.dart';
@@ -37,15 +39,51 @@ class LikeButton extends StatelessWidget {
                     padding: const EdgeInsets.all(0),
                     onPressed: () {
                       if (isLiked) {
-                        context.repository<ActionsRepository>().unLikePost(
-                            toBeUnLikedPostId: postId,
-                            postUserId: postUserId,
-                            currentUserId: state.user.id!.getOrCrash());
+                        context
+                            .repository<ActionsRepository>()
+                            .unLikePost(
+                                toBeUnLikedPostId: postId,
+                                postUserId: postUserId,
+                                currentUserId: state.user.id!.getOrCrash())
+                            .whenComplete(() {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Unliked post'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        }).onError((error, stackTrace) {
+                          log('error is${error}');
+                          log('stacktrace  is$stackTrace');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(error.toString()),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        });
                       } else {
-                        context.repository<ActionsRepository>().likePost(
-                            toBeLikedPostId: postId,
-                            postUserId: postUserId,
-                            currentUserId: state.user.id!.getOrCrash());
+                        context
+                            .repository<ActionsRepository>()
+                            .likePost(
+                                toBeLikedPostId: postId,
+                                postUserId: postUserId,
+                                currentUserId: state.user.id!.getOrCrash())
+                            .whenComplete(() {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Liked post'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        }).onError((error, stackTrace) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(error.toString()),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        });
                       }
                     },
                     icon: !isLiked

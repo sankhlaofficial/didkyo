@@ -69,7 +69,11 @@ class UserPostsPage extends StatelessWidget {
           appBar: const CustomAppBar(appBarTitle: 'Your posts '),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.to(() => PostFormPage());
+              Get.to(() => PostFormPage(
+                    onPostCreation: () {
+                      Get.back();
+                    },
+                  ));
             },
             child: const Icon(Icons.add),
           ),
