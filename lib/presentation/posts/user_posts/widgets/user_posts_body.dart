@@ -20,6 +20,7 @@ class UserPostsBody extends StatelessWidget {
               )),
           loadSuccess: (state) {
             return ListView.builder(
+              cacheExtent: 999999999999999,
                 itemCount: state.posts.length,
                 itemBuilder: (context, index) {
                   final post = state.posts[index];

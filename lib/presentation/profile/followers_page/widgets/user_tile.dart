@@ -37,7 +37,7 @@ class UserTile extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   nav.Get.to(() => GlobalProfilePage(userId: followId),
-                      transition: nav.Transition.rightToLeft);
+                      transition: nav.Transition.rightToLeftWithFade);
                 },
                 child: Row(
                   children: [
@@ -48,7 +48,7 @@ class UserTile extends StatelessWidget {
                                   imageUrl: state.user.photoUrl!,
                                   userName: state.user.displayName!,
                                 ),
-                            transition: nav.Transition.rightToLeft);
+                            transition: nav.Transition.rightToLeftWithFade);
                       },
                       child: CachedNetworkImage(
                         imageUrl: state.user.photoUrl!,

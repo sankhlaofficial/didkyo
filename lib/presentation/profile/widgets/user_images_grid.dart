@@ -26,6 +26,7 @@ class UserImagesGrid extends StatelessWidget {
               loadInProgress: (_) => Container(),
               loadSuccess: (state) {
                 return GridView.builder(
+                  cacheExtent: 99999999,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate:

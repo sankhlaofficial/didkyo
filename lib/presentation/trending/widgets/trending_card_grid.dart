@@ -25,6 +25,7 @@ class TrendingCardsGrid extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: GridView.builder(
+          cacheExtent: 999999999999,
           itemCount: trendingData.keys.toList().length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2),
