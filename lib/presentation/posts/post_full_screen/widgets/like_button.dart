@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:didkyo/application/user/user_bloc.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
+import 'package:didkyo/presentation/global_widgets/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,21 +47,23 @@ class LikeButton extends StatelessWidget {
                                 postUserId: postUserId,
                                 currentUserId: state.user.id!.getOrCrash())
                             .whenComplete(() {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Unliked post'),
-                              backgroundColor: Colors.green,
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(CustomSnackBar(
+                            content: Text(
+                              "Like removed",
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
-                          );
+                          ));
                         }).onError((error, stackTrace) {
                           log('error is${error}');
                           log('stacktrace  is$stackTrace');
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(error.toString()),
-                              backgroundColor: Colors.red,
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(CustomSnackBar(
+                            content: Text(
+                              error.toString(),
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
-                          );
+                          ));
                         });
                       } else {
                         context
@@ -70,19 +73,21 @@ class LikeButton extends StatelessWidget {
                                 postUserId: postUserId,
                                 currentUserId: state.user.id!.getOrCrash())
                             .whenComplete(() {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Liked post'),
-                              backgroundColor: Colors.green,
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(CustomSnackBar(
+                            content: Text(
+                              "Like added",
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
-                          );
+                          ));
                         }).onError((error, stackTrace) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(error.toString()),
-                              backgroundColor: Colors.red,
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(CustomSnackBar(
+                            content: Text(
+                              error.toString(),
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
-                          );
+                          ));
                         });
                       }
                     },

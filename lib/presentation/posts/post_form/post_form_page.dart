@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:didkyo/application/posts/post_form/post_form_bloc.dart';
 import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/injection.dart';
+import 'package:didkyo/presentation/global_widgets/custom_snack_bar.dart';
 import 'package:didkyo/presentation/posts/post_form/widgets/caption_field_widget.dart';
 import 'package:didkyo/presentation/posts/post_form/widgets/image_field_widget.dart';
 import 'package:didkyo/presentation/posts/post_form/widgets/location_field_widget.dart';
@@ -49,12 +50,12 @@ class PostFormPage extends StatelessWidget {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
             }, (_) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Post created'),
-                  backgroundColor: Colors.green,
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text(
+                  "Post created",
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-              );
+              ));
               onPostCreation();
             });
           });

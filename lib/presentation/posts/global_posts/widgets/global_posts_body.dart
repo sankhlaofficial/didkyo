@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:didkyo/application/posts/post_watcher/post_watcher_bloc.dart';
+import 'package:didkyo/presentation/global_widgets/custom_snack_bar.dart';
 import 'package:didkyo/presentation/posts/user_posts/widgets/post_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,13 +26,7 @@ class GlobalPostsBody extends StatelessWidget {
                     .bloc<PostWatcherBloc>()
                     .add(const PostWatcherEvent.watchGlobalStarted());
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    behavior: SnackBarBehavior.floating,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    margin: const EdgeInsets.all(30),
+                  CustomSnackBar(
                     content: Text(
                       "Page refreshed",
                       style: Theme.of(context).textTheme.titleLarge,
