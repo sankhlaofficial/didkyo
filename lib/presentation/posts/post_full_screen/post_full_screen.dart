@@ -26,6 +26,7 @@ class PostFullScreen extends StatelessWidget {
 
   bool isLiked = false;
   TextEditingController commentController = TextEditingController();
+  PanelController panelController = PanelController();
   ScrollController scrollController = ScrollController();
 
   @override
@@ -101,6 +102,7 @@ class PostFullScreen extends StatelessWidget {
                   ],
                 ),
                 body: SlidingUpPanel(
+                    controller: panelController,
                     minHeight: 200,
                     onPanelClosed: () {
                       scrollController.animateTo(
@@ -210,6 +212,40 @@ class PostFullScreen extends StatelessWidget {
                                         )
                                       ],
                                     ),
+                                    const SizedBox(
+                                      width: 40,
+                                    ),
+                                    Row(
+                                      children: [
+                                        TextButton(
+                                            onPressed: () {
+                                              if (panelController
+                                                  .isPanelClosed) {
+                                                panelController.open();
+                                              } else {
+                                                panelController.close();
+                                              }
+                                            },
+                                            child: Text("See more",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium)),
+                                        IconButton(
+                                            onPressed: () {
+                                              if (panelController
+                                                  .isPanelClosed) {
+                                                panelController.open();
+                                              } else {
+                                                panelController.close();
+                                              }
+                                            },
+                                            icon: const Icon(
+                                              Icons.unfold_more_rounded,
+                                              color: Colors.blue,
+                                              size: 32,
+                                            )),
+                                      ],
+                                    )
                                   ],
                                 ),
                                 const SizedBox(
@@ -268,19 +304,22 @@ class PostFullScreen extends StatelessWidget {
                         )),
                     body: Column(
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: state.post.postImage.getOrCrash(),
-                          imageBuilder: (context, imageProvider) => Container(
-                            height: MediaQuery.of(context).size.height / 1.2,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.fill, image: imageProvider)),
+                        InteractiveViewer(
+                          child: CachedNetworkImage(
+                            imageUrl: state.post.postImage.getOrCrash(),
+                            imageBuilder: (context, imageProvider) => Container(
+                              height: MediaQuery.of(context).size.height / 1.2,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.fitHeight,
+                                      image: imageProvider)),
+                            ),
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(
+                                        value: downloadProgress.progress),
                           ),
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(
-                                      value: downloadProgress.progress),
                         ),
                       ],
                     )));
