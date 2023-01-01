@@ -4,17 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class NameField extends HookWidget {
-  NameField({super.key});
-
-  TextEditingController textEditingController = TextEditingController();
+class BioField extends HookWidget {
+  const BioField({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final textEditingController = useTextEditingController();
     Size size = MediaQuery.of(context).size;
     return BlocListener<UserSettingsBloc, UserSettingsState>(
       listener: (context, state) {
-        textEditingController.text = state.user.displayName!;
+        textEditingController.text = state.user.bio!;
         textEditingController.selection = TextSelection.fromPosition(
             TextPosition(offset: textEditingController.text.length));
       },
@@ -29,7 +28,7 @@ class NameField extends HookWidget {
             decoration: InputDecoration(
               counterText: '',
               contentPadding: const EdgeInsets.all(10),
-              hintText: 'Enter the name here',
+              hintText: 'Enter the bio here',
               disabledBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               constraints: BoxConstraints.expand(
@@ -41,7 +40,7 @@ class NameField extends HookWidget {
             onChanged: (value) {
               context
                   .bloc<UserSettingsBloc>()
-                  .add(UserSettingsEvent.nameChanged(value));
+                  .add(UserSettingsEvent.bioChanged(value));
             },
           ),
         ),

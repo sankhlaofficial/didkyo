@@ -19,11 +19,15 @@ class FollowAndFollowingPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: ListView.builder(
+          cacheExtent: 999999999999999,
             itemCount: followList.length,
             itemBuilder: (context, index) {
-              return UserTile(
-                followId: followList[index],
-                locationHeight: 20,
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 18.0),
+                child: UserTile(
+                  followId: followList[index],
+                  locationHeight: 20,
+                ),
               );
             }),
       ),

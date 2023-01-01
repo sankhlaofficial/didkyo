@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:didkyo/application/profile/profile_bloc.dart';
 import 'package:didkyo/infrastructure/actions/actions_repository.dart';
 import 'package:didkyo/presentation/profile/global_profile_page.dart';
 import 'package:didkyo/presentation/profile/widgets/image_full_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as nav;
 
 class UserTile extends StatelessWidget {
   UserTile({
@@ -26,7 +27,7 @@ class UserTile extends StatelessWidget {
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           if (state is ProfileLoading) {
-            return CircularProgressIndicator(
+            return const CircularProgressIndicator(
               color: Colors.blue,
             );
           }
@@ -35,23 +36,33 @@ class UserTile extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 0.0),
               child: InkWell(
                 onTap: () {
-                  Get.to(() => GlobalProfilePage(userId: followId));
+                  nav.Get.to(() => GlobalProfilePage(userId: followId),
+                      transition: nav.Transition.rightToLeftWithFade);
                 },
                 child: Row(
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.to(() => ImageFullScreen(
-                              imageUrl: state.user.photoUrl!,
-                              userName: state.user.displayName!,
-                            ));
+                        nav.Get.to(
+                            () => ImageFullScreen(
+                                  imageUrl: state.user.photoUrl!,
+                                  userName: state.user.displayName!,
+                                ),
+                            transition: nav.Transition.rightToLeftWithFade);
                       },
-                      child: CircleAvatar(
-                          backgroundColor: Colors.transparent,
+                      child: CachedNetworkImage(
+                        imageUrl: state.user.photoUrl!,
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius: 25,
+                            backgroundImage: imageProvider),
+                        placeholder: (context, url) => const CircleAvatar(
+                          backgroundColor: Colors.grey,
                           radius: 25,
-                          backgroundImage: NetworkImage(
-                            state.user.photoUrl!,
-                          )),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
                     ),
                     const SizedBox(
                       width: 15,
@@ -64,11 +75,10 @@ class UserTile extends StatelessWidget {
                           height: 20,
                           child: Text(
                             state.user.displayName!,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w900, fontSize: 15),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 3,
                         ),
                         location != null
@@ -77,7 +87,7 @@ class UserTile extends StatelessWidget {
                                 height: locationHeight,
                                 child: Text(
                                   location!,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 13, color: Colors.grey),
                                 ),
                               )

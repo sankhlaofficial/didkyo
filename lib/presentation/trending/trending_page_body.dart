@@ -24,8 +24,13 @@ class TrendingPageBody extends StatelessWidget {
                 ),
               ),
           loadSuccess: (state) {
-            final data = state.trendingData;
-            final sortedData = sortData(data);
+            var newData = {};
+            newData.addAll(state.trendingData);
+            newData.removeWhere((key, value) => value == 0);
+
+            log(newData.toString());
+
+            final sortedData = sortData(newData);
             log(sortedData.toString());
             return Center(
                 child: TrendingCardsGrid(

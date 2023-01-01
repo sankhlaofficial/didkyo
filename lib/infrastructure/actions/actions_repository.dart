@@ -63,7 +63,10 @@ class ActionsRepository extends BaseActionsRepository {
   }
 
   @override
-  Future<void> likePost(String toBeLikedPostId, String currentUserId) async {
+  Future<void> likePost(
+      {required String toBeLikedPostId,
+      required String postUserId,
+      required String currentUserId}) async {
     await _firebaseFirestore
         .collection('globalPosts')
         .doc(toBeLikedPostId)
@@ -72,7 +75,7 @@ class ActionsRepository extends BaseActionsRepository {
     }).then((value) async {
       await _firebaseFirestore
           .collection('users')
-          .doc(currentUserId)
+          .doc(postUserId)
           .collection('posts')
           .doc(toBeLikedPostId)
           .update({
@@ -83,7 +86,9 @@ class ActionsRepository extends BaseActionsRepository {
 
   @override
   Future<void> unLikePost(
-      String toBeUnLikedPostId, String currentUserId) async {
+      {required String toBeUnLikedPostId,
+      required String postUserId,
+      required String currentUserId}) async {
     await _firebaseFirestore
         .collection('globalPosts')
         .doc(toBeUnLikedPostId)
@@ -92,7 +97,7 @@ class ActionsRepository extends BaseActionsRepository {
     }).then((value) async {
       await _firebaseFirestore
           .collection('users')
-          .doc(currentUserId)
+          .doc(postUserId)
           .collection('posts')
           .doc(toBeUnLikedPostId)
           .update({
@@ -103,7 +108,10 @@ class ActionsRepository extends BaseActionsRepository {
 
   @override
   Future<void> addComment(
-      String commentMessage, String currentUserId, String postId) async {
+      {required String commentMessage,
+      required String postUserId,
+      required String currentUserId,
+      required String postId}) async {
     final comment = PostComment(
         commentID: UniqueId(),
         commentMessage: PostCommentMessage(commentMessage),
@@ -116,13 +124,34 @@ class ActionsRepository extends BaseActionsRepository {
 
     await _firebaseFirestore.collection('globalPosts').doc(postId).update({
       'postComments': FieldValue.arrayUnion([commentDTO])
+    }).then((value) async {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(postUserId)
+          .collection('posts')
+          .doc(postId)
+          .update({
+        'postComments': FieldValue.arrayUnion([commentDTO])
+      });
     });
   }
 
   @override
-  Future<void> addView(String postId, String currentUserId) async {
+  Future<void> addView(
+      {required String postId,
+      required String postUserId,
+      required String currentUserId}) async {
     await _firebaseFirestore.collection('globalPosts').doc(postId).update({
       'postViews': FieldValue.arrayUnion([currentUserId])
+    }).then((value) async {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(postUserId)
+          .collection('posts')
+          .doc(postId)
+          .update({
+        'postViews': FieldValue.arrayUnion([currentUserId])
+      });
     });
   }
 }

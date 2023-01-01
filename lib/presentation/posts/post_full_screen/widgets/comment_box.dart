@@ -9,15 +9,17 @@ class CommentBox extends StatelessWidget {
   CommentBox({
     Key? key,
     required this.postId,
+    required this.postUserId,
   }) : super(key: key);
 
   TextEditingController commentController = TextEditingController();
   final String postId;
+  final String postUserId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserBloc()..add(UserEvent.watchUserStarted()),
+      create: (context) => UserBloc()..add(const UserEvent.watchUserStarted()),
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           return state.map(
@@ -32,9 +34,12 @@ class CommentBox extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 1.8,
                         height: 50,
                         child: TextField(
+                          scrollPadding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom +
+                                  120),
                           controller: commentController,
                           decoration:
-                              InputDecoration(hintText: 'add a comment'),
+                              const InputDecoration(hintText: 'add a comment'),
                         ),
                       ),
                     ),
@@ -42,9 +47,10 @@ class CommentBox extends StatelessWidget {
                         onPressed: () {
                           log(commentController.text);
                           context.repository<ActionsRepository>().addComment(
-                              commentController.text,
-                              state.user.id!.getOrCrash(),
-                              postId);
+                              commentMessage: commentController.text,
+                              currentUserId: state.user.id!.getOrCrash(),
+                              postUserId: postUserId,
+                              postId: postId);
                         },
                         icon: const Icon(Icons.send))
                   ],

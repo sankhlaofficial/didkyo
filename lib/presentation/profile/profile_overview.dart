@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileOverview extends StatelessWidget {
+  const ProfileOverview({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

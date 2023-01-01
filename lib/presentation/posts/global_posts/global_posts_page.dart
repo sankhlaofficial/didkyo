@@ -8,7 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-class GlobalPostsPage extends StatelessWidget {
+class GlobalPostsPage extends StatefulWidget {
+  const GlobalPostsPage({super.key});
+
+  @override
+  State<GlobalPostsPage> createState() => _GlobalPostsPageState();
+}
+
+class _GlobalPostsPageState extends State<GlobalPostsPage>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -30,7 +38,7 @@ class GlobalPostsPage extends StatelessWidget {
                 orElse: () {});
           }),
         ],
-        child: Scaffold(
+        child: const Scaffold(
           extendBodyBehindAppBar: true,
           appBar: CustomAppBar(
             appBarTitle: "Global Posts",
@@ -40,4 +48,8 @@ class GlobalPostsPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

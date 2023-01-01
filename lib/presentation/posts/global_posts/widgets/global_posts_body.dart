@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GlobalPostsBody extends StatelessWidget {
+  const GlobalPostsBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PostWatcherBloc, PostWatcherState>(
@@ -18,6 +20,7 @@ class GlobalPostsBody extends StatelessWidget {
               )),
           loadSuccess: (state) {
             return ListView.builder(
+                cacheExtent: 999999999999999,
                 // shrinkWrap: true,
                 // scrollDirection: Axis.horizontal,
                 itemCount: state.posts.length,

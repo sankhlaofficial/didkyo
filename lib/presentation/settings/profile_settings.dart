@@ -1,6 +1,7 @@
 import 'package:didkyo/application/user_settings/user_settings_bloc.dart';
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/injection.dart';
+import 'package:didkyo/presentation/settings/widgets/bio_field.dart';
 import 'package:didkyo/presentation/settings/widgets/name_field.dart';
 import 'package:didkyo/presentation/settings/widgets/sign_out_button.dart';
 import 'package:didkyo/presentation/settings/widgets/userImageField.dart';
@@ -35,7 +36,7 @@ class ProfileSettingsPage extends StatelessWidget {
 class SavingInProgressOverlay extends StatelessWidget {
   final bool isSaving;
 
-  const SavingInProgressOverlay({required this.isSaving});
+  const SavingInProgressOverlay({super.key, required this.isSaving});
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
@@ -72,7 +73,7 @@ class SavingInProgressOverlay extends StatelessWidget {
 }
 
 class UserSettingsPageScaffold extends StatelessWidget {
-  const UserSettingsPageScaffold();
+  const UserSettingsPageScaffold({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +105,8 @@ class UserSettingsPageScaffold extends StatelessWidget {
               child: Column(
                 children: [
                   NameField(),
-                  UserImageField(),
+                  const UserImageField(),
+                  BioField(),
                   const SizedBox(
                     height: 120,
                   ),

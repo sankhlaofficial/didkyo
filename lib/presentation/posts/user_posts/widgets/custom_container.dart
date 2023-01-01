@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomContainer extends StatelessWidget {
   const CustomContainer(
-      {Key? key, required this.containerChild, required this.containerColor});
+      {super.key, required this.containerChild, required this.containerColor});
   final Widget containerChild;
   final Color containerColor;
   @override

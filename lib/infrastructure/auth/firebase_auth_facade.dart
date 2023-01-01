@@ -39,8 +39,15 @@ class FirebaseAuthFacade implements IAuthFacade {
 
       try {
         await UserDataRepository(_firebaseFirestore, _firebaseStorage)
-            .createNewUser(emailAddressString, emailAddressString,
-                anonymousPicture, _firebaseAuth.currentUser?.uid, '', [], []);
+            .createNewUser(
+                emailAddressString,
+                emailAddressString,
+                anonymousPicture,
+                _firebaseAuth.currentUser?.uid,
+                '',
+                [],
+                [],
+                '');
       } catch (error) {
         log(error.toString());
       }
@@ -116,7 +123,10 @@ class FirebaseAuthFacade implements IAuthFacade {
                   _firebaseAuth.currentUser?.displayName,
                   _firebaseAuth.currentUser?.photoURL,
                   _firebaseAuth.currentUser?.uid,
-                  pushToken, [], []);
+                  pushToken,
+                  [],
+                  [],
+                  '');
         } catch (error) {
           log(error.toString());
         }
@@ -132,7 +142,8 @@ class FirebaseAuthFacade implements IAuthFacade {
                   _firebaseAuth.currentUser?.uid,
                   user.pushToken,
                   user.followers,
-                  user.following);
+                  user.following,
+                  user.bio);
         } catch (error) {
           log(error.toString());
         }
@@ -141,13 +152,31 @@ class FirebaseAuthFacade implements IAuthFacade {
       try {
         log("making user as new else");
         String? pushToken = await NotificationsRepository.getFCMToken();
-        await UserDataRepository(_firebaseFirestore, _firebaseStorage)
-            .createNewUser(
-                _firebaseAuth.currentUser?.email,
-                _firebaseAuth.currentUser?.email,
-                anonymousPicture,
-                _firebaseAuth.currentUser?.uid,
-                pushToken, [], []);
+        final user = await getCurrentUser();
+        if (user == null) {
+          await UserDataRepository(_firebaseFirestore, _firebaseStorage)
+              .createNewUser(
+                  _firebaseAuth.currentUser?.email,
+                  _firebaseAuth.currentUser?.email,
+                  anonymousPicture,
+                  _firebaseAuth.currentUser?.uid,
+                  pushToken,
+                  user.followers,
+                  user.following,
+                  user.bio);
+        } else {
+          log('donuing something');
+          await UserDataRepository(_firebaseFirestore, _firebaseStorage)
+              .createNewUser(
+                  _firebaseAuth.currentUser?.email,
+                  user.displayName,
+                  user.photoUrl,
+                  _firebaseAuth.currentUser?.uid,
+                  pushToken,
+                  user.followers,
+                  user.following,
+                  user.bio);
+        }
       } catch (error) {
         log(error.toString());
       }

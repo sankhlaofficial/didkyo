@@ -14,7 +14,8 @@ extension FirebaseUserDomainX on User {
         displayName: this.displayName,
         following: [],
         followers: [],
-        pushToken: '');
+        pushToken: '',
+        bio: '');
   }
 
   static Map<String, dynamic> userToMap(user.User targetUser) {
@@ -25,7 +26,8 @@ extension FirebaseUserDomainX on User {
       'userPicture': targetUser.photoUrl,
       'userFollowers': targetUser.followers,
       'userFollowing': targetUser.following,
-      'pushToken': targetUser.pushToken
+      'pushToken': targetUser.pushToken,
+      'bio': targetUser.bio
     };
   }
 
@@ -35,6 +37,7 @@ extension FirebaseUserDomainX on User {
         emailAddress: mapUser['emailAddress'],
         displayName: mapUser['displayName'],
         photoUrl: mapUser['photoUrl'],
+        bio: mapUser['bio'],
         followers: mapUser['followers'],
         following: mapUser['following'],
         pushToken: mapUser['pushToken']);

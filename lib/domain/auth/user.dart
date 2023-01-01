@@ -14,6 +14,7 @@ abstract class User with _$User {
     required String? displayName,
     required String? emailAddress,
     required String? photoUrl,
+    required String? bio,
     required List<dynamic>? followers,
     required List<dynamic>? following,
   }) = _User;
@@ -27,7 +28,8 @@ abstract class User with _$User {
         displayName: snapshot['displayName'],
         followers: snapshot['followers'],
         following: snapshot['following'],
-        pushToken: snapshot['pushToken']);
+        pushToken: snapshot['pushToken'],
+        bio: snapshot['bio']);
 
     return user;
   }

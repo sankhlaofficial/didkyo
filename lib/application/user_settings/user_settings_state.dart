@@ -16,7 +16,8 @@ abstract class UserSettingsState with _$UserSettingsState {
             emailAddress: '',
             followers: [],
             following: [],
-            pushToken: ''),
+            pushToken: '',
+            bio: ''),
         showErrorMessages: false,
         isSaving: false,
       );

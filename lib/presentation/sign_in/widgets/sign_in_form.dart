@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class SignInForm extends StatelessWidget {
+  const SignInForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInFormBloc, SignInFormState>(
@@ -32,7 +34,7 @@ class SignInForm extends StatelessWidget {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(snackBar);
                 }, (_) {
-                  Get.offAll(() => AppHome());
+                  Get.offAll(() => const AppHome());
                   context
                       .bloc<AuthBloc>()
                       .add(const AuthEvent.authCheckRequested());
@@ -48,8 +50,8 @@ class SignInForm extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 38.0),
                 child: Column(
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       "Discover, Create and Share",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -57,10 +59,10 @@ class SignInForm extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 5,
                     ),
-                    const Text(
+                    Text(
                       "Get inside soon 😋",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -80,7 +82,8 @@ class SignInForm extends StatelessWidget {
                   children: [
                     TextFormField(
                       autocorrect: false,
-                      decoration: InputDecoration(hintText: "Enter Email"),
+                      decoration:
+                          const InputDecoration(hintText: "Enter Email"),
                       onChanged: (value) {
                         context
                             .bloc<SignInFormBloc>()
@@ -103,7 +106,7 @@ class SignInForm extends StatelessWidget {
                     TextFormField(
                       autocorrect: false,
                       obscureText: true,
-                      decoration: InputDecoration(hintText: "Password"),
+                      decoration: const InputDecoration(hintText: "Password"),
                       onChanged: (value) {
                         context
                             .bloc<SignInFormBloc>()
@@ -177,7 +180,7 @@ class SignInForm extends StatelessWidget {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.red)),
-                  child: Text("Sign in with Google"),
+                  child: const Text("Sign in with Google"),
                 ),
               ),
               if (state.isSubmitting) ...[

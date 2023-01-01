@@ -15,7 +15,8 @@ class UserPostsPage extends StatelessWidget {
   final String appBarTitle;
   final String userId;
 
-  UserPostsPage({super.key, required this.appBarTitle, required this.userId});
+  const UserPostsPage(
+      {super.key, required this.appBarTitle, required this.userId});
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -34,7 +35,7 @@ class UserPostsPage extends StatelessWidget {
           BlocListener<AuthBloc, AuthState>(listener: (context, state) {
             state.maybeMap(
                 unauthenticated: (_) {
-                  Get.offAll(() => SignInPage());
+                  Get.offAll(() => const SignInPage());
                 },
                 orElse: () {});
           }),
@@ -65,14 +66,14 @@ class UserPostsPage extends StatelessWidget {
           })
         ],
         child: Scaffold(
-          appBar: CustomAppBar(appBarTitle: 'Your posts '),
+          appBar: const CustomAppBar(appBarTitle: 'Your posts '),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.to(() => const PostFormPage());
+              Get.to(() => PostFormPage());
             },
             child: const Icon(Icons.add),
           ),
-          body: UserPostsBody(),
+          body: const UserPostsBody(),
         ),
       ),
     );

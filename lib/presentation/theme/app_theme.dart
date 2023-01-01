@@ -6,7 +6,7 @@ class AppTheme {
   AppTheme._();
 
   static final ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: Color(0xffF9F9F9),
+    scaffoldBackgroundColor: const Color(0xffF9F9F9),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.blue),
@@ -27,27 +27,32 @@ class AppTheme {
     colorScheme: const ColorScheme.light(
       primary: Colors.white,
       onPrimary: Colors.white,
-      secondary: Colors.red,
+      secondary: Colors.blue,
     ),
     cardTheme: const CardTheme(
-      color: Color(0xffE6DDC4),
+      color: Colors.white,
     ),
     iconTheme: const IconThemeData(
       color: Colors.red,
     ),
     textTheme: TextTheme(
+        labelSmall: GoogleFonts.lato(
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
         displayMedium:
             GoogleFonts.aladin(fontSize: 23, fontWeight: FontWeight.w800),
-        titleMedium:
-            GoogleFonts.sacramento(fontSize: 23, fontWeight: FontWeight.w800),
+        titleMedium: GoogleFonts.sacramento(
+            fontSize: 20, fontWeight: FontWeight.w800, color: Colors.black),
         titleSmall:
             GoogleFonts.sacramento(fontSize: 10, fontWeight: FontWeight.w800),
-        titleLarge: const TextStyle(
-            color: Colors.black, fontSize: 20, fontWeight: FontWeight.w700)),
+        titleLarge: GoogleFonts.lato(
+            fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black)),
   );
 
   static final ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: Color(0xff393E46),
+    scaffoldBackgroundColor: const Color(0xff393E46),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       elevation: 0,
@@ -59,24 +64,31 @@ class AppTheme {
       ),
     ),
     colorScheme: const ColorScheme.light(
-      primary: Colors.black,
+      primary: const Color(0xff393E46),
       onPrimary: Colors.black,
       primaryVariant: Colors.black,
-      secondary: Colors.red,
+      secondary: Colors.white,
     ),
     cardTheme: const CardTheme(
-      color: Colors.black,
+      color: Color(0xff000000),
     ),
     iconTheme: const IconThemeData(
       color: Colors.white54,
     ),
     textTheme: TextTheme(
+      labelSmall: GoogleFonts.lato(
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+        color: Colors.white,
+      ),
       displayMedium: GoogleFonts.aladin(
           fontSize: 23, fontWeight: FontWeight.w800, color: Colors.white),
       titleMedium: GoogleFonts.sacramento(
-          fontSize: 23, fontWeight: FontWeight.w800, color: Colors.yellow),
-      titleSmall:
-          GoogleFonts.sacramento(fontSize: 10, fontWeight: FontWeight.w800),
+          fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white),
+      titleSmall: GoogleFonts.sacramento(
+          fontSize: 10, fontWeight: FontWeight.w800, color: Colors.white),
+      titleLarge: GoogleFonts.lato(
+          fontSize: 16, fontWeight: FontWeight.w800, color: Colors.white),
     ),
   );
 }

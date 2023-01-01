@@ -11,15 +11,15 @@ part 'user_dto.g.dart';
 abstract class UserDTO implements _$UserDTO {
   const UserDTO._();
 
-  const factory UserDTO({
-    required String id,
-    required String displayName,
-    required String photoUrl,
-    required String emailAddress,
-    required List<dynamic> followers,
-    required List<dynamic> following,
-    required String pushToken,
-  }) = _UserDTO;
+  const factory UserDTO(
+      {required String id,
+      required String displayName,
+      required String photoUrl,
+      required String emailAddress,
+      required List<dynamic> followers,
+      required List<dynamic> following,
+      required String pushToken,
+      required String bio}) = _UserDTO;
 
   static User toDomain(Map<String, dynamic> data) {
     log("error here in user to domain");
@@ -30,7 +30,8 @@ abstract class UserDTO implements _$UserDTO {
         emailAddress: data['emailAddress'],
         followers: data['followers'],
         following: data['following'],
-        pushToken: data['pushToken']);
+        pushToken: data['pushToken'],
+        bio: data['bio']);
   }
 
   factory UserDTO.fromDomain(User user) {
@@ -41,7 +42,8 @@ abstract class UserDTO implements _$UserDTO {
         emailAddress: user.emailAddress!,
         followers: user.followers!,
         following: user.following!,
-        pushToken: user.pushToken!);
+        pushToken: user.pushToken!,
+        bio: user.bio!);
   }
 
   factory UserDTO.fromJson(Map<String, dynamic> userJSON) =>

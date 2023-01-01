@@ -23,7 +23,7 @@ class StatsContainer extends StatelessWidget {
         width: size.width / 5,
         height: size.height / 11,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         child: Column(
           children: [

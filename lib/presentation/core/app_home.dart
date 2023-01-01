@@ -14,32 +14,38 @@ class AppHome extends StatefulWidget {
 
 class _AppHomeState extends State<AppHome> {
   int _selectedIndex = 0;
-
+  final _pageController = PageController();
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+
+      _pageController.animateToPage(index,
+          duration: const Duration(milliseconds: 200), curve: Curves.linear);
     });
   }
 
   static final List<Widget> _pages = <Widget>[
-    GlobalPostsPage(),
-    TrendingPage(),
-    PostFormPage(),
-    ProfileOverview(),
-    UserProvider()
+    const GlobalPostsPage(),
+    const TrendingPage(),
+    const PostFormPage(),
+    const ProfileOverview(),
+    const UserProvider()
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Get.to(() => const PostFormPage());
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(30),
@@ -51,7 +57,7 @@ class _AppHomeState extends State<AppHome> {
           onTap: _onItemTapped,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           type: BottomNavigationBarType.fixed,
           selectedIconTheme: const IconThemeData(color: Colors.amberAccent),
           items: [
@@ -59,7 +65,9 @@ class _AppHomeState extends State<AppHome> {
               label: 'Home',
               icon: CustomBottomNavItem(
                 navIcon: Icons.home_outlined,
-                iconColor: _selectedIndex == 0 ? Colors.blue : Colors.grey,
+                iconColor: _selectedIndex == 0
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.grey,
                 containerColor: Colors.transparent,
               ),
             ),
@@ -67,11 +75,13 @@ class _AppHomeState extends State<AppHome> {
               label: 'Trending',
               icon: CustomBottomNavItem(
                 navIcon: Icons.trending_up_outlined,
-                iconColor: _selectedIndex == 1 ? Colors.blue : Colors.grey,
+                iconColor: _selectedIndex == 1
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.grey,
                 containerColor: Colors.transparent,
               ),
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 label: 'Create',
                 icon: CircleAvatar(
                   child: Icon(Icons.add),
@@ -81,21 +91,30 @@ class _AppHomeState extends State<AppHome> {
               icon: CustomBottomNavItem(
                 navIcon: Icons.person_outlined,
                 containerColor: Colors.transparent,
-                iconColor: _selectedIndex == 3 ? Colors.blue : Colors.grey,
+                iconColor: _selectedIndex == 3
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.grey,
               ),
             ),
             BottomNavigationBarItem(
               label: 'Settings',
               icon: CustomBottomNavItem(
                   navIcon: Icons.settings_outlined,
-                  iconColor: _selectedIndex == 4 ? Colors.blue : Colors.grey,
+                  iconColor: _selectedIndex == 4
+                      ? Theme.of(context).colorScheme.secondary
+                      : Colors.grey,
                   containerColor: Colors.transparent),
             ),
           ],
         ),
       ),
-      body: Center(
-        child: _pages.elementAt(_selectedIndex),
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() => _selectedIndex = index);
+        },
+        children: _pages,
       ),
     );
   }

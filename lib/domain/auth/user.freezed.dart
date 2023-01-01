@@ -21,6 +21,7 @@ mixin _$User {
   String? get displayName => throw _privateConstructorUsedError;
   String? get emailAddress => throw _privateConstructorUsedError;
   String? get photoUrl => throw _privateConstructorUsedError;
+  String? get bio => throw _privateConstructorUsedError;
   List<dynamic>? get followers => throw _privateConstructorUsedError;
   List<dynamic>? get following => throw _privateConstructorUsedError;
 
@@ -39,6 +40,7 @@ abstract class $UserCopyWith<$Res> {
       String? displayName,
       String? emailAddress,
       String? photoUrl,
+      String? bio,
       List<dynamic>? followers,
       List<dynamic>? following});
 }
@@ -61,6 +63,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? displayName = freezed,
     Object? emailAddress = freezed,
     Object? photoUrl = freezed,
+    Object? bio = freezed,
     Object? followers = freezed,
     Object? following = freezed,
   }) {
@@ -84,6 +87,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       photoUrl: freezed == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bio: freezed == bio
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
               as String?,
       followers: freezed == followers
           ? _value.followers
@@ -109,6 +116,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? displayName,
       String? emailAddress,
       String? photoUrl,
+      String? bio,
       List<dynamic>? followers,
       List<dynamic>? following});
 }
@@ -127,6 +135,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? displayName = freezed,
     Object? emailAddress = freezed,
     Object? photoUrl = freezed,
+    Object? bio = freezed,
     Object? followers = freezed,
     Object? following = freezed,
   }) {
@@ -151,6 +160,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      bio: freezed == bio
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as String?,
       followers: freezed == followers
           ? _value._followers
           : followers // ignore: cast_nullable_to_non_nullable
@@ -172,6 +185,7 @@ class _$_User implements _User {
       required this.displayName,
       required this.emailAddress,
       required this.photoUrl,
+      required this.bio,
       required final List<dynamic>? followers,
       required final List<dynamic>? following})
       : _followers = followers,
@@ -187,6 +201,8 @@ class _$_User implements _User {
   final String? emailAddress;
   @override
   final String? photoUrl;
+  @override
+  final String? bio;
   final List<dynamic>? _followers;
   @override
   List<dynamic>? get followers {
@@ -209,7 +225,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(pushToken: $pushToken, id: $id, displayName: $displayName, emailAddress: $emailAddress, photoUrl: $photoUrl, followers: $followers, following: $following)';
+    return 'User(pushToken: $pushToken, id: $id, displayName: $displayName, emailAddress: $emailAddress, photoUrl: $photoUrl, bio: $bio, followers: $followers, following: $following)';
   }
 
   @override
@@ -226,6 +242,7 @@ class _$_User implements _User {
                 other.emailAddress == emailAddress) &&
             (identical(other.photoUrl, photoUrl) ||
                 other.photoUrl == photoUrl) &&
+            (identical(other.bio, bio) || other.bio == bio) &&
             const DeepCollectionEquality()
                 .equals(other._followers, _followers) &&
             const DeepCollectionEquality()
@@ -240,6 +257,7 @@ class _$_User implements _User {
       displayName,
       emailAddress,
       photoUrl,
+      bio,
       const DeepCollectionEquality().hash(_followers),
       const DeepCollectionEquality().hash(_following));
 
@@ -257,6 +275,7 @@ abstract class _User implements User {
       required final String? displayName,
       required final String? emailAddress,
       required final String? photoUrl,
+      required final String? bio,
       required final List<dynamic>? followers,
       required final List<dynamic>? following}) = _$_User;
 
@@ -270,6 +289,8 @@ abstract class _User implements User {
   String? get emailAddress;
   @override
   String? get photoUrl;
+  @override
+  String? get bio;
   @override
   List<dynamic>? get followers;
   @override

@@ -27,6 +27,8 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
     }, nameChanged: (e) async* {
       yield state.copyWith(user: state.user.copyWith(displayName: e.newName));
       log('FROM HERE' + state.user.toString());
+    }, bioChanged: (e) async* {
+      yield state.copyWith(user: state.user.copyWith(bio: e.newBio));
     }, imageChanged: (e) async* {
       yield state.copyWith(user: state.user.copyWith(photoUrl: e.newImagePath));
     }, saved: (e) async* {
