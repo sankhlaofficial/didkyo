@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 
 class CustomSnackBar extends SnackBar {
-  CustomSnackBar({Key? key, required super.content});
-
+  CustomSnackBar(
+      {required this.backgroundColor,
+      required this.margin,
+      required this.shape,
+      required this.behavior,
+      Key? key,
+      required super.content});
+  final SnackBarBehavior behavior;
+  final Color backgroundColor;
+  final EdgeInsetsGeometry margin;
+  final ShapeBorder shape;
   @override
   Widget build(BuildContext context) {
     return SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        margin: const EdgeInsets.all(30),
+        behavior: behavior,
+        backgroundColor: backgroundColor,
+        shape: shape,
+        margin: margin,
         content: content);
   }
 }

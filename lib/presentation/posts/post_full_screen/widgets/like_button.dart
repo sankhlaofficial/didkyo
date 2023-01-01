@@ -49,6 +49,13 @@ class LikeButton extends StatelessWidget {
                             .whenComplete(() {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(CustomSnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            margin: const EdgeInsets.all(30),
                             content: Text(
                               "Like removed",
                               style: Theme.of(context).textTheme.titleLarge,
@@ -59,6 +66,13 @@ class LikeButton extends StatelessWidget {
                           log('stacktrace  is$stackTrace');
                           ScaffoldMessenger.of(context)
                               .showSnackBar(CustomSnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            margin: const EdgeInsets.all(30),
                             content: Text(
                               error.toString(),
                               style: Theme.of(context).textTheme.titleLarge,
@@ -75,6 +89,13 @@ class LikeButton extends StatelessWidget {
                             .whenComplete(() {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(CustomSnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            margin: const EdgeInsets.all(30),
                             content: Text(
                               "Like added",
                               style: Theme.of(context).textTheme.titleLarge,
@@ -83,6 +104,13 @@ class LikeButton extends StatelessWidget {
                         }).onError((error, stackTrace) {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(CustomSnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            margin: const EdgeInsets.all(30),
                             content: Text(
                               error.toString(),
                               style: Theme.of(context).textTheme.titleLarge,

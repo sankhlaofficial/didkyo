@@ -27,6 +27,11 @@ class GlobalPostsBody extends StatelessWidget {
                     .add(const PostWatcherEvent.watchGlobalStarted());
                 ScaffoldMessenger.of(context).showSnackBar(
                   CustomSnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    margin: const EdgeInsets.all(30),
                     content: Text(
                       "Page refreshed",
                       style: Theme.of(context).textTheme.titleLarge,
