@@ -14,9 +14,11 @@ class UserTile extends StatelessWidget {
       required this.followId,
       required this.locationHeight,
       this.radius = 25,
+      this.nameHeight = 20,
       this.titleColor = Colors.transparent})
       : super(key: key);
   double radius;
+  double nameHeight;
   Color titleColor;
   final String followId;
   String? location;
@@ -75,7 +77,7 @@ class UserTile extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 130,
-                          height: 20,
+                          height: nameHeight,
                           child: Text(
                             state.user.displayName!,
                             style: titleColor == Colors.transparent

@@ -374,6 +374,7 @@ class CommentTile extends StatelessWidget {
         UserTile(
           titleColor: Colors.blue,
           radius: 14,
+          nameHeight: 28,
           followId: state.post.postComments[index].commentUserId,
           locationHeight: 20,
         ),

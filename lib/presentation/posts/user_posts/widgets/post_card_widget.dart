@@ -97,6 +97,7 @@ class PostCardWidget extends StatelessWidget {
                                   children: [
                                     SizedBox(
                                         child: UserTile(
+                                      nameHeight: 30,
                                       followId: cardPost.postUserId,
                                       locationHeight: 20,
                                       location:
@@ -112,7 +113,7 @@ class PostCardWidget extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 18.0, vertical: 4),
+                                horizontal: 18.0, vertical: 0),
                             child: Row(
                               children: [
                                 Expanded(

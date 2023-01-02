@@ -59,6 +59,7 @@ class ProfileBody extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           UserTile(
+                            nameHeight: 32,
                             followId: user.id!.getOrCrash(),
                             locationHeight: 20,
                           ),
