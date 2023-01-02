@@ -19,30 +19,52 @@ class BioField extends HookWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Container(
-          width: size.width,
-          height: size.height / 7,
-          color: Colors.black12,
-          child: TextFormField(
-            controller: textEditingController,
-            decoration: InputDecoration(
-              counterText: '',
-              contentPadding: const EdgeInsets.all(10),
-              hintText: 'Enter the bio here',
-              disabledBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              constraints: BoxConstraints.expand(
-                  width: size.width, height: size.height / 7),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  'Tell everyone about yourself',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).colorScheme.secondary),
+                ),
+              ],
             ),
-            maxLength: PostCaption.maxLength,
-            minLines: 5,
-            maxLines: 10,
-            onChanged: (value) {
-              context
-                  .bloc<UserSettingsBloc>()
-                  .add(UserSettingsEvent.bioChanged(value));
-            },
-          ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  border: Border.all(
+                      color: Theme.of(context).colorScheme.secondary),
+                  borderRadius: BorderRadius.circular(12)),
+              width: size.width,
+              height: size.height / 7,
+              child: TextFormField(
+                controller: textEditingController,
+                decoration: InputDecoration(
+                  counterText: '',
+                  contentPadding: const EdgeInsets.all(10),
+                  hintText: 'Enter the bio here',
+                  disabledBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  constraints: BoxConstraints.expand(
+                      width: size.width, height: size.height / 7),
+                ),
+                maxLength: PostCaption.maxLength,
+                minLines: 5,
+                maxLines: 10,
+                onChanged: (value) {
+                  context
+                      .bloc<UserSettingsBloc>()
+                      .add(UserSettingsEvent.bioChanged(value));
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

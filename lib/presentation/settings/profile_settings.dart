@@ -108,7 +108,7 @@ class UserSettingsPageScaffold extends StatelessWidget {
                   const UserImageField(),
                   const BioField(),
                   const SizedBox(
-                    height: 120,
+                    height: 60,
                   ),
                   const SignOutButton()
                 ],

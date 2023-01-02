@@ -10,7 +10,7 @@ class ShadowContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(13),
+        borderRadius: BorderRadius.circular(12),
         // border: Border.all(color: Colors.black, width: 1),
         boxShadow: const [
           BoxShadow(

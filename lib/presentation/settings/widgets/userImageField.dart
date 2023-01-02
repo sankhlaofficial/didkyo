@@ -32,39 +32,96 @@ class _UserImageFieldState extends State<UserImageField> {
     }, builder: (context, state) {
       return Padding(
         padding: const EdgeInsets.all(10),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-          ),
-          width: size.width,
-          height: size.height / 4,
-          child: localImage != ''
-              ? imageWay == ""
-                  ? Center(
-                      child: IconButton(
-                      icon: const Icon(Icons.add_box_rounded),
-                      onPressed: () async {
-                        ImagePicker picker = ImagePicker();
-                        final XFile? image =
-                            await picker.pickImage(source: ImageSource.gallery);
-                        if (image != null) {
-                          setState(() {
-                            imageWay = image.path;
-                          });
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  'Your profile picture',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).colorScheme.secondary),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border:
+                    Border.all(color: Theme.of(context).colorScheme.secondary),
+              ),
+              width: size.width,
+              height: size.width,
+              child: localImage != ''
+                  ? imageWay == ""
+                      ? Center(
+                          child: IconButton(
+                          icon: const Icon(Icons.add_box_rounded),
+                          onPressed: () async {
+                            ImagePicker picker = ImagePicker();
+                            final XFile? image = await picker.pickImage(
+                                source: ImageSource.gallery);
+                            if (image != null) {
+                              setState(() {
+                                imageWay = image.path;
+                              });
 
-                          context
-                              .bloc<UserSettingsBloc>()
-                              .add(UserSettingsEvent.imageChanged(image.path));
-                        }
-                      },
-                    ))
+                              context.bloc<UserSettingsBloc>().add(
+                                  UserSettingsEvent.imageChanged(image.path));
+                            }
+                          },
+                        ))
+                      : Stack(
+                          children: [
+                            Positioned.fill(
+                                child: Image.file(
+                              File(imageWay),
+                              fit: BoxFit.cover,
+                            )),
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: IconButton(
+                                onPressed: () async {
+                                  ImagePicker picker = ImagePicker();
+                                  ImageCropper cropper = ImageCropper();
+                                  final XFile? image = await picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  if (image != null) {
+                                    final imageFile = await cropper.cropImage(
+                                      sourcePath: image.path,
+                                      aspectRatio: const CropAspectRatio(
+                                          ratioX: 1.0, ratioY: 1.0),
+                                    );
+                                    if (imageFile != null) {
+                                      log(imageFile.path);
+                                      setState(() {
+                                        log(image.path);
+                                        imageWay = imageFile.path;
+                                      });
+                                      context.bloc<UserSettingsBloc>().add(
+                                          UserSettingsEvent.imageChanged(
+                                              imageFile.path));
+                                    }
+                                  }
+                                },
+                                icon: const Icon(
+                                  Icons.add_box_rounded,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
                   : Stack(
                       children: [
                         Positioned.fill(
-                            child: Image.file(
-                          File(imageWay),
-                          fit: BoxFit.cover,
-                        )),
+                          child: Image.network(
+                            postImage != "" ? postImage : loadingImage,
+                          ),
+                        ),
                         Align(
                           alignment: Alignment.bottomRight,
                           child: IconButton(
@@ -80,10 +137,9 @@ class _UserImageFieldState extends State<UserImageField> {
                                       ratioX: 1.0, ratioY: 1.0),
                                 );
                                 if (imageFile != null) {
-                                  log(imageFile.path);
                                   setState(() {
-                                    log(image.path);
                                     imageWay = imageFile.path;
+                                    localImage = 'NOT NULL ';
                                   });
                                   context.bloc<UserSettingsBloc>().add(
                                       UserSettingsEvent.imageChanged(
@@ -98,47 +154,9 @@ class _UserImageFieldState extends State<UserImageField> {
                           ),
                         )
                       ],
-                    )
-              : Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Image.network(
-                        postImage != "" ? postImage : loadingImage,
-                      ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: IconButton(
-                        onPressed: () async {
-                          ImagePicker picker = ImagePicker();
-                          ImageCropper cropper = ImageCropper();
-                          final XFile? image = await picker.pickImage(
-                              source: ImageSource.gallery);
-                          if (image != null) {
-                            final imageFile = await cropper.cropImage(
-                              sourcePath: image.path,
-                              aspectRatio: const CropAspectRatio(
-                                  ratioX: 1.0, ratioY: 1.0),
-                            );
-                            if (imageFile != null) {
-                              setState(() {
-                                imageWay = imageFile.path;
-                                localImage = 'NOT NULL ';
-                              });
-                              context.bloc<UserSettingsBloc>().add(
-                                  UserSettingsEvent.imageChanged(
-                                      imageFile.path));
-                            }
-                          }
-                        },
-                        icon: const Icon(
-                          Icons.add_box_rounded,
-                          color: Colors.red,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+            ),
+          ],
         ),
       );
     });

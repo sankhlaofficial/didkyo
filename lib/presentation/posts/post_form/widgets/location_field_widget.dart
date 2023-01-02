@@ -21,7 +21,7 @@ class LocationField extends HookWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ShadowContainer(
-          color: Colors.transparent,
+          color: Colors.black,
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.black),
@@ -35,6 +35,7 @@ class LocationField extends HookWidget {
                 counterText: '',
                 contentPadding: const EdgeInsets.all(10),
                 hintText: 'Enter the location here',
+                hintStyle: Theme.of(context).textTheme.titleMedium,
                 disabledBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 constraints: BoxConstraints.expand(

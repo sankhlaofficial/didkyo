@@ -8,7 +8,6 @@ import 'package:didkyo/presentation/posts/post_form/widgets/image_field_widget.d
 import 'package:didkyo/presentation/posts/post_form/widgets/location_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 class PostFormPage extends StatelessWidget {
   final Post? editedPost;
@@ -136,12 +135,12 @@ class PostFormPageScaffold extends StatelessWidget {
               },
               icon: const Icon(Icons.check))
         ],
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {
-            Get.back();
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.close),
+        //   onPressed: () {
+        //     Get.back();
+        //   },
+        // ),
         title: BlocBuilder<PostFormBloc, PostFormState>(
           condition: (previousState, currentState) =>
               previousState.isEditing != currentState.isEditing,

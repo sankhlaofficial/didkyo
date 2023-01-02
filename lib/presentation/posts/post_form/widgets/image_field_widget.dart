@@ -35,7 +35,8 @@ class _ImageFieldState extends State<ImageField> {
             padding: const EdgeInsets.all(10),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
+                border:
+                    Border.all(color: Theme.of(context).colorScheme.secondary),
               ),
               width: size.width,
               height: size.width,
