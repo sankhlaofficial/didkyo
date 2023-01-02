@@ -119,8 +119,10 @@ class PostRepository implements IPostRepository {
                   }).whenComplete(() {
                     if (user.followers!.isNotEmpty) {
                       user.followers!.forEach((followerId) {
-                        NotificationsRepository.sendPushNotification(followerId,
-                            user.displayName!, postDTO.postLocation);
+                        NotificationsRepository.sendPostCreateNotification(
+                            followerId,
+                            user.displayName!,
+                            postDTO.postLocation);
                       });
                     }
                   });
@@ -152,7 +154,7 @@ class PostRepository implements IPostRepository {
                 }).whenComplete(() {
                   if (user.followers!.isNotEmpty) {
                     user.followers!.forEach((followerId) {
-                      NotificationsRepository.sendPushNotification(
+                      NotificationsRepository.sendPostCreateNotification(
                           followerId, user.displayName!, postDTO.postLocation);
                     });
                   }

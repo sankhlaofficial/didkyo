@@ -33,7 +33,7 @@ class NotificationsRepository {
         .update({'pushToken': pushToken});
   }
 
-  static Future<void> sendPushNotification(
+  static Future<void> sendPostCreateNotification(
       String userId, String creatorName, String locationName) async {
     UserDataRepository userDataRepository =
         UserDataRepository(_firebaseFirestore, _firebaseStorage);
@@ -44,6 +44,68 @@ class NotificationsRepository {
       "notification": {
         'title': 'Hey ${followerUser.displayName}',
         'body': '${creatorName} created a new post in ${locationName} '
+      }
+    };
+    try {
+      var url = Uri.parse('https://fcm.googleapis.com/fcm/send');
+      var response = await post(url,
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.authorizationHeader:
+                'key=AAAA22gd3JM:APA91bF6btNvncCITSYLY4aZEjeAO1P9fjk8Ulwd6n1t8-HJJrrle4jlZzYZ84AsrQo6kVinHUWmbSW4yx5OnktFl_csFRoeKNZoGgkWUzRV-g7vm-89f7XhblPtWSjUwCGFJnWjliRQ'
+          },
+          body: jsonEncode(body));
+      log('Response status: ${response.statusCode}');
+      log('Response body: ${response.body}');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  static Future<void> sendFollowNotification(
+      {required String followedId, required String followerId}) async {
+    UserDataRepository userDataRepository =
+        UserDataRepository(_firebaseFirestore, _firebaseStorage);
+
+    User followedUser = await userDataRepository.fetchUser(followedId);
+    User followerUser = await userDataRepository.fetchUser(followerId);
+    final body = {
+      'to': followedUser.pushToken,
+      "notification": {
+        'title': 'Hey ${followedUser.displayName}',
+        'body': '${followerUser.displayName} started following you '
+      }
+    };
+    try {
+      var url = Uri.parse('https://fcm.googleapis.com/fcm/send');
+      var response = await post(url,
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.authorizationHeader:
+                'key=AAAA22gd3JM:APA91bF6btNvncCITSYLY4aZEjeAO1P9fjk8Ulwd6n1t8-HJJrrle4jlZzYZ84AsrQo6kVinHUWmbSW4yx5OnktFl_csFRoeKNZoGgkWUzRV-g7vm-89f7XhblPtWSjUwCGFJnWjliRQ'
+          },
+          body: jsonEncode(body));
+      log('Response status: ${response.statusCode}');
+      log('Response body: ${response.body}');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  static Future<void> sendCommentNotification(
+      {required String postUserId,
+      required String commenterId,
+      required String commentMessage}) async {
+    UserDataRepository userDataRepository =
+        UserDataRepository(_firebaseFirestore, _firebaseStorage);
+
+    User postUser = await userDataRepository.fetchUser(postUserId);
+    User commenterUser = await userDataRepository.fetchUser(commenterId);
+    final body = {
+      'to': postUser.pushToken,
+      "notification": {
+        'title': 'Hey ${postUser.displayName}',
+        'body': '${commenterUser.displayName} commented "$commentMessage" '
       }
     };
     try {

@@ -7,6 +7,7 @@ import 'package:didkyo/domain/core/value_objects.dart';
 import 'package:didkyo/domain/posts/comment.dart';
 import 'package:didkyo/domain/posts/post.dart';
 import 'package:didkyo/domain/posts/value_objects.dart';
+import 'package:didkyo/infrastructure/notifications/notificiations_repository.dart';
 import 'package:didkyo/infrastructure/posts/post_dtos.dart';
 
 class ActionsRepository extends BaseActionsRepository {
@@ -24,6 +25,9 @@ class ActionsRepository extends BaseActionsRepository {
       await _firebaseFirestore.collection('users').doc(currentUserId).update({
         'following': FieldValue.arrayUnion([toBeFollowedUserId])
       });
+    }).whenComplete(() {
+      NotificationsRepository.sendFollowNotification(
+          followedId: toBeFollowedUserId, followerId: currentUserId);
     });
   }
 
@@ -133,6 +137,11 @@ class ActionsRepository extends BaseActionsRepository {
           .update({
         'postComments': FieldValue.arrayUnion([commentDTO])
       });
+    }).whenComplete(() {
+      NotificationsRepository.sendCommentNotification(
+          postUserId: postUserId,
+          commenterId: currentUserId,
+          commentMessage: commentMessage);
     });
   }
 
