@@ -36,102 +36,106 @@ class LikeButton extends StatelessWidget {
                     ? true
                     : false;
 
-                return IconButton(
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () {
-                      if (isLiked) {
-                        context
-                            .repository<ActionsRepository>()
-                            .unLikePost(
-                                toBeUnLikedPostId: postId,
-                                postUserId: postUserId,
-                                currentUserId: state.user.id!.getOrCrash())
-                            .whenComplete(() {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(CustomSnackBar(
-                            showTime: const Duration(milliseconds: 100),
-                            behavior: SnackBarBehavior.floating,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            backgroundColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            margin: const EdgeInsets.all(30),
-                            content: Text(
-                              "Like removed",
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ));
-                        }).onError((error, stackTrace) {
-                          log('error is${error}');
-                          log('stacktrace  is$stackTrace');
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(CustomSnackBar(
-                            showTime: const Duration(seconds: 1),
-                            behavior: SnackBarBehavior.floating,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            backgroundColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            margin: const EdgeInsets.all(30),
-                            content: Text(
-                              error.toString(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ));
-                        });
-                      } else {
-                        context
-                            .repository<ActionsRepository>()
-                            .likePost(
-                                toBeLikedPostId: postId,
-                                postUserId: postUserId,
-                                currentUserId: state.user.id!.getOrCrash())
-                            .whenComplete(() {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(CustomSnackBar(
-                            showTime: const Duration(seconds: 1),
-                            behavior: SnackBarBehavior.floating,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            backgroundColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            margin: const EdgeInsets.all(30),
-                            content: Text(
-                              "Like added",
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ));
-                        }).onError((error, stackTrace) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(CustomSnackBar(
-                            showTime: const Duration(seconds: 1),
-                            behavior: SnackBarBehavior.floating,
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            backgroundColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            margin: const EdgeInsets.all(30),
-                            content: Text(
-                              error.toString(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ));
-                        });
-                      }
-                    },
-                    icon: !isLiked
-                        ? const Icon(
-                            Icons.favorite_border,
-                            color: Colors.blue,
-                          )
-                        : const Icon(
-                            Icons.favorite,
-                            color: Colors.blue,
-                          ));
+                return MediaQuery.removePadding(
+                  context: context,
+                  removeRight: true,
+                  child: IconButton(
+                      padding: const EdgeInsets.all(0),
+                      onPressed: () {
+                        if (isLiked) {
+                          context
+                              .repository<ActionsRepository>()
+                              .unLikePost(
+                                  toBeUnLikedPostId: postId,
+                                  postUserId: postUserId,
+                                  currentUserId: state.user.id!.getOrCrash())
+                              .whenComplete(() {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(CustomSnackBar(
+                              showTime: const Duration(milliseconds: 100),
+                              behavior: SnackBarBehavior.floating,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              backgroundColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                              margin: const EdgeInsets.all(30),
+                              content: Text(
+                                "Like removed",
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ));
+                          }).onError((error, stackTrace) {
+                            log('error is${error}');
+                            log('stacktrace  is$stackTrace');
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(CustomSnackBar(
+                              showTime: const Duration(seconds: 1),
+                              behavior: SnackBarBehavior.floating,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              backgroundColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                              margin: const EdgeInsets.all(30),
+                              content: Text(
+                                error.toString(),
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ));
+                          });
+                        } else {
+                          context
+                              .repository<ActionsRepository>()
+                              .likePost(
+                                  toBeLikedPostId: postId,
+                                  postUserId: postUserId,
+                                  currentUserId: state.user.id!.getOrCrash())
+                              .whenComplete(() {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(CustomSnackBar(
+                              showTime: const Duration(seconds: 1),
+                              behavior: SnackBarBehavior.floating,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              backgroundColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                              margin: const EdgeInsets.all(30),
+                              content: Text(
+                                "Like added",
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ));
+                          }).onError((error, stackTrace) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(CustomSnackBar(
+                              showTime: const Duration(seconds: 1),
+                              behavior: SnackBarBehavior.floating,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              backgroundColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                              margin: const EdgeInsets.all(30),
+                              content: Text(
+                                error.toString(),
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ));
+                          });
+                        }
+                      },
+                      icon: !isLiked
+                          ? const Icon(
+                              Icons.favorite_border,
+                              color: Colors.blue,
+                            )
+                          : const Icon(
+                              Icons.favorite,
+                              color: Colors.blue,
+                            )),
+                );
               },
               loadFailure: (_) => Container());
         },

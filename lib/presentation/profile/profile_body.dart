@@ -139,7 +139,10 @@ class ProfileBody extends StatelessWidget {
                           )
                         ],
                       ),
-                      UserImagesGrid(user: user)
+                      MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: UserImagesGrid(user: user))
                     ],
                   ),
                 ),

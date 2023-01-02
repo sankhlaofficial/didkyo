@@ -26,7 +26,7 @@ class UserImagesGrid extends StatelessWidget {
               loadInProgress: (_) => Container(),
               loadSuccess: (state) {
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 108.0),
+                  padding: const EdgeInsets.only(bottom: 108.0, top: 15),
                   child: GridView.builder(
                       cacheExtent: 99999999,
                       physics: const NeverScrollableScrollPhysics(),

@@ -53,271 +53,270 @@ class PostFullScreen extends StatelessWidget {
           }
           if (state is OnePostLoaded) {
             return Scaffold(
-                extendBodyBehindAppBar: true,
-                resizeToAvoidBottomInset: true,
-                appBar: AppBar(
-                  iconTheme: const IconThemeData(
-                    color: Colors.white,
-                  ),
-                  backgroundColor: Colors.transparent,
-                  // title: Text(
-                  //   state.post.postLocation.getOrCrash(),
-                  //   style: Theme.of(context).textTheme.displayMedium,
-                  // ),
-                  centerTitle: true,
-                  actions: [
-                    Visibility(
-                      visible: clickedPost.postUserId == currentUserId
-                          ? true
-                          : false,
-                      child: PopupMenuButton(
-                          icon: const Icon(
-                            Icons.more_horiz_rounded,
-                            color: Colors.white,
-                          ),
-                          itemBuilder: (context) {
-                            return [
-                              const PopupMenuItem<int>(
-                                value: 0,
-                                child: Text("Edit"),
-                              ),
-                              const PopupMenuItem<int>(
-                                value: 1,
-                                child: Text("Delete"),
-                              ),
-                            ];
-                          },
-                          onSelected: (value) {
-                            if (value == 0) {
-                              Get.to(() => PostFormPage(
-                                    onPostCreation: () {
-                                      Get.back();
-                                    },
-                                    editedPost: clickedPost,
-                                  ));
-                            } else if (value == 1) {
-                              final postActorBloc =
-                                  context.bloc<PostActorBloc>();
-                              _showDeleteDialogBox(context, postActorBloc);
-                            }
-                          }),
-                    )
-                  ],
+              extendBodyBehindAppBar: true,
+              resizeToAvoidBottomInset: true,
+              appBar: AppBar(
+                iconTheme: const IconThemeData(
+                  color: Colors.white,
                 ),
-                body: SlidingUpPanel(
-                    controller: panelController,
-                    minHeight: 200,
-                    onPanelClosed: () {
-                      scrollController.animateTo(
-                          //go to top of scroll
-                          0, //scroll offset to go
-                          duration: const Duration(
-                              milliseconds: 500), //duration of scroll
-                          curve: Curves.fastOutSlowIn //scroll type
-                          );
-                    },
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(40.0),
-                      topRight: Radius.circular(40.0),
-                    ),
-                    panel: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(40.0),
-                            topRight: Radius.circular(40.0),
-                          ),
+                backgroundColor: Colors.transparent,
+                // title: Text(
+                //   state.post.postLocation.getOrCrash(),
+                //   style: Theme.of(context).textTheme.displayMedium,
+                // ),
+                centerTitle: true,
+                actions: [
+                  Visibility(
+                    visible:
+                        clickedPost.postUserId == currentUserId ? true : false,
+                    child: PopupMenuButton(
+                        icon: const Icon(
+                          Icons.more_horiz_rounded,
+                          color: Colors.white,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(28.0),
-                          child: SingleChildScrollView(
-                            controller: scrollController,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    UserTile(
-                                      followId: state.post.postUserId,
-                                      location:
-                                          state.post.postLocation.getOrCrash(),
-                                      locationHeight: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.remove_red_eye_rounded,
-                                          color: Colors.blue,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          state.post.postViews.length
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Text(state.post.postCaption.getOrCrash(),
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge),
-                                const SizedBox(
-                                  height: 25,
-                                ),
-                                Row(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        LikeButton(
-                                          postUserId: state.post.postUserId,
-                                          postId:
-                                              state.post.postID.getOrCrash(),
-                                          likedByList: state.post.postLikes,
-                                        ),
-                                        Text(
-                                          state.post.postLikes.length
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.comment,
-                                          color: Colors.blue,
-                                        ),
-                                        const SizedBox(
-                                          width: 18,
-                                        ),
-                                        Text(
-                                          state.post.postComments.length
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      width: 40,
-                                    ),
-                                    Row(
-                                      children: [
-                                        TextButton(
-                                            onPressed: () {
-                                              if (panelController
-                                                  .isPanelClosed) {
-                                                panelController.open();
-                                              } else {
-                                                panelController.close();
-                                              }
-                                            },
-                                            child: Text("See more",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium)),
-                                        IconButton(
-                                            onPressed: () {
-                                              if (panelController
-                                                  .isPanelClosed) {
-                                                panelController.open();
-                                              } else {
-                                                panelController.close();
-                                              }
-                                            },
-                                            icon: const Icon(
-                                              Icons.unfold_more_rounded,
-                                              color: Colors.blue,
-                                              size: 32,
-                                            )),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Get.to(() => LocationPostsPage(
-                                            selectedLocation: state
-                                                .post.postLocation
-                                                .getOrCrash()));
-                                      },
-                                      child: Text(
-                                        "More from ${state.post.postLocation.getOrCrash()}",
-                                        style:
-                                            const TextStyle(color: Colors.blue),
+                        itemBuilder: (context) {
+                          return [
+                            const PopupMenuItem<int>(
+                              value: 0,
+                              child: Text("Edit"),
+                            ),
+                            const PopupMenuItem<int>(
+                              value: 1,
+                              child: Text("Delete"),
+                            ),
+                          ];
+                        },
+                        onSelected: (value) {
+                          if (value == 0) {
+                            Get.to(() => PostFormPage(
+                                  onPostCreation: () {
+                                    Get.back();
+                                  },
+                                  editedPost: clickedPost,
+                                ));
+                          } else if (value == 1) {
+                            final postActorBloc = context.bloc<PostActorBloc>();
+                            _showDeleteDialogBox(context, postActorBloc);
+                          }
+                        }),
+                  )
+                ],
+              ),
+              body: SlidingUpPanel(
+                  controller: panelController,
+                  minHeight: 200,
+                  onPanelClosed: () {
+                    scrollController.animateTo(
+                        //go to top of scroll
+                        0, //scroll offset to go
+                        duration: const Duration(
+                            milliseconds: 500), //duration of scroll
+                        curve: Curves.fastOutSlowIn //scroll type
+                        );
+                  },
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40.0),
+                    topRight: Radius.circular(40.0),
+                  ),
+                  panel: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(28.0),
+                        child: SingleChildScrollView(
+                          controller: scrollController,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  UserTile(
+                                    followId: state.post.postUserId,
+                                    location:
+                                        state.post.postLocation.getOrCrash(),
+                                    locationHeight: 20,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.remove_red_eye_rounded,
+                                        color: Colors.blue,
                                       ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        state.post.postViews.length.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall,
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(state.post.postCaption.getOrCrash(),
+                                  style:
+                                      Theme.of(context).textTheme.titleLarge),
+                              const SizedBox(
+                                height: 18,
+                              ),
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      LikeButton(
+                                        postUserId: state.post.postUserId,
+                                        postId: state.post.postID.getOrCrash(),
+                                        likedByList: state.post.postLikes,
+                                      ),
+                                      Text(
+                                        state.post.postLikes.length.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall,
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.comment,
+                                        color: Colors.blue,
+                                      ),
+                                      const SizedBox(
+                                        width: 18,
+                                      ),
+                                      Text(
+                                        state.post.postComments.length
+                                            .toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall,
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 40,
+                                  ),
+                                  Row(
+                                    children: [
+                                      TextButton(
+                                          onPressed: () {
+                                            if (panelController.isPanelClosed) {
+                                              panelController.open();
+                                            } else {
+                                              panelController.close();
+                                            }
+                                          },
+                                          child: Text("See more",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium)),
+                                      IconButton(
+                                          onPressed: () {
+                                            if (panelController.isPanelClosed) {
+                                              panelController.open();
+                                            } else {
+                                              panelController.close();
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            Icons.unfold_more_rounded,
+                                            color: Colors.blue,
+                                            size: 32,
+                                          )),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.to(() => LocationPostsPage(
+                                          selectedLocation: state
+                                              .post.postLocation
+                                              .getOrCrash()));
+                                    },
+                                    child: Text(
+                                      "More from ${state.post.postLocation.getOrCrash()}",
+                                      style:
+                                          const TextStyle(color: Colors.blue),
                                     ),
-                                  ],
-                                ),
-                                Flexible(
-                                  child: ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: state.post.postComments.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 12.0),
-                                          child: CommentTile(
-                                            index: index,
-                                            state: state,
-                                          ),
-                                        );
-                                      }),
-                                ),
-                                CommentBox(
-                                  postUserId: state.post.postUserId,
-                                  postId: state.post.postID.getOrCrash(),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )),
-                    body: Column(
-                      children: [
-                        InteractiveViewer(
-                          child: CachedNetworkImage(
-                            imageUrl: state.post.postImage.getOrCrash(),
-                            imageBuilder: (context, imageProvider) => Container(
-                              height: MediaQuery.of(context).size.height / 1.2,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.fitHeight,
-                                      image: imageProvider)),
-                            ),
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(
-                                        value: downloadProgress.progress),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              MediaQuery.removePadding(
+                                context: context,
+                                removeTop: true,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: state.post.postComments.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 12.0),
+                                        child: CommentTile(
+                                          index: index,
+                                          state: state,
+                                        ),
+                                      );
+                                    }),
+                              ),
+                              CommentBox(
+                                postUserId: state.post.postUserId,
+                                postId: state.post.postID.getOrCrash(),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    )));
+                      )),
+                  body: Column(
+                    children: [
+                      InteractiveViewer(
+                        child: CachedNetworkImage(
+                          imageUrl: state.post.postImage.getOrCrash(),
+                          imageBuilder: (context, imageProvider) => Container(
+                            height: MediaQuery.of(context).size.height / 1.2,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.fitHeight,
+                                    image: imageProvider)),
+                          ),
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                        ),
+                      ),
+                    ],
+                  )),
+            );
           }
 
           return const Center(
@@ -383,6 +382,9 @@ class CommentTile extends StatelessWidget {
         ),
         Row(
           children: [
+            SizedBox(
+              width: 44,
+            ),
             Expanded(
               child: Text(
                 state.post.postComments[index].commentMessage.getOrCrash(),

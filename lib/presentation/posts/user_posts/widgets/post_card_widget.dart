@@ -107,26 +107,6 @@ class PostCardWidget extends StatelessWidget {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 18.0),
-                                  child: Row(
-                                    children: [
-                                      // const SizedBox(
-                                      //   width: 15,
-                                      // ),
-                                      // Row(
-                                      //   children: [
-                                      //     Text(
-                                      //       PresentationHelpers.formatDateTime(
-                                      //           cardPost.postDateTime),
-                                      //       style: Theme.of(context).textTheme.titleSmall,
-                                      //     ),
-                                      //   ],
-                                      // ),
-                                    ],
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -148,18 +128,22 @@ class PostCardWidget extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 18.0, vertical: 8),
+                            padding: const EdgeInsets.only(left: 10.0, top: 16),
                             child: Row(
                               children: [
                                 Row(
                                   children: [
                                     SizedBox(
                                       height: 20,
-                                      child: LikeButton(
-                                          likedByList: cardPost.postLikes,
-                                          postId: cardPost.postID.getOrCrash(),
-                                          postUserId: cardPost.postUserId),
+                                      child: MediaQuery.removePadding(
+                                        context: context,
+                                        removeRight: true,
+                                        child: LikeButton(
+                                            likedByList: cardPost.postLikes,
+                                            postId:
+                                                cardPost.postID.getOrCrash(),
+                                            postUserId: cardPost.postUserId),
+                                      ),
                                     ),
                                     Text(
                                       cardPost.postLikes.length.toString(),
@@ -174,12 +158,19 @@ class PostCardWidget extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                    const Icon(
-                                      Icons.comment,
-                                      color: Colors.blue,
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 7,
+                                        ),
+                                        const Icon(
+                                          Icons.comment,
+                                          color: Colors.blue,
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(
-                                      width: 5,
+                                      width: 17,
                                     ),
                                     Text(
                                         cardPost.postComments.length.toString(),
@@ -187,14 +178,14 @@ class PostCardWidget extends StatelessWidget {
                                             .textTheme
                                             .labelSmall),
                                     const SizedBox(
-                                      width: 75,
+                                      width: 130,
                                     ),
                                     Row(
                                       children: [
                                         Column(
                                           children: [
                                             const SizedBox(
-                                              height: 10,
+                                              height: 15,
                                             ),
                                             Text(
                                               PresentationHelpers
@@ -202,7 +193,8 @@ class PostCardWidget extends StatelessWidget {
                                                       cardPost.postDateTime),
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .titleSmall,
+                                                  .titleSmall!
+                                                  .copyWith(fontSize: 15),
                                             ),
                                           ],
                                         ),
