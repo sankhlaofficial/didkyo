@@ -281,18 +281,10 @@ class PostFullScreen extends StatelessWidget {
                                       itemBuilder: (context, index) {
                                         return Padding(
                                           padding: const EdgeInsets.only(
-                                              bottom: 8.0),
-                                          child: UserTile(
-                                            followId: state
-                                                .post
-                                                .postComments[index]
-                                                .commentUserId,
-                                            locationHeight: 20,
-                                            location: state
-                                                .post
-                                                .postComments[index]
-                                                .commentMessage
-                                                .getOrCrash(),
+                                              bottom: 12.0),
+                                          child: CommentTile(
+                                            index: index,
+                                            state: state,
                                           ),
                                         );
                                       }),
@@ -362,5 +354,44 @@ class PostFullScreen extends StatelessWidget {
             ],
           );
         });
+  }
+}
+
+class CommentTile extends StatelessWidget {
+  const CommentTile({
+    Key? key,
+    required this.index,
+    required this.state,
+  }) : super(key: key);
+
+  final int index;
+  final OnePostLoaded state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        UserTile(
+          titleColor: Colors.blue,
+          radius: 14,
+          followId: state.post.postComments[index].commentUserId,
+          locationHeight: 20,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                state.post.postComments[index].commentMessage.getOrCrash(),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+          ],
+        )
+      ],
+    );
   }
 }

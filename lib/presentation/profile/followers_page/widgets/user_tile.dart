@@ -8,13 +8,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart' as nav;
 
 class UserTile extends StatelessWidget {
-  UserTile({
-    Key? key,
-    this.location,
-    required this.followId,
-    required this.locationHeight,
-  }) : super(key: key);
-
+  UserTile(
+      {Key? key,
+      this.location,
+      required this.followId,
+      required this.locationHeight,
+      this.radius = 25,
+      this.titleColor = Colors.transparent})
+      : super(key: key);
+  double radius;
+  Color titleColor;
   final String followId;
   String? location;
   final double locationHeight;
@@ -54,11 +57,11 @@ class UserTile extends StatelessWidget {
                         imageUrl: state.user.photoUrl!,
                         imageBuilder: (context, imageProvider) => CircleAvatar(
                             backgroundColor: Colors.transparent,
-                            radius: 25,
+                            radius: radius,
                             backgroundImage: imageProvider),
-                        placeholder: (context, url) => const CircleAvatar(
+                        placeholder: (context, url) => CircleAvatar(
                           backgroundColor: Colors.grey,
-                          radius: 25,
+                          radius: radius,
                         ),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
@@ -75,7 +78,12 @@ class UserTile extends StatelessWidget {
                           height: 20,
                           child: Text(
                             state.user.displayName!,
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: titleColor == Colors.transparent
+                                ? Theme.of(context).textTheme.titleMedium!
+                                : Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(color: titleColor),
                           ),
                         ),
                         const SizedBox(

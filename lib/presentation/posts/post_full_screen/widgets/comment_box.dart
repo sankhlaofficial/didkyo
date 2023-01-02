@@ -33,13 +33,37 @@ class CommentBox extends StatelessWidget {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width / 1.8,
                         height: 50,
-                        child: TextField(
-                          scrollPadding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).viewInsets.bottom +
-                                  120),
-                          controller: commentController,
-                          decoration:
-                              const InputDecoration(hintText: 'add a comment'),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondary,
+                              border: Border.all(color: Colors.white),
+                              borderRadius: BorderRadius.circular(24)),
+                          child: TextField(
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                            maxLines: 5,
+                            scrollPadding: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom +
+                                        120),
+                            controller: commentController,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'add a comment',
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary)),
+                          ),
                         ),
                       ),
                     ),
@@ -52,7 +76,10 @@ class CommentBox extends StatelessWidget {
                               postUserId: postUserId,
                               postId: postId);
                         },
-                        icon: const Icon(Icons.send))
+                        icon: const Icon(
+                          Icons.send,
+                          color: Colors.blue,
+                        ))
                   ],
                 );
               },
