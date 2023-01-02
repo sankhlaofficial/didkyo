@@ -46,8 +46,10 @@ class NameField extends HookWidget {
                       color: Theme.of(context).colorScheme.secondary),
                   borderRadius: BorderRadius.circular(12)),
               child: TextFormField(
+                cursorColor: Theme.of(context).textTheme.titleMedium!.color,
                 controller: textEditingController,
                 decoration: InputDecoration(
+                  border: InputBorder.none,
                   counterText: '',
                   contentPadding: const EdgeInsets.all(10),
                   hintText: 'Enter the name here',

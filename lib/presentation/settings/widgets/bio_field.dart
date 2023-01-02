@@ -44,11 +44,14 @@ class BioField extends HookWidget {
               width: size.width,
               height: size.height / 7,
               child: TextFormField(
+                cursorColor: Theme.of(context).textTheme.titleMedium!.color,
                 controller: textEditingController,
                 decoration: InputDecoration(
                   counterText: '',
                   contentPadding: const EdgeInsets.all(10),
                   hintText: 'Enter the bio here',
+                  border: InputBorder.none,
+                  hintStyle: Theme.of(context).textTheme.titleMedium,
                   disabledBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   constraints: BoxConstraints.expand(

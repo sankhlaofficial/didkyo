@@ -31,12 +31,14 @@ class CaptionField extends HookWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: TextFormField(
+              cursorColor: Theme.of(context).textTheme.titleMedium!.color,
               controller: textEditingController,
               decoration: InputDecoration(
                 counterText: '',
                 contentPadding: const EdgeInsets.all(10),
                 hintText: 'Enter the caption here',
                 hintStyle: Theme.of(context).textTheme.titleMedium,
+                border: InputBorder.none,
                 disabledBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 constraints: BoxConstraints.expand(

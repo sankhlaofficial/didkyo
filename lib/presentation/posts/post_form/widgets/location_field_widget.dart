@@ -30,12 +30,17 @@ class LocationField extends HookWidget {
             width: size.width,
             height: size.height / 15,
             child: TextFormField(
+              cursorColor: Colors.black,
               controller: textEditingController,
               decoration: InputDecoration(
+                border: InputBorder.none,
                 counterText: '',
                 contentPadding: const EdgeInsets.all(10),
                 hintText: 'Enter the location here',
-                hintStyle: Theme.of(context).textTheme.titleMedium,
+                hintStyle: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: Colors.black),
                 disabledBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 constraints: BoxConstraints.expand(
