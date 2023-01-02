@@ -27,6 +27,7 @@ class GlobalPostsBody extends StatelessWidget {
                     .add(const PostWatcherEvent.watchGlobalStarted());
                 ScaffoldMessenger.of(context).showSnackBar(
                   CustomSnackBar(
+                    showTime: Duration(seconds: 1),
                     behavior: SnackBarBehavior.floating,
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),

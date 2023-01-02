@@ -2,11 +2,11 @@ part of 'user_settings_bloc.dart';
 
 @freezed
 abstract class UserSettingsState with _$UserSettingsState {
-  const factory UserSettingsState({
-    required User user,
-    required bool showErrorMessages,
-    required bool isSaving,
-  }) = _UserSettingsState;
+  const factory UserSettingsState(
+      {required User user,
+      required bool showErrorMessages,
+      required bool isSaving,
+      bool? saveSuccess}) = _UserSettingsState;
 
   factory UserSettingsState.initial() => UserSettingsState(
         user: User(

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:didkyo/domain/auth/user.dart';
 import 'package:didkyo/domain/core/value_objects.dart';
 import 'package:didkyo/domain/userData/i_user_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -36,10 +37,29 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
         isSaving: true,
       );
 
-      await _userRepository.updateUser(state.user);
+      await _userRepository.updateUser(state.user).whenComplete(() {
+        ScaffoldMessenger.of(e.context).showSnackBar(SnackBar(
+            behavior: SnackBarBehavior.floating,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            backgroundColor: Theme.of(e.context).scaffoldBackgroundColor,
+            margin: const EdgeInsets.all(30),
+            content: Text('Profile Updated Successfully',
+                style: Theme.of(e.context).textTheme.titleLarge)));
+      }).catchError((error) {
+        ScaffoldMessenger.of(e.context).showSnackBar(SnackBar(
+            behavior: SnackBarBehavior.floating,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            backgroundColor: Theme.of(e.context).scaffoldBackgroundColor,
+            margin: const EdgeInsets.all(30),
+            content: Text(error.toString(),
+                style: Theme.of(e.context).textTheme.titleLarge)));
+      });
+
       log("SAVED....${state.user}");
 
-      yield state.copyWith(isSaving: false);
+      yield state.copyWith(isSaving: false, saveSuccess: true);
     });
   }
 }

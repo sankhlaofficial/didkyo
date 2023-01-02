@@ -49,6 +49,7 @@ class LikeButton extends StatelessWidget {
                             .whenComplete(() {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(CustomSnackBar(
+                            showTime: const Duration(milliseconds: 100),
                             behavior: SnackBarBehavior.floating,
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
@@ -66,6 +67,7 @@ class LikeButton extends StatelessWidget {
                           log('stacktrace  is$stackTrace');
                           ScaffoldMessenger.of(context)
                               .showSnackBar(CustomSnackBar(
+                            showTime: const Duration(seconds: 1),
                             behavior: SnackBarBehavior.floating,
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
@@ -89,6 +91,7 @@ class LikeButton extends StatelessWidget {
                             .whenComplete(() {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(CustomSnackBar(
+                            showTime: const Duration(seconds: 1),
                             behavior: SnackBarBehavior.floating,
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
@@ -104,6 +107,7 @@ class LikeButton extends StatelessWidget {
                         }).onError((error, stackTrace) {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(CustomSnackBar(
+                            showTime: const Duration(seconds: 1),
                             behavior: SnackBarBehavior.floating,
                             shape: RoundedRectangleBorder(
                                 borderRadius:

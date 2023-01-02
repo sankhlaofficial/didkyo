@@ -51,6 +51,7 @@ class PostFormPage extends StatelessWidget {
                 ..showSnackBar(snackBar);
             }, (_) {
               ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                showTime: const Duration(seconds: 1),
                 behavior: SnackBarBehavior.floating,
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20))),

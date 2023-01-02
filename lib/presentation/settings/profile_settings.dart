@@ -85,7 +85,7 @@ class UserSettingsPageScaffold extends StatelessWidget {
               onPressed: () {
                 context
                     .bloc<UserSettingsBloc>()
-                    .add(const UserSettingsEvent.saved());
+                    .add(UserSettingsEvent.saved(context));
               },
               icon: const Icon(Icons.check))
         ],
@@ -106,7 +106,7 @@ class UserSettingsPageScaffold extends StatelessWidget {
                 children: [
                   NameField(),
                   const UserImageField(),
-                  BioField(),
+                  const BioField(),
                   const SizedBox(
                     height: 120,
                   ),

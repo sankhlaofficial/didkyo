@@ -9,5 +9,5 @@ abstract class UserSettingsEvent with _$UserSettingsEvent {
   const factory UserSettingsEvent.imageChanged(String newImagePath) =
       _ImageChanged;
 
-  const factory UserSettingsEvent.saved() = _PostSaved;
+  const factory UserSettingsEvent.saved(BuildContext context) = _PostSaved;
 }

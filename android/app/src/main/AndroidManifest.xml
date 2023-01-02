@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="didkyo.com.didkyo">
    <application
-        android:label="didkyo"
+        android:label="DidKyo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

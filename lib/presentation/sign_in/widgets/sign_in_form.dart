@@ -1,4 +1,4 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:didkyo/application/auth/auth/auth_bloc.dart';
 import 'package:didkyo/application/auth/sign_in_form/sign_in_form_bloc.dart';
 import 'package:didkyo/presentation/core/app_home.dart';
@@ -17,18 +17,20 @@ class SignInForm extends StatelessWidget {
             () {},
             (either) => either.fold((failure) {
                   final snackBar = SnackBar(
-                      elevation: 0,
                       behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.transparent,
-                      content: AwesomeSnackbarContent(
-                        contentType: ContentType.failure,
-                        title: 'Oh Snap!',
-                        message: failure.map(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      margin: const EdgeInsets.all(30),
+                      content: Text(
+                        failure.map(
                             cancelledByUser: (_) => 'Cancelled',
                             serverError: (_) => 'Server Error',
                             emailAlreadyInUse: (_) => 'Email Already In Use',
                             invalidEmailAndPasswordCombination: (_) =>
                                 'Invalid Email and Password Combination'),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ));
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
@@ -50,8 +52,18 @@ class SignInForm extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 38.0),
                 child: Column(
-                  children: const [
-                    Text(
+                  children: [
+                    CachedNetworkImage(
+                        imageUrl:
+                            'https://firebasestorage.googleapis.com/v0/b/didkyo-snipfeed.appspot.com/o/app_designs%2Flogo.PNG?alt=media&token=ad66db26-9e1b-4f0b-a1b4-5b23cd925687',
+                        imageBuilder: (context, imageProvider) => Container(
+                              width: 200,
+                              height: 210,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(image: imageProvider)),
+                            ),
+                        placeholder: (context, url) => Container()),
+                    const Text(
                       "Discover, Create and Share",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -59,10 +71,10 @@ class SignInForm extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    const Text(
                       "Get inside soon 😋",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -142,7 +154,7 @@ class SignInForm extends StatelessWidget {
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                            const Color(0xff6ECCAF),
+                            const Color(0xff6C00FF),
                           ),
                         ),
                         child: const Text("Sign In"),
@@ -160,7 +172,7 @@ class SignInForm extends StatelessWidget {
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                            const Color(0xff6ECCAF),
+                            const Color(0xff6C00FF),
                           ),
                         ),
                         child: const Text("Register"),

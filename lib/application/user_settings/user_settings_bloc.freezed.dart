@@ -22,7 +22,7 @@ mixin _$UserSettingsEvent {
     required TResult Function(String newName) nameChanged,
     required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
-    required TResult Function() saved,
+    required TResult Function(BuildContext context) saved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,7 +31,7 @@ mixin _$UserSettingsEvent {
     TResult? Function(String newName)? nameChanged,
     TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
-    TResult? Function()? saved,
+    TResult? Function(BuildContext context)? saved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,7 +40,7 @@ mixin _$UserSettingsEvent {
     TResult Function(String newName)? nameChanged,
     TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
-    TResult Function()? saved,
+    TResult Function(BuildContext context)? saved,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -171,7 +171,7 @@ class _$_Initialized implements _Initialized {
     required TResult Function(String newName) nameChanged,
     required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
-    required TResult Function() saved,
+    required TResult Function(BuildContext context) saved,
   }) {
     return initialized(initialUserData);
   }
@@ -183,7 +183,7 @@ class _$_Initialized implements _Initialized {
     TResult? Function(String newName)? nameChanged,
     TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
-    TResult? Function()? saved,
+    TResult? Function(BuildContext context)? saved,
   }) {
     return initialized?.call(initialUserData);
   }
@@ -195,7 +195,7 @@ class _$_Initialized implements _Initialized {
     TResult Function(String newName)? nameChanged,
     TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
-    TResult Function()? saved,
+    TResult Function(BuildContext context)? saved,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -322,7 +322,7 @@ class _$_NameChanged implements _NameChanged {
     required TResult Function(String newName) nameChanged,
     required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
-    required TResult Function() saved,
+    required TResult Function(BuildContext context) saved,
   }) {
     return nameChanged(newName);
   }
@@ -334,7 +334,7 @@ class _$_NameChanged implements _NameChanged {
     TResult? Function(String newName)? nameChanged,
     TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
-    TResult? Function()? saved,
+    TResult? Function(BuildContext context)? saved,
   }) {
     return nameChanged?.call(newName);
   }
@@ -346,7 +346,7 @@ class _$_NameChanged implements _NameChanged {
     TResult Function(String newName)? nameChanged,
     TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
-    TResult Function()? saved,
+    TResult Function(BuildContext context)? saved,
     required TResult orElse(),
   }) {
     if (nameChanged != null) {
@@ -473,7 +473,7 @@ class _$_BioChanged implements _BioChanged {
     required TResult Function(String newName) nameChanged,
     required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
-    required TResult Function() saved,
+    required TResult Function(BuildContext context) saved,
   }) {
     return bioChanged(newBio);
   }
@@ -485,7 +485,7 @@ class _$_BioChanged implements _BioChanged {
     TResult? Function(String newName)? nameChanged,
     TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
-    TResult? Function()? saved,
+    TResult? Function(BuildContext context)? saved,
   }) {
     return bioChanged?.call(newBio);
   }
@@ -497,7 +497,7 @@ class _$_BioChanged implements _BioChanged {
     TResult Function(String newName)? nameChanged,
     TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
-    TResult Function()? saved,
+    TResult Function(BuildContext context)? saved,
     required TResult orElse(),
   }) {
     if (bioChanged != null) {
@@ -625,7 +625,7 @@ class _$_ImageChanged implements _ImageChanged {
     required TResult Function(String newName) nameChanged,
     required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
-    required TResult Function() saved,
+    required TResult Function(BuildContext context) saved,
   }) {
     return imageChanged(newImagePath);
   }
@@ -637,7 +637,7 @@ class _$_ImageChanged implements _ImageChanged {
     TResult? Function(String newName)? nameChanged,
     TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
-    TResult? Function()? saved,
+    TResult? Function(BuildContext context)? saved,
   }) {
     return imageChanged?.call(newImagePath);
   }
@@ -649,7 +649,7 @@ class _$_ImageChanged implements _ImageChanged {
     TResult Function(String newName)? nameChanged,
     TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
-    TResult Function()? saved,
+    TResult Function(BuildContext context)? saved,
     required TResult orElse(),
   }) {
     if (imageChanged != null) {
@@ -713,6 +713,8 @@ abstract class _$$_PostSavedCopyWith<$Res> {
   factory _$$_PostSavedCopyWith(
           _$_PostSaved value, $Res Function(_$_PostSaved) then) =
       __$$_PostSavedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context});
 }
 
 /// @nodoc
@@ -722,26 +724,50 @@ class __$$_PostSavedCopyWithImpl<$Res>
   __$$_PostSavedCopyWithImpl(
       _$_PostSaved _value, $Res Function(_$_PostSaved) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+  }) {
+    return _then(_$_PostSaved(
+      null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_PostSaved implements _PostSaved {
-  const _$_PostSaved();
+  const _$_PostSaved(this.context);
+
+  @override
+  final BuildContext context;
 
   @override
   String toString() {
-    return 'UserSettingsEvent.saved()';
+    return 'UserSettingsEvent.saved(context: $context)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_PostSaved);
+        (other.runtimeType == runtimeType &&
+            other is _$_PostSaved &&
+            (identical(other.context, context) || other.context == context));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, context);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PostSavedCopyWith<_$_PostSaved> get copyWith =>
+      __$$_PostSavedCopyWithImpl<_$_PostSaved>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -750,9 +776,9 @@ class _$_PostSaved implements _PostSaved {
     required TResult Function(String newName) nameChanged,
     required TResult Function(String newBio) bioChanged,
     required TResult Function(String newImagePath) imageChanged,
-    required TResult Function() saved,
+    required TResult Function(BuildContext context) saved,
   }) {
-    return saved();
+    return saved(context);
   }
 
   @override
@@ -762,9 +788,9 @@ class _$_PostSaved implements _PostSaved {
     TResult? Function(String newName)? nameChanged,
     TResult? Function(String newBio)? bioChanged,
     TResult? Function(String newImagePath)? imageChanged,
-    TResult? Function()? saved,
+    TResult? Function(BuildContext context)? saved,
   }) {
-    return saved?.call();
+    return saved?.call(context);
   }
 
   @override
@@ -774,11 +800,11 @@ class _$_PostSaved implements _PostSaved {
     TResult Function(String newName)? nameChanged,
     TResult Function(String newBio)? bioChanged,
     TResult Function(String newImagePath)? imageChanged,
-    TResult Function()? saved,
+    TResult Function(BuildContext context)? saved,
     required TResult orElse(),
   }) {
     if (saved != null) {
-      return saved();
+      return saved(context);
     }
     return orElse();
   }
@@ -825,7 +851,12 @@ class _$_PostSaved implements _PostSaved {
 }
 
 abstract class _PostSaved implements UserSettingsEvent {
-  const factory _PostSaved() = _$_PostSaved;
+  const factory _PostSaved(final BuildContext context) = _$_PostSaved;
+
+  BuildContext get context;
+  @JsonKey(ignore: true)
+  _$$_PostSavedCopyWith<_$_PostSaved> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -833,6 +864,7 @@ mixin _$UserSettingsState {
   User get user => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   bool get isSaving => throw _privateConstructorUsedError;
+  bool? get saveSuccess => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserSettingsStateCopyWith<UserSettingsState> get copyWith =>
@@ -845,7 +877,8 @@ abstract class $UserSettingsStateCopyWith<$Res> {
           UserSettingsState value, $Res Function(UserSettingsState) then) =
       _$UserSettingsStateCopyWithImpl<$Res, UserSettingsState>;
   @useResult
-  $Res call({User user, bool showErrorMessages, bool isSaving});
+  $Res call(
+      {User user, bool showErrorMessages, bool isSaving, bool? saveSuccess});
 
   $UserCopyWith<$Res> get user;
 }
@@ -866,6 +899,7 @@ class _$UserSettingsStateCopyWithImpl<$Res, $Val extends UserSettingsState>
     Object? user = null,
     Object? showErrorMessages = null,
     Object? isSaving = null,
+    Object? saveSuccess = freezed,
   }) {
     return _then(_value.copyWith(
       user: null == user
@@ -880,6 +914,10 @@ class _$UserSettingsStateCopyWithImpl<$Res, $Val extends UserSettingsState>
           ? _value.isSaving
           : isSaving // ignore: cast_nullable_to_non_nullable
               as bool,
+      saveSuccess: freezed == saveSuccess
+          ? _value.saveSuccess
+          : saveSuccess // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -900,7 +938,8 @@ abstract class _$$_UserSettingsStateCopyWith<$Res>
       __$$_UserSettingsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({User user, bool showErrorMessages, bool isSaving});
+  $Res call(
+      {User user, bool showErrorMessages, bool isSaving, bool? saveSuccess});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -920,6 +959,7 @@ class __$$_UserSettingsStateCopyWithImpl<$Res>
     Object? user = null,
     Object? showErrorMessages = null,
     Object? isSaving = null,
+    Object? saveSuccess = freezed,
   }) {
     return _then(_$_UserSettingsState(
       user: null == user
@@ -934,6 +974,10 @@ class __$$_UserSettingsStateCopyWithImpl<$Res>
           ? _value.isSaving
           : isSaving // ignore: cast_nullable_to_non_nullable
               as bool,
+      saveSuccess: freezed == saveSuccess
+          ? _value.saveSuccess
+          : saveSuccess // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -944,7 +988,8 @@ class _$_UserSettingsState implements _UserSettingsState {
   const _$_UserSettingsState(
       {required this.user,
       required this.showErrorMessages,
-      required this.isSaving});
+      required this.isSaving,
+      this.saveSuccess});
 
   @override
   final User user;
@@ -952,10 +997,12 @@ class _$_UserSettingsState implements _UserSettingsState {
   final bool showErrorMessages;
   @override
   final bool isSaving;
+  @override
+  final bool? saveSuccess;
 
   @override
   String toString() {
-    return 'UserSettingsState(user: $user, showErrorMessages: $showErrorMessages, isSaving: $isSaving)';
+    return 'UserSettingsState(user: $user, showErrorMessages: $showErrorMessages, isSaving: $isSaving, saveSuccess: $saveSuccess)';
   }
 
   @override
@@ -967,12 +1014,14 @@ class _$_UserSettingsState implements _UserSettingsState {
             (identical(other.showErrorMessages, showErrorMessages) ||
                 other.showErrorMessages == showErrorMessages) &&
             (identical(other.isSaving, isSaving) ||
-                other.isSaving == isSaving));
+                other.isSaving == isSaving) &&
+            (identical(other.saveSuccess, saveSuccess) ||
+                other.saveSuccess == saveSuccess));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, user, showErrorMessages, isSaving);
+      Object.hash(runtimeType, user, showErrorMessages, isSaving, saveSuccess);
 
   @JsonKey(ignore: true)
   @override
@@ -986,7 +1035,8 @@ abstract class _UserSettingsState implements UserSettingsState {
   const factory _UserSettingsState(
       {required final User user,
       required final bool showErrorMessages,
-      required final bool isSaving}) = _$_UserSettingsState;
+      required final bool isSaving,
+      final bool? saveSuccess}) = _$_UserSettingsState;
 
   @override
   User get user;
@@ -994,6 +1044,8 @@ abstract class _UserSettingsState implements UserSettingsState {
   bool get showErrorMessages;
   @override
   bool get isSaving;
+  @override
+  bool? get saveSuccess;
   @override
   @JsonKey(ignore: true)
   _$$_UserSettingsStateCopyWith<_$_UserSettingsState> get copyWith =>
