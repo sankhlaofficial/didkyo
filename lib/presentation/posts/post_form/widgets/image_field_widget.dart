@@ -38,7 +38,7 @@ class _ImageFieldState extends State<ImageField> {
                 border: Border.all(color: Colors.black),
               ),
               width: size.width,
-              height: size.height / 4,
+              height: size.width,
               child: localImage != ''
                   ? imageWay == ""
                       ? Center(
@@ -71,9 +71,13 @@ class _ImageFieldState extends State<ImageField> {
                       : Stack(
                           children: [
                             Positioned.fill(
-                                child: Image.file(
-                              File(imageWay),
-                              fit: BoxFit.cover,
+                                child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Image.file(
+                                File(imageWay),
+                                fit: BoxFit.cover,
+                              ),
                             )),
                             Align(
                               alignment: Alignment.bottomRight,
@@ -112,8 +116,12 @@ class _ImageFieldState extends State<ImageField> {
                   : Stack(
                       children: [
                         Positioned.fill(
-                            child: Image.network(
-                          postImage != "" ? postImage : loadingImage,
+                            child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Image.network(
+                            postImage != "" ? postImage : loadingImage,
+                          ),
                         )),
                         Align(
                           alignment: Alignment.bottomRight,

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../../global_widgets/shadow_container.dart';
+
 class LocationField extends HookWidget {
   const LocationField({super.key});
 
@@ -18,41 +20,47 @@ class LocationField extends HookWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Container(
-          width: size.width,
-          height: size.height / 10,
-          color: Colors.yellowAccent,
-          child: TextFormField(
-            controller: textEditingController,
-            decoration: InputDecoration(
-              counterText: '',
-              contentPadding: const EdgeInsets.all(10),
-              hintText: 'Enter the location here',
-              disabledBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              constraints: BoxConstraints.expand(
-                  width: size.width, height: size.height / 10),
-            ),
-            maxLength: PostLocation.maxLength,
-            minLines: 5,
-            maxLines: 10,
-            onChanged: (value) {
-              context
+        child: ShadowContainer(
+          color: Colors.transparent,
+          child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                color: Colors.yellowAccent,
+                borderRadius: BorderRadius.circular(12)),
+            width: size.width,
+            height: size.height / 15,
+            child: TextFormField(
+              controller: textEditingController,
+              decoration: InputDecoration(
+                counterText: '',
+                contentPadding: const EdgeInsets.all(10),
+                hintText: 'Enter the location here',
+                disabledBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                constraints: BoxConstraints.expand(
+                    width: size.width, height: size.height / 10),
+              ),
+              maxLength: PostLocation.maxLength,
+              minLines: 5,
+              maxLines: 10,
+              onChanged: (value) {
+                context
+                    .bloc<PostFormBloc>()
+                    .add(PostFormEvent.locationChanged(value));
+              },
+              validator: (_) => context
                   .bloc<PostFormBloc>()
-                  .add(PostFormEvent.locationChanged(value));
-            },
-            validator: (_) => context
-                .bloc<PostFormBloc>()
-                .state
-                .post
-                .postLocation
-                .value
-                .fold(
-                    (f) => f.maybeMap(
-                        exceedingLength: (f) =>
-                            "Cannot exceed ${f.maxLengthAllowed}",
-                        orElse: () => null),
-                    (r) => null),
+                  .state
+                  .post
+                  .postLocation
+                  .value
+                  .fold(
+                      (f) => f.maybeMap(
+                          exceedingLength: (f) =>
+                              "Cannot exceed ${f.maxLengthAllowed}",
+                          orElse: () => null),
+                      (r) => null),
+            ),
           ),
         ),
       ),
